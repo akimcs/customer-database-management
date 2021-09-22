@@ -8,37 +8,34 @@ import java.sql.SQLException;
 
 public class userRecords {
 
-    public static User getUser(String userName) throws SQLException, Exception{
+    public static User getUser(String username) throws SQLException {
         JDBC.connect();
 
-        Query.makeQuery("SELECT * FROM users WHERE User_Name  = '" + userName + "'");
-        ResultSet result=Query.getResult();
-        User userResult;
-        while(result.next()){
-            int userid=result.getInt("User_ID");
-            String userNameG=result.getString("User_Name");
-            String password=result.getString("Password");
-            userResult= new User(userid, userName, password);
-            return userResult;
-        }
+        Query.makeQuery("SELECT * FROM users WHERE User_Name  = '" + username + "'");
+        ResultSet result = Query.getResult();
+
+        int user_id = result.getInt("User_ID");
+        String user_name = result.getString("User_Name");
+        String password = result.getString("Password");
 
         JDBC.disconnect();
-        return null;
+        return new User(user_id, user_name, password);
     }
 
-    public static ObservableList<User> getAllUsers() throws SQLException, Exception{
+    public static ObservableList<User> getAllUsers() throws SQLException{
         JDBC.connect();
 
-        ObservableList<User> allUsers= FXCollections.observableArrayList();
-        String sqlStatement="select * from users";
-        Query.makeQuery(sqlStatement);
-        ResultSet result=Query.getResult();
-        while(result.next()){
-            int userid=result.getInt("User_ID");
-            String userNameG=result.getString("User_Name");
-            String password=result.getString("Password");
-            User userResult= new User(userid, userNameG, password);
-            allUsers.add(userResult);
+        Query.makeQuery("SELECT * FROM users");
+        ResultSet result = Query.getResult();
+
+        ObservableList<User> allUsers = FXCollections.observableArrayList();
+
+        while (result.next()) {
+            int user_id = result.getInt("User_ID");
+            String user_name = result.getString("User_Name");
+            String password = result.getString("Password");
+            User user = new User(user_id, user_name, password);
+            allUsers.add(user);
         }
 
         JDBC.disconnect();
