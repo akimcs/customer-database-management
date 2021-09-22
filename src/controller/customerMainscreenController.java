@@ -46,7 +46,13 @@ public class customerMainscreenController implements Initializable {
 
     @FXML
     void clickModifyButton(ActionEvent event) {
-
+        Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null) {
+            Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
+        }
+        else {
+            // TODO - transfer selection between screens.
+        }
     }
 
     @FXML
