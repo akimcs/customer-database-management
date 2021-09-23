@@ -2,6 +2,8 @@ package controller;
 
 import database.DBappointment;
 import database.DBcontact;
+import database.DBcustomer;
+import database.DBuser;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import mainApplication.Main;
@@ -60,6 +62,9 @@ public class APTaddController implements Initializable {
     private void populateScreen() throws SQLException {
         appointmentidText.setText(String.valueOf(DBappointment.nextAppointmentId()));
         contactCBText.setItems(DBcontact.getAllContacts());
+        // todo - datepicker? start? end?
+        customeridCBText.setItems(DBcustomer.getAllCustomers());
+        useridCBText.setItems(DBuser.getAllUsers());
     }
 
     @FXML

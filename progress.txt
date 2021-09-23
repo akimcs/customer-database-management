@@ -4,6 +4,8 @@ language            - finished
 login_activity      - finished
 controller          - CUSadd,
 
+// TODO
+make sure sql insert/updates are NOT BLANK using controller
 controller
 database
 view
