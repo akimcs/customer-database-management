@@ -47,7 +47,7 @@ public class CUSmenuController implements Initializable {
         postalcodeTable.setCellValueFactory(new PropertyValueFactory<>("postal"));
         phonenumberTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
         countryTable.setCellValueFactory(new PropertyValueFactory<>("country"));
-        firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("division"));
+        firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         try {
             customerTableview.setItems(DBcustomer.getAllCustomers());
         }
