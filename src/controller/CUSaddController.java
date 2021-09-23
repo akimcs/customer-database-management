@@ -84,11 +84,10 @@ public class CUSaddController implements Initializable {
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
                 DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId));
-                // TODO - finish adding customer
                 Main.changeScene("/view/CUSmenu.fxml");
             }
             catch (Exception e) {
-                Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted");
+                Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted.");
             }
         }
     }

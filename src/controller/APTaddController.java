@@ -1,5 +1,7 @@
 package controller;
 
+import database.DBappointment;
+import database.DBcontact;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import mainApplication.Main;
@@ -11,8 +13,8 @@ import javafx.scene.control.TextField;
 import model.Contact;
 import model.Customer;
 import model.User;
-
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class APTaddController implements Initializable {
@@ -44,10 +46,20 @@ public class APTaddController implements Initializable {
     @FXML
     private ComboBox<User> useridCBText;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Add Appointment");
+        try {
+            populateScreen();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void populateScreen() throws SQLException {
+        appointmentidText.setText(String.valueOf(DBappointment.nextAppointmentId()));
+        contactCBText.setItems(DBcontact.getAllContacts());
     }
 
     @FXML

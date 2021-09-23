@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static database.JDBC.conn;
 
 public class DBuser {
 

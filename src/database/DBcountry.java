@@ -6,6 +6,7 @@ import model.Country;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static database.JDBC.conn;
 
 public class DBcountry {
 

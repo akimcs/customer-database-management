@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import model.Division;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static database.JDBC.conn;
 
 public class DBdivision {
 
