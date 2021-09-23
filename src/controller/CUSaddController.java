@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import model.Country;
 import model.Customer;
 import model.Division;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

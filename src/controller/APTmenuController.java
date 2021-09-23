@@ -7,33 +7,36 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import model.Appointment;
+
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class APTmenuController implements Initializable {
 
     @FXML
-    private TableView<?> appointmentTableview;
+    private TableView<Appointment> appointmentTableview;
     @FXML
-    private TableColumn<?, ?> appIdText;
+    private TableColumn<Appointment, Integer> appIdText;
     @FXML
-    private TableColumn<?, ?> titleColumn;
+    private TableColumn<Appointment, String> titleColumn;
     @FXML
-    private TableColumn<?, ?> descriptionColumn;
+    private TableColumn<Appointment, String> descriptionColumn;
     @FXML
-    private TableColumn<?, ?> locationColumn;
+    private TableColumn<Appointment, String> locationColumn;
     @FXML
-    private TableColumn<?, ?> contactColumn;
+    private TableColumn<Appointment, Integer> contactColumn;
     @FXML
-    private TableColumn<?, ?> typeColumn;
+    private TableColumn<Appointment, String> typeColumn;
     @FXML
-    private TableColumn<?, ?> startColumn;
+    private TableColumn<Appointment, LocalDateTime> startColumn;
     @FXML
-    private TableColumn<?, ?> endColumn;
+    private TableColumn<Appointment, LocalDateTime> endColumn;
     @FXML
-    private TableColumn<?, ?> cusIdColumn;
+    private TableColumn<Appointment, Integer> cusIdColumn;
     @FXML
-    private TableColumn<?, ?> userIdColumn;
+    private TableColumn<Appointment, Integer> userIdColumn;
     @FXML
     private ToggleGroup Timespan;
 

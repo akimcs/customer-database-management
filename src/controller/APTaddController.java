@@ -8,7 +8,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.Contact;
+import model.Customer;
+import model.User;
+
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class APTaddController implements Initializable {
@@ -22,25 +27,38 @@ public class APTaddController implements Initializable {
     @FXML
     private TextField locationText;
     @FXML
-    private ComboBox<?> typeCBText;
+    private ComboBox<Contact> contactCBText;
     @FXML
-    private ComboBox<?> StartHrText;
-    @FXML
-    private ComboBox<?> contactCBText;
+    private ComboBox<String> typeCBText;
     @FXML
     private DatePicker dateDPText;
     @FXML
-    private ComboBox<?> StartMinText;
+    private ComboBox<String> StartHrText;
     @FXML
-    private ComboBox<?> customeridCBText;
+    private ComboBox<String> StartMinText;
     @FXML
-    private ComboBox<?> useridCBText;
+    private ComboBox<String> EndHrText;
     @FXML
-    private ComboBox<?> EndHrText;
+    private ComboBox<String> EndMinText;
+    @FXML
+    private ComboBox<Customer> customeridCBText;
+    @FXML
+    private ComboBox<User> useridCBText;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Add Appointment");
+    }
+
+    @FXML
+    void selectedStartHour(ActionEvent event) {
+
+    }
+
+    @FXML
+    void selectedStartMin(ActionEvent event) {
+
     }
 
     @FXML
@@ -53,13 +71,5 @@ public class APTaddController implements Initializable {
 
     }
 
-    @FXML
-    void selectedStartHour(ActionEvent event) {
 
-    }
-
-    @FXML
-    void selectedStartMin(ActionEvent event) {
-
-    }
 }

@@ -11,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
 import model.Customer;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,9 +32,9 @@ public class CUSmenuController implements Initializable {
     @FXML
     private TableColumn<Customer, String> phonenumberTable;
     @FXML
-    private TableColumn<Customer, String> countryTable;
+    private TableColumn<Customer, Integer> countryTable;
     @FXML
-    private TableColumn<Customer, String> firstleveldivisionTable;
+    private TableColumn<Customer, Integer> firstleveldivisionTable;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
