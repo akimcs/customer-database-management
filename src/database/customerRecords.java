@@ -9,6 +9,36 @@ import java.sql.SQLException;
 
 public class customerRecords {
 
+    // TODO - create / modify / delete (insert, update, delete)
+
+    public static Customer addCustomer(Customer customer) throws SQLException{
+        JDBC.connect();
+
+        return null;
+    }
+
+
+
+
+
+    public static Customer getCustomer(int cus_id) throws SQLException {
+        JDBC.connect();
+
+        Query.makeQuery("SELECT cus.Customer_ID, cus.Customer_Name, cus.Address, cus.Postal_Code, cus.Phone, ctry.Country, dvn.Division FROM customers AS cus JOIN first_level_divisions AS dvn ON cus.Division_ID = dvn.Division_ID JOIN countries AS ctry ON dvn.Country_ID = ctry.Country_ID WHERE cus.Customer_ID = " + cus_id);
+        ResultSet result = Query.getResult();
+
+        int id = result.getInt("Customer_ID");
+        String name = result.getString("Customer_Name");
+        String address = result.getString("Address");
+        String postal = result.getString("Postal_Code");
+        String phone = result.getString("Phone");
+        String country = result.getString("Country");
+        String division = result.getString("Division");
+
+        JDBC.disconnect();
+        return new Customer(id, name, address, postal, phone, country, division);
+    }
+
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
         JDBC.connect();
 
