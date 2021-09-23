@@ -30,7 +30,7 @@ public class APTaddController implements Initializable {
     @FXML
     private ComboBox<Contact> contactCBText;
     @FXML
-    private ComboBox<String> typeCBText;
+    private TextField typeText;
     @FXML
     private DatePicker dateDPText;
     @FXML
