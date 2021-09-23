@@ -69,6 +69,4 @@ public class APTaddController implements Initializable {
     void clickSubmitButton(ActionEvent event) {
 
     }
-
-
 }
