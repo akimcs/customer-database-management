@@ -8,7 +8,7 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class customerRecords {
+public class DBcustomer {
 
     // TODO - create / modify / delete (insert, update, delete)
 

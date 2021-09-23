@@ -1,8 +1,8 @@
 package controller;
 
-import database.countryRecords;
-import database.customerRecords;
-import database.divisionRecords;
+import database.DBcountry;
+import database.DBcustomer;
+import database.DBdivision;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import model.Country;
 import model.Customer;
 import model.Division;
-import model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class addCustomerController implements Initializable {
+public class CUSaddController implements Initializable {
 
     @FXML
     private Label customeridText;
@@ -48,13 +47,13 @@ public class addCustomerController implements Initializable {
     }
 
     private void populateScreen() throws SQLException {
-        customeridText.setText(String.valueOf(customerRecords.nextCustomerId()));
-        countryCBText.setItems(countryRecords.getAllCountries());
+        customeridText.setText(String.valueOf(DBcustomer.nextCustomerId()));
+        countryCBText.setItems(DBcountry.getAllCountries());
     }
 
     @FXML
     void countrySelected(ActionEvent event) throws SQLException {
-        firstleveldivisionCBText.setItems(divisionRecords.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
+        firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
     @FXML
@@ -62,11 +61,11 @@ public class addCustomerController implements Initializable {
         if (!fieldEmpty()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                Main.changeScene("/view/customerMainscreen.fxml");
+                Main.changeScene("/view/CUSmenu.fxml");
             }
         }
         else {
-            Main.changeScene("/view/customerMainscreen.fxml");
+            Main.changeScene("/view/CUSmenu.fxml");
         }
     }
 
@@ -84,9 +83,9 @@ public class addCustomerController implements Initializable {
                 String phone = phonenumberText.getText();
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
-                customerRecords.addCustomer(new Customer(id, name, address, postal, phone, divisionId));
+                DBcustomer.addCustomer(new Customer(id, name, address, postal, phone, divisionId));
                 // TODO - finish adding customer
-                Main.changeScene("/view/customerMainscreen.fxml");
+                Main.changeScene("/view/CUSmenu.fxml");
             }
             catch (Exception e) {
                 Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted");

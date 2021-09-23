@@ -1,6 +1,6 @@
 package controller;
 
-import database.userRecords;
+import database.DBuser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class loginScreenController implements Initializable {
+public class loginController implements Initializable {
 
     @FXML
     private Label locationLabel;
@@ -56,9 +56,9 @@ public class loginScreenController implements Initializable {
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
-        if (userRecords.validLogin(usernameText.getText(), passwordText.getText())) {
+        if (DBuser.validLogin(usernameText.getText(), passwordText.getText())) {
             recordLoginActivity("SUCCESS");
-            Main.changeScene("/view/mainScreen.fxml");
+            Main.changeScene("/view/menu.fxml");
         }
         else {
             recordLoginActivity("FAIL   ");

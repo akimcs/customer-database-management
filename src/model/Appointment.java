@@ -3,32 +3,30 @@ package model;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class Appointments {
+public class Appointment {
 
     private int id;
     private String title;
     private String description;
     private String location;
-    private int contact;
     private String type;
-    private LocalDateTime date;
     private LocalDateTime start;
     private LocalDateTime end;
     private int customerId;
     private int userId;
+    private int contactId;
 
-    public Appointments(int id, String title, String description, String location, int contact, String type, LocalDateTime date, LocalDateTime start, LocalDateTime end, int customerId, int userId) {
+    public Appointment(int id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.location = location;
-        this.contact = contact;
         this.type = type;
-        this.date = date;
         this.start = start;
         this.end = end;
         this.customerId = customerId;
         this.userId = userId;
+        this.contactId = contactId;
     }
 
     public int getId() {
@@ -63,28 +61,12 @@ public class Appointments {
         this.location = location;
     }
 
-    public int getContact() {
-        return contact;
-    }
-
-    public void setContact(int contact) {
-        this.contact = contact;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
     }
 
     public LocalDateTime getStart() {
@@ -117,5 +99,13 @@ public class Appointments {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 }

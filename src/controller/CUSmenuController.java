@@ -1,8 +1,6 @@
 package controller;
 
-import database.customerRecords;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import database.DBcustomer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -20,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class customerMainscreenController implements Initializable {
+public class CUSmenuController implements Initializable {
 
     @FXML
     private TableView<Customer> customerTableview;
@@ -51,7 +49,7 @@ public class customerMainscreenController implements Initializable {
         countryTable.setCellValueFactory(new PropertyValueFactory<>("country"));
         firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("division"));
         try {
-            customerTableview.setItems(customerRecords.getAllCustomers());
+            customerTableview.setItems(DBcustomer.getAllCustomers());
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -60,7 +58,7 @@ public class customerMainscreenController implements Initializable {
 
     @FXML
     void clickAddButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/addCustomer.fxml");
+        Main.changeScene("/view/CUSadd.fxml");
     }
 
     @FXML
@@ -83,7 +81,7 @@ public class customerMainscreenController implements Initializable {
         else {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and all appointments. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                // TODO - Delete Associated Appointments then Delete Customer
+                // TODO - Delete Associated Appointment then Delete Customer
             }
         }
         customerTableview.getSelectionModel().select(null);
@@ -91,6 +89,6 @@ public class customerMainscreenController implements Initializable {
 
     @FXML
     void clickMainscreenButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/mainScreen.fxml");
+        Main.changeScene("/view/menu.fxml");
     }
 }

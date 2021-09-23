@@ -7,7 +7,7 @@ import model.Country;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class countryRecords {
+public class DBcountry {
 
     public static Country getCountry(int country_id) throws SQLException {
         JDBC.connect();

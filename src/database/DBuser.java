@@ -6,7 +6,7 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class userRecords {
+public class DBuser {
 
     public static boolean validLogin(String user, String pass) throws SQLException {
         JDBC.connect();

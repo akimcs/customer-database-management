@@ -6,7 +6,7 @@ import model.Division;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class divisionRecords {
+public class DBdivision {
 
     public static Division getDivision(int division_id) throws SQLException {
         JDBC.connect();

@@ -1,13 +1,14 @@
 package controller;
 
 import javafx.fxml.Initializable;
+import mainApplication.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class modifyAppointmentController implements Initializable {
+public class APTaddController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO
+        Main.getStage().setTitle("Add Appointment");
     }
 }

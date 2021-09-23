@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class modifyCustomerController implements Initializable {
+public class CUSmodController implements Initializable {
 
     @FXML
     private Label customeridText;
@@ -36,12 +36,12 @@ public class modifyCustomerController implements Initializable {
 
     @FXML
     void clickCancelButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/mainScreen.fxml");
+        Main.changeScene("/view/menu.fxml");
     }
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
         // TODO - filtering and error checking
-        Main.changeScene("/view/mainScreen.fxml");
+        Main.changeScene("/view/menu.fxml");
     }
 }

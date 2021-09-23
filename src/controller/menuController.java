@@ -1,10 +1,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import mainApplication.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -16,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class mainScreenController implements Initializable {
+public class menuController implements Initializable {
 
     @FXML
     private Label upcomingappointmentText;
@@ -56,16 +53,16 @@ public class mainScreenController implements Initializable {
 
     @FXML
     void clickCustomersButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/customerMainscreen.fxml");
+        Main.changeScene("/view/CUSmenu.fxml");
     }
 
     @FXML
     void clickAppointmentsButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/appointmentMainscreen.fxml");
+        Main.changeScene("/view/APTmenu.fxml");
     }
 
     @FXML
     void clickLogoutButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/loginScreen.fxml");
+        Main.changeScene("/view/login.fxml");
     }
 }

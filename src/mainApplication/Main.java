@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         //Locale.setDefault(new Locale("fr"));
         Main.primaryStage = primaryStage;
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/loginScreen.fxml"))));
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login.fxml"))));
         primaryStage.show();
     }
 
