@@ -8,6 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import model.Appointment;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,8 +62,8 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickAddButton(ActionEvent event) {
-
+    void clickAddButton(ActionEvent event) throws IOException {
+        Main.changeScene("/view/APTadd.fxml");
     }
 
     @FXML
@@ -70,8 +72,8 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickMainscreenButton(ActionEvent event) {
-
+    void clickMainscreenButton(ActionEvent event) throws IOException {
+        Main.changeScene("/view/menu.fxml");
     }
 
     @FXML
