@@ -7,14 +7,16 @@ public class Customer {
     private String address;
     private String postal;
     private String phone;
+    private int countryId;
     private int divisionId;
 
-    public Customer(int id, String name, String address, String postal, String phone, int divisionId) {
+    public Customer(int id, String name, String address, String postal, String phone, int countryId, int divisionId) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.postal = postal;
         this.phone = phone;
+        this.countryId = countryId;
         this.divisionId = divisionId;
     }
 
@@ -56,6 +58,14 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
     }
 
     public int getDivisionId() {

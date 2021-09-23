@@ -44,10 +44,11 @@ public class DBcustomer {
         String address = result.getString("Address");
         String postal = result.getString("Postal_Code");
         String phone = result.getString("Phone");
+        int country = result.getInt("Country_ID");
         int division = result.getInt("Division_ID");
 
         JDBC.disconnect();
-        return new Customer(id, name, address, postal, phone, division);
+        return new Customer(id, name, address, postal, phone, country, division);
     }
 
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
@@ -64,9 +65,10 @@ public class DBcustomer {
             String address = result.getString("Address");
             String postal = result.getString("Postal_Code");
             String phone = result.getString("Phone");
+            int country = result.getInt("Country_ID");
             int division = result.getInt("Division_ID");
 
-            allCustomers.add(new Customer(id, name, address, postal, phone, division));
+            allCustomers.add(new Customer(id, name, address, postal, phone, country, division));
         }
 
         JDBC.disconnect();

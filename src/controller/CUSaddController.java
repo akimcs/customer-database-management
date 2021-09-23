@@ -81,9 +81,10 @@ public class CUSaddController implements Initializable {
                 String address = addressText.getText();
                 String postal = postalcodeText.getText();
                 String phone = phonenumberText.getText();
+                int countryId = countryCBText.getSelectionModel().getSelectedItem().getId();
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
-                DBcustomer.addCustomer(new Customer(id, name, address, postal, phone, divisionId));
+                DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId));
                 // TODO - finish adding customer
                 Main.changeScene("/view/CUSmenu.fxml");
             }
