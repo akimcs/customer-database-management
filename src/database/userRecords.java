@@ -13,6 +13,7 @@ public class userRecords {
 
         Query.makeQuery("SELECT * FROM users WHERE User_Name  = '" + username + "'");
         ResultSet result = Query.getResult();
+        result.next();
 
         int id = result.getInt("User_ID");
         String user_name = result.getString("User_Name");
@@ -34,8 +35,7 @@ public class userRecords {
             int id = result.getInt("User_ID");
             String user_name = result.getString("User_Name");
             String password = result.getString("Password");
-            User user = new User(id, user_name, password);
-            allUsers.add(user);
+            allUsers.add(new User(id, user_name, password));
         }
 
         JDBC.disconnect();

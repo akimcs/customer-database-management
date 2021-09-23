@@ -26,6 +26,7 @@ public class customerRecords {
 
         Query.makeQuery("SELECT cus.Customer_ID, cus.Customer_Name, cus.Address, cus.Postal_Code, cus.Phone, ctry.Country, dvn.Division FROM customers AS cus JOIN first_level_divisions AS dvn ON cus.Division_ID = dvn.Division_ID JOIN countries AS ctry ON dvn.Country_ID = ctry.Country_ID WHERE cus.Customer_ID = " + cus_id);
         ResultSet result = Query.getResult();
+        result.next();
 
         int id = result.getInt("Customer_ID");
         String name = result.getString("Customer_Name");
@@ -55,8 +56,7 @@ public class customerRecords {
             String phone = result.getString("Phone");
             String country = result.getString("Country");
             String division = result.getString("Division");
-            Customer customer = new Customer(id, name, address, postal, phone, country, division);
-            allCustomers.add(customer);
+            allCustomers.add(new Customer(id, name, address, postal, phone, country, division));
         }
 
         JDBC.disconnect();
