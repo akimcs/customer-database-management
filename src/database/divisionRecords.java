@@ -41,4 +41,23 @@ public class divisionRecords {
         JDBC.disconnect();
         return allDivisions;
     }
+
+    public static ObservableList<Division> getAllDivisions(int country_id) throws SQLException {
+        JDBC.connect();
+
+        Query.makeQuery("SELECT * FROM first_level_divisions WHERE Country_ID = " + country_id);
+        ResultSet result = Query.getResult();
+
+        ObservableList<Division> selectedDivisions = FXCollections.observableArrayList();
+
+        while (result.next()) {
+            int id = result.getInt("Division_ID");
+            String name = result.getString("Division");
+            String countryId = result.getString("Country_Id");
+            selectedDivisions.add(new Division(id, name, countryId));
+        }
+
+        JDBC.disconnect();
+        return selectedDivisions;
+    }
 }

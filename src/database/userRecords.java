@@ -8,6 +8,18 @@ import java.sql.SQLException;
 
 public class userRecords {
 
+    public static boolean validLogin(String user, String pass) throws SQLException {
+        JDBC.connect();
+
+        Query.makeQuery("SELECT * FROM users WHERE User_Name = '" + user + "' AND Password = '" + pass + "'");
+        ResultSet result = Query.getResult();
+
+        if (result.next()) {
+            return true;
+        }
+        return false;
+    }
+
     public static User getUser(String username) throws SQLException {
         JDBC.connect();
 

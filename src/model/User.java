@@ -6,6 +6,8 @@ public class User {
     private String user;    // Username
     private String pass;    // Password
 
+    public static String sessionUser;
+
     public User(int id, String user, String pass) {
         this.id = id;
         this.user = user;

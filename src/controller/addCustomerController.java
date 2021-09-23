@@ -1,13 +1,21 @@
 package controller;
 
+import database.countryRecords;
+import database.customerRecords;
+import database.divisionRecords;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import mainApplication.Main;
 import javafx.fxml.FXML;
+import model.Country;
+import model.Customer;
+import model.Division;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -24,15 +32,29 @@ public class addCustomerController implements Initializable {
     @FXML
     private TextField phonenumberText;
     @FXML
-    private ComboBox<?> countryCBText;
+    private ComboBox<Country> countryCBText;
     @FXML
-    private ComboBox<?> firstleveldivisionCBText;
+    private ComboBox<Division> firstleveldivisionCBText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Add Customer");
-        // TODO - customeridText = max+1 = (SELECT MAX(Customer_ID) FROM customers) + 1
-        // TODO - Fill choices in both combo boxes
+        try {
+            populateScreen();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void populateScreen() throws SQLException {
+        customeridText.setText(String.valueOf(customerRecords.nextCustomerId()));
+        countryCBText.setItems(countryRecords.getAllCountries());
+    }
+
+    @FXML
+    void countrySelected(ActionEvent event) throws SQLException {
+        firstleveldivisionCBText.setItems(divisionRecords.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
     @FXML
@@ -40,27 +62,33 @@ public class addCustomerController implements Initializable {
         if (!fieldEmpty()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                Main.changeScene("/view/mainScreen.fxml");
+                Main.changeScene("/view/customerMainscreen.fxml");
             }
         }
         else {
-            Main.changeScene("/view/mainScreen.fxml");
+            Main.changeScene("/view/customerMainscreen.fxml");
         }
     }
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
-        // TODO - Finish Method
         if (fieldEmpty()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
         else {
             try {
-                Integer cusID = Integer.parseInt(customeridText.getText());
-                // TODO - filtering and error checking
-                Main.changeScene("/view/mainScreen.fxml");
+                int id = Integer.parseInt(customeridText.getText());
+                String name = customernameText.getText();
+                String address = addressText.getText();
+                String postal = postalcodeText.getText();
+                String phone = phonenumberText.getText();
+                int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
+
+                customerRecords.addCustomer(new Customer(id, name, address, postal, phone, divisionId));
+                // TODO - finish adding customer
+                Main.changeScene("/view/customerMainscreen.fxml");
             }
-            catch(Exception e) {
+            catch (Exception e) {
                 Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted");
             }
         }

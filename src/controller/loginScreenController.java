@@ -1,5 +1,6 @@
 package controller;
 
+import database.userRecords;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,8 +13,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -52,8 +55,8 @@ public class loginScreenController implements Initializable {
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws IOException {
-        if (usernameText.getText().equals("admin") && passwordText.getText().equals("pass")) {
+    void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
+        if (userRecords.validLogin(usernameText.getText(), passwordText.getText())) {
             recordLoginActivity("SUCCESS");
             Main.changeScene("/view/mainScreen.fxml");
         }
@@ -65,7 +68,7 @@ public class loginScreenController implements Initializable {
 
     private void recordLoginActivity(String loginStatus) throws IOException {
         BufferedWriter bf = new BufferedWriter(new FileWriter("login_activity.txt", true));
-        bf.write(ZonedDateTime.now(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC - " + loginStatus + " USER(" + usernameText.getText() + ")");
+        bf.write(LocalDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC - " + loginStatus + " USER(" + usernameText.getText() + ")");
         bf.newLine();
         bf.close();
     }

@@ -1,6 +1,8 @@
 package controller;
 
 import database.customerRecords;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -50,7 +52,8 @@ public class customerMainscreenController implements Initializable {
         firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("division"));
         try {
             customerTableview.setItems(customerRecords.getAllCustomers());
-        } catch (SQLException throwables) {
+        }
+        catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
