@@ -2,9 +2,9 @@ package model;
 
 public class User {
 
-    private int id;         // User ID
-    private String user;    // Username
-    private String pass;    // Password
+    private int id;
+    private String user;
+    private String pass;
 
     public static String sessionUser;
 
@@ -36,5 +36,10 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + user;
     }
 }
