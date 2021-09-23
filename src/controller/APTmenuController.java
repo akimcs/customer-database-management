@@ -8,9 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import model.Appointment;
-
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class APTmenuController implements Initializable {
@@ -30,9 +28,9 @@ public class APTmenuController implements Initializable {
     @FXML
     private TableColumn<Appointment, String> typeColumn;
     @FXML
-    private TableColumn<Appointment, LocalDateTime> startColumn;
+    private TableColumn<Appointment, String> startColumn;
     @FXML
-    private TableColumn<Appointment, LocalDateTime> endColumn;
+    private TableColumn<Appointment, String> endColumn;
     @FXML
     private TableColumn<Appointment, Integer> cusIdColumn;
     @FXML
