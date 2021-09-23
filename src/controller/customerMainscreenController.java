@@ -1,5 +1,6 @@
 package controller;
 
+import database.customerRecords;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -7,36 +8,51 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
 import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class customerMainscreenController implements Initializable {
 
     @FXML
-    private TableView<Customer> customerTableview; // TODO - Fill ? in Brackets
+    private TableView<Customer> customerTableview;
     @FXML
-    private TableColumn<?, ?> cusidTable;
+    private TableColumn<Customer, Integer> cusidTable;
     @FXML
-    private TableColumn<?, ?> nameTable;
+    private TableColumn<Customer, String> nameTable;
     @FXML
-    private TableColumn<?, ?> addressTable;
+    private TableColumn<Customer, String> addressTable;
     @FXML
-    private TableColumn<?, ?> postalcodeTable;
+    private TableColumn<Customer, String> postalcodeTable;
     @FXML
-    private TableColumn<?, ?> phonenumberTable;
+    private TableColumn<Customer, String> phonenumberTable;
     @FXML
-    private TableColumn<?, ?> countryTable;
+    private TableColumn<Customer, String> countryTable;
     @FXML
-    private TableColumn<?, ?> firstleveldivisionTable;
+    private TableColumn<Customer, String> firstleveldivisionTable;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Customers Menu");
+
+        cusidTable.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameTable.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addressTable.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalcodeTable.setCellValueFactory(new PropertyValueFactory<>("postal"));
+        phonenumberTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        countryTable.setCellValueFactory(new PropertyValueFactory<>("country"));
+        firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("division"));
+        try {
+            customerTableview.setItems(customerRecords.getAllCustomers());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @FXML

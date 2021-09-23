@@ -14,12 +14,12 @@ public class userRecords {
         Query.makeQuery("SELECT * FROM users WHERE User_Name  = '" + username + "'");
         ResultSet result = Query.getResult();
 
-        int user_id = result.getInt("User_ID");
+        int id = result.getInt("User_ID");
         String user_name = result.getString("User_Name");
         String password = result.getString("Password");
 
         JDBC.disconnect();
-        return new User(user_id, user_name, password);
+        return new User(id, user_name, password);
     }
 
     public static ObservableList<User> getAllUsers() throws SQLException{
@@ -31,10 +31,10 @@ public class userRecords {
         ObservableList<User> allUsers = FXCollections.observableArrayList();
 
         while (result.next()) {
-            int user_id = result.getInt("User_ID");
+            int id = result.getInt("User_ID");
             String user_name = result.getString("User_Name");
             String password = result.getString("Password");
-            User user = new User(user_id, user_name, password);
+            User user = new User(id, user_name, password);
             allUsers.add(user);
         }
 
