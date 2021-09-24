@@ -3,19 +3,20 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Division;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static database.JDBC.conn;
 
 public class DBdivision {
 
+    // CUSmodController - Auto select division object using original customer's division id to find division
     public static Division getDivision(int division_id) throws SQLException {
-        JDBC.connect();
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM first_level_divisions WHERE Division_ID = ?");
+        stmt.setInt(1, division_id);
+        ResultSet result = stmt.executeQuery();
 
-        Query.makeQuery("SELECT * FROM first_level_divisions WHERE Division_ID = " + division_id);
-        ResultSet result = Query.getResult();
         result.next();
-
         int id = result.getInt("Division_ID");
         String name = result.getString("Division");
         String countryId = result.getString("Country_Id");
@@ -24,14 +25,14 @@ public class DBdivision {
         return new Division(id, name, countryId);
     }
 
-    public static ObservableList<Division> getAllDivisions() throws SQLException {
-        JDBC.connect();
-
-        Query.makeQuery("SELECT * FROM first_level_divisions");
-        ResultSet result = Query.getResult();
+    // CUSmodController - Auto populate division combo box choices using original customer's country id
+    // CUSmodController, CUSaddController - Autopopulate division combo box after selecting a country
+    public static ObservableList<Division> getAllDivisions(int country_id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM first_level_divisions WHERE Country_ID = ?");
+        stmt.setInt(1, country_id);;
+        ResultSet result = stmt.executeQuery();
 
         ObservableList<Division> allDivisions = FXCollections.observableArrayList();
-
         while (result.next()) {
             int id = result.getInt("Division_ID");
             String name = result.getString("Division");
@@ -41,24 +42,5 @@ public class DBdivision {
 
         JDBC.disconnect();
         return allDivisions;
-    }
-
-    public static ObservableList<Division> getAllDivisions(int country_id) throws SQLException {
-        JDBC.connect();
-
-        Query.makeQuery("SELECT * FROM first_level_divisions WHERE Country_ID = " + country_id);
-        ResultSet result = Query.getResult();
-
-        ObservableList<Division> selectedDivisions = FXCollections.observableArrayList();
-
-        while (result.next()) {
-            int id = result.getInt("Division_ID");
-            String name = result.getString("Division");
-            String countryId = result.getString("Country_Id");
-            selectedDivisions.add(new Division(id, name, countryId));
-        }
-
-        JDBC.disconnect();
-        return selectedDivisions;
     }
 }

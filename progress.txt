@@ -4,7 +4,7 @@ mainApplication     - finished
 model               - finished
 login_activity      - finished
 
-database            -
+database            - user, division, country, contact,
 
 // TODO
 database

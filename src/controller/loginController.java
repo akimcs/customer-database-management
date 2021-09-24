@@ -58,9 +58,9 @@ public class loginController implements Initializable {
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
-        if (DBuser.validLogin(usernameText.getText(), passwordText.getText())) {
+        if (DBuser.isValidLogin(usernameText.getText(), passwordText.getText())) {
             recordLoginActivity("SUCCESS");
-            User.setCurrentUserId(DBuser.getUser(usernameText.getText()).getId());
+            User.setCurrentUserId(DBuser.getUserId(usernameText.getText()));
             User.setCurrentUserName(usernameText.getText());
             Main.changeScene("/view/menu.fxml");
         }

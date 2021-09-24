@@ -4,19 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static database.JDBC.conn;
 
 public class DBcountry {
 
+    // CUSmodController - Autoselect country in combo box using original customer's country id
     public static Country getCountry(int country_id) throws SQLException {
-        JDBC.connect();
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM countries WHERE Country_Id = ?");
+        stmt.setInt(1, country_id);
+        ResultSet result = stmt.executeQuery();
 
-        Query.makeQuery("SELECT * FROM countries WHERE Country_Id = " + country_id);
-        ResultSet result = Query.getResult();
         result.next();
-
         int id = result.getInt("Country_ID");
         String name = result.getString("Country");
 
@@ -24,14 +24,11 @@ public class DBcountry {
         return new Country(id, name);
     }
 
+    // CUSaddController, CUSmodController - Populate combo box with all countries
     public static ObservableList<Country> getAllCountries() throws SQLException {
-        JDBC.connect();
-
-        Query.makeQuery("SELECT * FROM countries");
-        ResultSet result = Query.getResult();
+        ResultSet result = JDBC.exQuery("SELECT * FROM countries");
 
         ObservableList<Country> allCountries = FXCollections.observableArrayList();
-
         while (result.next()) {
             int id = result.getInt("Country_ID");
             String name = result.getString("Country");
