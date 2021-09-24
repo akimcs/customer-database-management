@@ -55,17 +55,14 @@ public class CUSaddController implements Initializable {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
-    @FXML
-    void clickCancelButton(ActionEvent event) throws IOException {
-        if (!fieldEmpty()) {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
-            if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                Main.changeScene("/view/CUSmenu.fxml");
-            }
+    private boolean fieldEmpty() {
+        if (customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
+                addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
+                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().isEmpty() ||
+                firstleveldivisionCBText.getSelectionModel().isEmpty()) {
+            return true;
         }
-        else {
-            Main.changeScene("/view/CUSmenu.fxml");
-        }
+        return false;
     }
 
     @FXML
@@ -92,10 +89,16 @@ public class CUSaddController implements Initializable {
         }
     }
 
-    private boolean fieldEmpty() {
-        if (customernameText.getText().trim().isEmpty() || addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() || phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().isEmpty() || firstleveldivisionCBText.getSelectionModel().isEmpty()) {
-            return true;
+    @FXML
+    void clickCancelButton(ActionEvent event) throws IOException {
+        if (!fieldEmpty()) {
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
+            if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
+                Main.changeScene("/view/CUSmenu.fxml");
+            }
         }
-        return false;
+        else {
+            Main.changeScene("/view/CUSmenu.fxml");
+        }
     }
 }

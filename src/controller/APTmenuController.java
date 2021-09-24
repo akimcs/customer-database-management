@@ -11,6 +11,7 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class APTmenuController implements Initializable {
@@ -30,9 +31,9 @@ public class APTmenuController implements Initializable {
     @FXML
     private TableColumn<Appointment, String> typeColumn;
     @FXML
-    private TableColumn<Appointment, String> startColumn;
+    private TableColumn<Appointment, LocalDateTime> startColumn;
     @FXML
-    private TableColumn<Appointment, String> endColumn;
+    private TableColumn<Appointment, LocalDateTime> endColumn;
     @FXML
     private TableColumn<Appointment, Integer> cusIdColumn;
     @FXML

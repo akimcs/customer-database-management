@@ -2,11 +2,12 @@ model               - finished
 main                - finished
 language            - finished
 login_activity      - finished
-controller          - CUSadd,
+controller          - CUSadd, APTadd,
+
 
 // TODO
-make sure sql insert/updates are NOT BLANK using controller
 controller
+    ensure fields are filtered
 database
 view
 README

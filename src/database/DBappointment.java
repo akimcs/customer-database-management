@@ -1,9 +1,9 @@
 package database;
 
+import model.Appointment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import static database.JDBC.conn;
-
 
 public class DBappointment {
 
@@ -18,6 +18,10 @@ public class DBappointment {
 
         JDBC.disconnect();
         return id;
+    }
+
+    public static void addAppointment(Appointment appointment) throws SQLException {
+        // TODO
     }
 
 

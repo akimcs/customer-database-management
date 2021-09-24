@@ -51,16 +51,6 @@ public class APTmodController implements Initializable {
     }
 
     @FXML
-    void selectedStartHour(ActionEvent event) {
-
-    }
-
-    @FXML
-    void selectedStartMin(ActionEvent event) {
-
-    }
-
-    @FXML
     void clickCancelButton(ActionEvent event) {
 
     }
