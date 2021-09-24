@@ -10,6 +10,11 @@ import static database.JDBC.conn;
 
 public class DBcontact {
 
+    public static Contact getContact(int id) throws SQLException {
+        // TODO
+        return null;
+    }
+
     // DONE
     public static ObservableList<Contact> getAllContacts() throws SQLException {
         JDBC.connect();

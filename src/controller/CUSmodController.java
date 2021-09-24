@@ -70,19 +70,18 @@ public class CUSmodController implements Initializable {
 
     private boolean noChanges() {
         return originalCustomer.getId() == Integer.parseInt(customeridText.getText()) &&
-                originalCustomer.getName() == customernameText.getText() &&
-                originalCustomer.getAddress() == addressText.getText() &&
-                originalCustomer.getPostal() == postalcodeText.getText() &&
-                originalCustomer.getPhone() == phonenumberText.getText() &&
+                originalCustomer.getName().equals(customernameText.getText()) &&
+                originalCustomer.getAddress().equals(addressText.getText()) &&
+                originalCustomer.getPostal().equals(postalcodeText.getText()) &&
+                originalCustomer.getPhone().equals(phonenumberText.getText()) &&
                 originalCustomer.getCountryId() == countryCBText.getSelectionModel().getSelectedItem().getId() &&
                 originalCustomer.getDivisionId() == firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
     }
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
-        // TODO
         if (noChanges()) {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "NO Changes Detected in Form", "This action will not update any records. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "This action will not update any records. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/CUSmenu.fxml");
             }
@@ -115,7 +114,7 @@ public class CUSmodController implements Initializable {
             Main.changeScene("/view/CUSmenu.fxml");
         }
         else {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "Changes will not be saved. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "Changes will not be saved. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/CUSmenu.fxml");
             }

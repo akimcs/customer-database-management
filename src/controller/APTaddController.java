@@ -15,7 +15,6 @@ import model.Appointment;
 import model.Contact;
 import model.Customer;
 import model.User;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -55,8 +54,8 @@ public class APTaddController implements Initializable {
     @FXML
     private ComboBox<User> useridCBText;
 
-    ObservableList<String> allHours = FXCollections.observableArrayList();
-    ObservableList<String> allMinutes = FXCollections.observableArrayList();
+    private ObservableList<String> allHours = FXCollections.observableArrayList();
+    private ObservableList<String> allMinutes = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

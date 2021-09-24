@@ -70,7 +70,7 @@ public class CUSmenuController implements Initializable {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
         }
         else {
-
+            
         }
     }
 

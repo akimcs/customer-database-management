@@ -2,12 +2,11 @@ model               - finished
 main                - finished
 language            - finished
 login_activity      - finished
-controller          - CUSadd, APTadd, CUSmod,
+controller          - APTadd, APTmod, CUSadd, CUSmod
 
 
 // TODO
 controller
-    ensure fields are filtered
 database
 view
 README

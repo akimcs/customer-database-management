@@ -24,5 +24,9 @@ public class DBappointment {
         // TODO
     }
 
+    public static void modifyAppointment(Appointment appointment) throws SQLException {
+        // TODO
+    }
+
 
 }
