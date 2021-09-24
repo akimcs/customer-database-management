@@ -1,5 +1,6 @@
 package database;
 
+import javafx.collections.ObservableList;
 import model.Appointment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,10 @@ public class DBappointment {
     }
 
     public static void deleteAppointments(int customer_id) throws SQLException {
+        // TODO
+    }
+
+    public static ObservableList<Appointment> getAllAppointments() {
         // TODO
     }
 
