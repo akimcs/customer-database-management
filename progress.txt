@@ -1,12 +1,12 @@
-model               - finished
-main                - finished
+controller          - finished
 language            - finished
+mainApplication     - finished
+model               - finished
 login_activity      - finished
-controller          - APTadd, APTmenu, APTmod, CUSadd, CUSmenu, CUSmod, login,
 
+database            -
 
 // TODO
-controller
 database
 view
-README
+README+login_activity

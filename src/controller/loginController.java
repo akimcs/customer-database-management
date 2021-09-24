@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mainApplication.Main;
+import model.User;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,9 +60,9 @@ public class loginController implements Initializable {
     void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
         if (DBuser.validLogin(usernameText.getText(), passwordText.getText())) {
             recordLoginActivity("SUCCESS");
-            menuController controller = Main.changeScene("/view/menu.fxml").getController();
-            controller.grabCurrentSessionUser(DBuser.getUser(usernameText.getText()));
-
+            User.setCurrentUserId(DBuser.getUser(usernameText.getText()).getId());
+            User.setCurrentUserName(usernameText.getText());
+            Main.changeScene("/view/menu.fxml");
         }
         else {
             recordLoginActivity("FAIL   ");

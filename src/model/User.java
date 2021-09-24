@@ -2,6 +2,9 @@ package model;
 
 public class User {
 
+    private static int currentUserId;
+    private static String currentUserName;
+
     private int id;
     private String user;
     private String pass;
@@ -34,6 +37,22 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public static int getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public static void setCurrentUserId(int currentUserId) {
+        User.currentUserId = currentUserId;
+    }
+
+    public static String getCurrentUserName() {
+        return currentUserName;
+    }
+
+    public static void setCurrentUserName(String currentUserName) {
+        User.currentUserName = currentUserName;
     }
 
     @Override

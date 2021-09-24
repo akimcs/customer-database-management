@@ -56,22 +56,31 @@ public class menuController implements Initializable {
     @FXML
     private Label customAnswerText;
 
-    private User currentSessionUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Menu");
         try {
             populateScreen();
+            checkForAppointment();
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        checkForAppointment();
     }
 
-    public void grabCurrentSessionUser(User user) {
-        this.currentSessionUser = user;
+    private void checkForAppointment() throws SQLException {
+        Appointment upcomingAppointment = DBappointment.getAlertAppointment(User.getCurrentUserId(), LocalDateTime.now());
+        if (upcomingAppointment != null) {
+            String msg = "User " + User.getCurrentUserName() + " has an upcoming appointment (ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
+            upcomingappointmentText.setText(msg);
+            Main.dialogBox(Alert.AlertType.INFORMATION, "Upcoming Appointment Detected", msg);
+        }
+        else {
+            String msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
+            upcomingappointmentText.setText(msg);
+            Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointment Detected", msg);
+        }
     }
 
     private void populateScreen() throws SQLException {
@@ -88,21 +97,6 @@ public class menuController implements Initializable {
         ObservableList<String> idTypes = FXCollections.observableArrayList();
         idTypes.addAll("Customer_ID", "User_ID", "Contact_ID");
         customIdType.setItems(idTypes);
-    }
-
-    private void checkForAppointment() {
-        Appointment upcomingAppointment = DBappointment.getAlertAppointment(currentSessionUser.getId(), LocalDateTime.now());
-        String msg;
-        if (upcomingAppointment != null) {
-            msg = "User " + currentSessionUser.getUser() + " has an appointment (Appointment_ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
-            upcomingappointmentText.setText(msg);
-            Main.dialogBox(Alert.AlertType.INFORMATION, "Upcoming Appointment Detected", msg);
-        }
-        else {
-            msg = "User " + currentSessionUser.getUser() + " does not have any upcoming appointments within 15 minutes.";
-            upcomingappointmentText.setText(msg);
-            Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointment Detected", msg);
-        }
     }
 
     @FXML

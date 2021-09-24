@@ -83,7 +83,7 @@ public class CUSmenuController implements Initializable {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
         }
         else {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and appointments. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and all their appointments. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 DBappointment.deleteAppointments(selectedCustomer.getId());
                 DBcustomer.deleteCustomer(selectedCustomer.getId());

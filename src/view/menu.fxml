@@ -20,14 +20,14 @@
             </Label>
             <Button layoutX="128.0" layoutY="20.0" mnemonicParsing="false" onAction="#clickCustomersButton" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #e08080;" text="Customers" />
             <Button layoutX="128.0" layoutY="75.0" mnemonicParsing="false" onAction="#clickAppointmentsButton" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #80d990;" text="Appointments" />
-            <Label layoutX="525.0" layoutY="20.0" text="Upcoming Appointments">
+            <Label layoutX="358.0" layoutY="23.0" text="Upcoming Appointments">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="upcomingappointmentText" layoutX="520.0" layoutY="80.0" text="There Are No Upcoming Appointments" textFill="#fffe00">
+            <Label fx:id="upcomingappointmentText" layoutX="358.0" layoutY="80.0" text="There Are No Upcoming Appointments" textFill="#fffe00">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <Button layoutX="927.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickLogoutButton" text="Log Out" />
