@@ -4,13 +4,14 @@ import database.DBcountry;
 import database.DBcustomer;
 import database.DBdivision;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import mainApplication.Main;
-import javafx.fxml.FXML;
 import model.Country;
 import model.Customer;
 import model.Division;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -77,8 +78,13 @@ public class CUSaddController implements Initializable {
                 int countryId = countryCBText.getSelectionModel().getSelectedItem().getId();
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
-                DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId));
-                Main.changeScene("/view/CUSmenu.fxml");
+                if (DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)) > 0) {
+                    Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Successfully Added", "New customer has been added.");
+                    Main.changeScene("/view/CUSmenu.fxml");
+                }
+                else {
+                    Main.dialogBox(Alert.AlertType.ERROR, "Customer Not Added", "Customer was unable to be added.");
+                }
             }
             catch (Exception e) {
                 Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted.");
