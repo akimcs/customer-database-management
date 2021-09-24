@@ -24,7 +24,11 @@ public class DBappointment {
         // TODO
     }
 
-    public static void modifyAppointment(Appointment appointment) throws SQLException {
+    public static void modifyAppointment(Appointment updatedAppointment) throws SQLException {
+        // TODO
+    }
+
+    public static void deleteAppointments(int customer_id) throws SQLException {
         // TODO
     }
 

@@ -1,5 +1,6 @@
 package controller;
 
+import database.DBappointment;
 import database.DBcustomer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -48,6 +49,7 @@ public class CUSmenuController implements Initializable {
     }
 
     private void populateScreen() throws SQLException {
+        customerTableview.setItems(DBcustomer.getAllCustomers());
         cusidTable.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameTable.setCellValueFactory(new PropertyValueFactory<>("name"));
         addressTable.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -55,7 +57,6 @@ public class CUSmenuController implements Initializable {
         phonenumberTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
         countryTable.setCellValueFactory(new PropertyValueFactory<>("countryId"));
         firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
-        customerTableview.setItems(DBcustomer.getAllCustomers());
     }
 
     @FXML
@@ -64,26 +65,29 @@ public class CUSmenuController implements Initializable {
     }
 
     @FXML
-    void clickModifyButton(ActionEvent event) {
+    void clickModifyButton(ActionEvent event) throws IOException, SQLException {
         Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
         }
         else {
-            
+            CUSmodController controller = Main.changeScene("/view/CUSmod.fxml").getController();
+            controller.displayCustomer(selectedCustomer);
         }
     }
 
     @FXML
-    void clickDeleteButton(ActionEvent event) {
+    void clickDeleteButton(ActionEvent event) throws SQLException {
         Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
         }
         else {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and all appointments. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and appointments. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                // TODO - Delete Associated Appointment then Delete Customer
+                DBappointment.deleteAppointments(selectedCustomer.getId());
+                DBcustomer.deleteCustomer(selectedCustomer.getId());
+                Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Deleted", "Customer Successfully Deleted.");
             }
         }
         customerTableview.getSelectionModel().select(null);

@@ -33,14 +33,18 @@ public class DBcustomer {
         // TODO - finish adding customer
     }
 
-    public static void modifyCustomer(Customer customer) throws SQLException {
+    public static void modifyCustomer(Customer updatedCustomer) throws SQLException {
         // TODO
     }
 
-    public static Customer getCustomer(int cus_id) throws SQLException {
+    public static void deleteCustomer(int customer_id) throws SQLException {
+
+    }
+
+    public static Customer getCustomer(int customer_id) throws SQLException {
         JDBC.connect();
 
-        Query.makeQuery("SELECT * FROM customers AS cus JOIN first_level_divisions AS dvn ON cus.Division_ID = dvn.Division_ID JOIN countries AS ctry ON dvn.Country_ID = ctry.Country_ID WHERE cus.Customer_ID = " + cus_id);
+        Query.makeQuery("SELECT * FROM customers AS cus JOIN first_level_divisions AS dvn ON cus.Division_ID = dvn.Division_ID JOIN countries AS ctry ON dvn.Country_ID = ctry.Country_ID WHERE cus.Customer_ID = " + customer_id);
         ResultSet result = Query.getResult();
         result.next();
 

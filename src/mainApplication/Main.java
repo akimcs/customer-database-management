@@ -38,7 +38,7 @@ public class Main extends Application {
     }
 
     public static Optional<ButtonType> dialogBox(Alert.AlertType messageType, String title, String content) {
-        // messageType = CONFIRMATION || WARNING || ERROR
+        // messageType = CONFIRMATION || WARNING || ERROR || INFORMATION
         Alert dialogBox = new Alert(messageType);
         dialogBox.setTitle(title);
         dialogBox.setContentText(content);

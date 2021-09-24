@@ -21,19 +21,19 @@ public class DBuser {
         return false;
     }
 
-    public static User getUser(int id) throws SQLException {
+    public static User getUser(int user_id) throws SQLException {
         JDBC.connect();
 
-        Query.makeQuery("SELECT * FROM users WHERE User_ID = " + id);
+        Query.makeQuery("SELECT * FROM users WHERE User_ID = " + user_id);
         ResultSet result = Query.getResult();
         result.next();
 
-        int user_id = result.getInt("User_ID");
+        int id = result.getInt("User_ID");
         String user_name = result.getString("User_Name");
         String password = result.getString("Password");
 
         JDBC.disconnect();
-        return new User(user_id, user_name, password);
+        return new User(id, user_name, password);
     }
 
     public static ObservableList<User> getAllUsers() throws SQLException{
