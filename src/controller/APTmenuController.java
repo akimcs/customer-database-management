@@ -1,6 +1,8 @@
 package controller;
 
 import database.DBappointment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,6 +17,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.temporal.WeekFields;
 import java.util.ResourceBundle;
 
 public class APTmenuController implements Initializable {
@@ -77,13 +80,25 @@ public class APTmenuController implements Initializable {
     @FXML
     void clickMonthRadioButton(ActionEvent event) {
         Month currentMonth = LocalDateTime.now().getMonth();
-        appointmentTableview.setItems();
+        ObservableList<Appointment> currentMonthAppointments = FXCollections.observableArrayList();
+        for (Appointment apt : DBappointment.getAllAppointments()) {
+            if (apt.getStart().getMonth().equals(currentMonth)) {
+                currentMonthAppointments.add(apt);
+            }
+        }
+        appointmentTableview.setItems(currentMonthAppointments);
     }
 
     @FXML
     void clickWeekRadioButton(ActionEvent event) {
-
-        appointmentTableview.setItems();
+        int currentWeek = LocalDateTime.now().get(WeekFields.SUNDAY_START.weekOfWeekBasedYear());
+        ObservableList<Appointment> currentWeekAppointments = FXCollections.observableArrayList();
+        for (Appointment apt : DBappointment.getAllAppointments()) {
+            if (currentWeek == apt.getStart().get(WeekFields.SUNDAY_START.weekOfWeekBasedYear())) {
+                currentWeekAppointments.add(apt);
+            }
+        }
+        appointmentTableview.setItems(currentWeekAppointments);
     }
 
     @FXML
