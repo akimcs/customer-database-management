@@ -4,19 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.time.LocalDateTime;
 
 public class DBcustomer {
 
-    // TODO - create / modify / delete (insert, update, delete)
-
+    // CUSaddController - Generates the next highest customer ID to use
     public static int nextCustomerId() throws SQLException {
-        JDBC.connect();
+        ResultSet result = JDBC.exQuery("SELECT max(Customer_ID) + 1 as Customer_ID FROM customers");
 
-        Query.makeQuery("SELECT max(Customer_ID) + 1 as Customer_ID FROM customers");
-        ResultSet result = Query.getResult();
         result.next();
         int id = result.getInt("Customer_ID");
 
@@ -26,23 +24,36 @@ public class DBcustomer {
 
     public static void addCustomer(Customer customer) throws SQLException{
         // TODO
+        PreparedStatement stmt = JDBC.pStatement("INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        stmt.setInt(1, customer.getId());
+        stmt.setString(2, customer.getName());
+        stmt.setString(3, customer.getAddress());
+        stmt.setString(4, customer.getPostal());
+        stmt.setString(5, customer.getPhone());
+        stmt.
     }
 
     public static void modifyCustomer(Customer updatedCustomer) throws SQLException {
-        // TODO
-    }
-
-    public static void deleteCustomer(int customer_id) throws SQLException {
+        // TODO - consider limitations (business hours, overlaps. maybe error check in the controller?)
 
     }
 
+    // CUSmenuController - Customer Menu screen button for deleting selected customer
+    public static int deleteCustomer(int customer_id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("DELETE FROM customers WHERE Customer_ID = ?");
+        stmt.setInt(1, customer_id);
+        int rowCount = stmt.executeUpdate();
+        JDBC.disconnect();
+        return rowCount;
+    }
+
+    // APTmodController - Auto selects original appointment's customer object using customer id.
     public static Customer getCustomer(int customer_id) throws SQLException {
-        JDBC.connect();
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID WHERE customers.Customer_ID = ?");
+        stmt.setInt(1, customer_id);
+        ResultSet result = stmt.executeQuery();
 
-        Query.makeQuery("SELECT * FROM customers AS cus JOIN first_level_divisions AS dvn ON cus.Division_ID = dvn.Division_ID JOIN countries AS ctry ON dvn.Country_ID = ctry.Country_ID WHERE cus.Customer_ID = " + customer_id);
-        ResultSet result = Query.getResult();
         result.next();
-
         int id = result.getInt("Customer_ID");
         String name = result.getString("Customer_Name");
         String address = result.getString("Address");
@@ -55,14 +66,12 @@ public class DBcustomer {
         return new Customer(id, name, address, postal, phone, country, division);
     }
 
+    // CUSmenuController - Fill tableview with allCustomers objects
+    // APTaddController, APTmodController - Populate customer id combo box with customer objects
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
-        JDBC.connect();
-
-        Query.makeQuery("SELECT * FROM customers AS cus JOIN first_level_divisions AS dvn ON cus.Division_ID = dvn.Division_ID JOIN countries AS ctry ON dvn.Country_ID = ctry.Country_ID");
-        ResultSet result = Query.getResult();
+        ResultSet result = JDBC.exQuery("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID");
 
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-
         while (result.next()) {
             int id = result.getInt("Customer_ID");
             String name = result.getString("Customer_Name");
@@ -71,7 +80,6 @@ public class DBcustomer {
             String phone = result.getString("Phone");
             int country = result.getInt("Country_ID");
             int division = result.getInt("Division_ID");
-
             allCustomers.add(new Customer(id, name, address, postal, phone, country, division));
         }
 
