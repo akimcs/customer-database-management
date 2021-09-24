@@ -51,6 +51,12 @@ public class menuController implements Initializable {
     private TableColumn<Appointment, LocalDateTime> endBTable;
     @FXML
     private TableColumn<Appointment, Integer> customeridBTable;
+    @FXML
+    private ComboBox<String> customIdType;
+    @FXML
+    private ComboBox<Integer> customIdNumber;
+    @FXML
+    private Label customAnswerText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,6 +67,7 @@ public class menuController implements Initializable {
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        checkForAppointment();
     }
 
     private void populateScreen() throws SQLException {
@@ -74,27 +81,14 @@ public class menuController implements Initializable {
         // Report B
         contactBCBText.setItems(DBcontact.getAllContacts());
         // Report C
-
+        ObservableList<String> idTypes = FXCollections.observableArrayList();
+        idTypes.addAll("Customer_ID", "User_ID", "Contact_ID");
+        customIdType.setItems(idTypes);
     }
 
-    // TODO - REPORTS - A - 2 CBs, 1 Text ++++ B - 1 CB, 1 TV ++++ C = custom
-    // TODO - ALERT - Put in-stage area in GUI for 15 min alert popup during initialization of stage. Check for appointment in 15 minutes upcomingappointmentText
-
-
-
-
-    // -----------------------------------------------------------------------------------
-
-    @FXML
-    void selectedContactReportB(ActionEvent event) {
-        scheduleBTableview.setItems(DBappointment.getContactAppointments(contactBCBText.getSelectionModel().getSelectedItem().getId()));
-        appidBTable.setCellValueFactory(new PropertyValueFactory<>("id"));
-        titleBTable.setCellValueFactory(new PropertyValueFactory<>("title"));
-        typeBTable.setCellValueFactory(new PropertyValueFactory<>("type"));
-        descriptionBTable.setCellValueFactory(new PropertyValueFactory<>("description"));
-        startBTable.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endBTable.setCellValueFactory(new PropertyValueFactory<>("end"));
-        customeridBTable.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+    private void checkForAppointment() {
+        // TODO - ALERT - Put in-stage area in GUI for 15 min alert popup during initialization of stage. Check for appointment in 15 minutes upcomingappointmentText
+        
     }
 
     @FXML
@@ -109,6 +103,28 @@ public class menuController implements Initializable {
         if (monthACBText.getSelectionModel().getSelectedItem() != null) {
             totalAText.setText(String.valueOf(DBappointment.getMonthTypeAppointments(monthACBText.getSelectionModel().getSelectedItem(), typeACBText.getSelectionModel().getSelectedItem())));
         }
+    }
+
+    @FXML
+    void selectedContactReportB(ActionEvent event) {
+        scheduleBTableview.setItems(DBappointment.getContactAppointments(contactBCBText.getSelectionModel().getSelectedItem().getId()));
+        appidBTable.setCellValueFactory(new PropertyValueFactory<>("id"));
+        titleBTable.setCellValueFactory(new PropertyValueFactory<>("title"));
+        typeBTable.setCellValueFactory(new PropertyValueFactory<>("type"));
+        descriptionBTable.setCellValueFactory(new PropertyValueFactory<>("description"));
+        startBTable.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endBTable.setCellValueFactory(new PropertyValueFactory<>("end"));
+        customeridBTable.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+    }
+
+    @FXML
+    void selectedCustomIdType(ActionEvent event) {
+        customIdNumber.setItems(DBappointment.getIdNumbers(customIdType.getSelectionModel().getSelectedItem()));
+    }
+
+    @FXML
+    void selectedCustomIdNumber(ActionEvent event) {
+        customAnswerText.setText(String.valueOf(DBappointment.getNumberOfCustomAppointments(customIdNumber.getSelectionModel().getSelectedItem())));
     }
 
     @FXML

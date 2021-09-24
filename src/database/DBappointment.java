@@ -49,11 +49,19 @@ public class DBappointment {
     }
 
     public static Integer getMonthTypeAppointments(Month month, String type) {
-
+        // TODO
     }
 
     public static ObservableList<Appointment> getContactAppointments(int contact_id) {
+        // TODO
+    }
 
+    public static ObservableList<Integer> getIdNumbers(String id_type) {
+        // TODO
+    }
+
+    public static Integer getNumberOfCustomAppointments(int id) {
+        // TODO
     }
 
 
