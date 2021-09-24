@@ -96,22 +96,19 @@ public class APTaddController implements Initializable {
         return false;
     }
 
-    private boolean fieldEmpty() {
-        if (appointmentidText.getText().trim().isEmpty() || titleText.getText().trim().isEmpty() ||
+    private boolean emptyFieldDetected() {
+        return appointmentidText.getText().trim().isEmpty() || titleText.getText().trim().isEmpty() ||
                 descriptionText.getText().trim().isEmpty() || locationText.getText().trim().isEmpty() ||
                 contactCBText.getSelectionModel().isEmpty() || typeText.getText().trim().isEmpty() ||
                 dateDPText.getValue() == null || StartHrText.getSelectionModel().isEmpty() ||
                 StartMinText.getSelectionModel().isEmpty() || EndHrText.getSelectionModel().isEmpty() ||
                 EndMinText.getSelectionModel().isEmpty() || customeridCBText.getSelectionModel().isEmpty() ||
-                useridCBText.getSelectionModel().isEmpty()) {
-            return true;
-        }
-        return false;
+                useridCBText.getSelectionModel().isEmpty();
     }
 
     @FXML
     void clickSubmitButton(ActionEvent event) {
-        if (fieldEmpty()) {
+        if (emptyFieldDetected()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
         else if (!validStartEndTimes()) {
@@ -150,7 +147,7 @@ public class APTaddController implements Initializable {
 
     @FXML
     void clickCancelButton(ActionEvent event) throws IOException {
-        if (!fieldEmpty()) {
+        if (!emptyFieldDetected()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/APTmenu.fxml");

@@ -33,6 +33,10 @@ public class DBcustomer {
         // TODO - finish adding customer
     }
 
+    public static void modifyCustomer(Customer customer) throws SQLException {
+        // TODO
+    }
+
     public static Customer getCustomer(int cus_id) throws SQLException {
         JDBC.connect();
 

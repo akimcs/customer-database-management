@@ -55,19 +55,16 @@ public class CUSaddController implements Initializable {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
-    private boolean fieldEmpty() {
-        if (customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
+    private boolean emptyFieldDetected() {
+        return customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
                 addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
                 phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().isEmpty() ||
-                firstleveldivisionCBText.getSelectionModel().isEmpty()) {
-            return true;
-        }
-        return false;
+                firstleveldivisionCBText.getSelectionModel().isEmpty();
     }
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
-        if (fieldEmpty()) {
+        if (emptyFieldDetected()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
         else {
@@ -91,7 +88,7 @@ public class CUSaddController implements Initializable {
 
     @FXML
     void clickCancelButton(ActionEvent event) throws IOException {
-        if (!fieldEmpty()) {
+        if (!emptyFieldDetected()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/CUSmenu.fxml");

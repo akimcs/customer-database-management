@@ -2,7 +2,7 @@ model               - finished
 main                - finished
 language            - finished
 login_activity      - finished
-controller          - CUSadd, APTadd,
+controller          - CUSadd, APTadd, CUSmod,
 
 
 // TODO

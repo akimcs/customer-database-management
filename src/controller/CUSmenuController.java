@@ -39,7 +39,15 @@ public class CUSmenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Customers Menu");
+        try {
+            populateScreen();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
+    private void populateScreen() throws SQLException {
         cusidTable.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameTable.setCellValueFactory(new PropertyValueFactory<>("name"));
         addressTable.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -47,12 +55,7 @@ public class CUSmenuController implements Initializable {
         phonenumberTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
         countryTable.setCellValueFactory(new PropertyValueFactory<>("countryId"));
         firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
-        try {
-            customerTableview.setItems(DBcustomer.getAllCustomers());
-        }
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        customerTableview.setItems(DBcustomer.getAllCustomers());
     }
 
     @FXML
@@ -67,7 +70,7 @@ public class CUSmenuController implements Initializable {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
         }
         else {
-            // TODO - transfer selection between screens.
+
         }
     }
 

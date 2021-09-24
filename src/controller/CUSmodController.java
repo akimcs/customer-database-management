@@ -1,23 +1,23 @@
 package controller;
 
+import database.DBcountry;
+import database.DBcustomer;
 import database.DBdivision;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import mainApplication.Main;
 import model.Country;
+import model.Customer;
 import model.Division;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CUSmodController implements Initializable {
-
-    // TODO - LEAVE ALONE UNTIL ADD SCREEN FINISHED
 
     @FXML
     private Label customeridText;
@@ -34,9 +34,26 @@ public class CUSmodController implements Initializable {
     @FXML
     private ComboBox<Division> firstleveldivisionCBText;
 
+    private Customer originalCustomer;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Modify Customer");
+    }
+
+    public void displayCustomer(Customer originalCustomer) throws SQLException {
+        this.originalCustomer = originalCustomer;
+
+        countryCBText.setItems(DBcountry.getAllCountries());
+        firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(originalCustomer.getCountryId()));
+
+        customeridText.setText(String.valueOf(originalCustomer.getId()));
+        customernameText.setText(originalCustomer.getName());
+        addressText.setText(originalCustomer.getAddress());
+        postalcodeText.setText(originalCustomer.getPostal());
+        phonenumberText.setText(originalCustomer.getPhone());
+        countryCBText.getSelectionModel().select(DBcountry.getCountry(originalCustomer.getCountryId()));
+        firstleveldivisionCBText.getSelectionModel().select(DBdivision.getDivision(originalCustomer.getDivisionId()));
     }
 
     @FXML
@@ -44,13 +61,64 @@ public class CUSmodController implements Initializable {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
-    @FXML
-    void clickCancelButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/menu.fxml");
+    private boolean emptyFieldDetected() {
+        return customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
+                addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
+                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().isEmpty() ||
+                firstleveldivisionCBText.getSelectionModel().isEmpty();
+    }
+
+    private boolean noChanges() {
+        return originalCustomer.getId() == Integer.parseInt(customeridText.getText()) &&
+                originalCustomer.getName() == customernameText.getText() &&
+                originalCustomer.getAddress() == addressText.getText() &&
+                originalCustomer.getPostal() == postalcodeText.getText() &&
+                originalCustomer.getPhone() == phonenumberText.getText() &&
+                originalCustomer.getCountryId() == countryCBText.getSelectionModel().getSelectedItem().getId() &&
+                originalCustomer.getDivisionId() == firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
     }
 
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
-        Main.changeScene("/view/menu.fxml");
+        // TODO
+        if (noChanges()) {
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "NO Changes Detected in Form", "This action will not update any records. Continue?");
+            if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
+                Main.changeScene("/view/CUSmenu.fxml");
+            }
+        }
+        else if (emptyFieldDetected()) {
+            Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
+        }
+        else {
+            try {
+                int id = Integer.parseInt(customeridText.getText());
+                String name = customernameText.getText();
+                String address = addressText.getText();
+                String postal = postalcodeText.getText();
+                String phone = phonenumberText.getText();
+                int countryId = countryCBText.getSelectionModel().getSelectedItem().getId();
+                int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
+
+                DBcustomer.modifyCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId));
+                Main.changeScene("/view/CUSmenu.fxml");
+            }
+            catch (Exception e) {
+                Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted.");
+            }
+        }
+    }
+
+    @FXML
+    void clickCancelButton(ActionEvent event) throws IOException {
+        if (noChanges()) {
+            Main.changeScene("/view/CUSmenu.fxml");
+        }
+        else {
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "Changes will not be saved. Continue?");
+            if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
+                Main.changeScene("/view/CUSmenu.fxml");
+            }
+        }
     }
 }
