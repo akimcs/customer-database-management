@@ -3,10 +3,9 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
-import model.User;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static database.JDBC.conn;
 
 
 public class DBcustomer {
@@ -26,11 +25,7 @@ public class DBcustomer {
     }
 
     public static void addCustomer(Customer customer) throws SQLException{
-        JDBC.connect();
-
-        String creator = User.sessionUser;
-        Query.makeQuery("");
-        // TODO - finish adding customer
+        // TODO
     }
 
     public static void modifyCustomer(Customer updatedCustomer) throws SQLException {

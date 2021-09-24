@@ -3,9 +3,9 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.User;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static database.JDBC.conn;
 
 public class DBuser {
 
@@ -34,6 +34,10 @@ public class DBuser {
 
         JDBC.disconnect();
         return new User(id, user_name, password);
+    }
+
+    public static User getUser(String username) {
+
     }
 
     public static ObservableList<User> getAllUsers() throws SQLException{

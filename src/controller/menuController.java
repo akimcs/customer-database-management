@@ -7,14 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
 import model.Appointment;
 import model.Contact;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +56,8 @@ public class menuController implements Initializable {
     @FXML
     private Label customAnswerText;
 
+    private User currentSessionUser;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Menu");
@@ -68,6 +68,10 @@ public class menuController implements Initializable {
             throwables.printStackTrace();
         }
         checkForAppointment();
+    }
+
+    public void grabCurrentSessionUser(User user) {
+        this.currentSessionUser = user;
     }
 
     private void populateScreen() throws SQLException {
@@ -87,8 +91,18 @@ public class menuController implements Initializable {
     }
 
     private void checkForAppointment() {
-        // TODO - ALERT - Put in-stage area in GUI for 15 min alert popup during initialization of stage. Check for appointment in 15 minutes upcomingappointmentText
-        
+        Appointment upcomingAppointment = DBappointment.getAlertAppointment(currentSessionUser.getId(), LocalDateTime.now());
+        String msg;
+        if (upcomingAppointment != null) {
+            msg = "User " + currentSessionUser.getUser() + " has an appointment (Appointment_ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
+            upcomingappointmentText.setText(msg);
+            Main.dialogBox(Alert.AlertType.INFORMATION, "Upcoming Appointment Detected", msg);
+        }
+        else {
+            msg = "User " + currentSessionUser.getUser() + " does not have any upcoming appointments within 15 minutes.";
+            upcomingappointmentText.setText(msg);
+            Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointment Detected", msg);
+        }
     }
 
     @FXML

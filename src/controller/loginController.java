@@ -58,7 +58,9 @@ public class loginController implements Initializable {
     void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
         if (DBuser.validLogin(usernameText.getText(), passwordText.getText())) {
             recordLoginActivity("SUCCESS");
-            Main.changeScene("/view/menu.fxml");
+            menuController controller = Main.changeScene("/view/menu.fxml").getController();
+            controller.grabCurrentSessionUser(DBuser.getUser(usernameText.getText()));
+
         }
         else {
             recordLoginActivity("FAIL   ");

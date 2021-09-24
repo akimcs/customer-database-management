@@ -5,6 +5,7 @@ import model.Appointment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.Month;
 
 import static database.JDBC.conn;
@@ -61,6 +62,10 @@ public class DBappointment {
     }
 
     public static Integer getNumberOfCustomAppointments(int id) {
+        // TODO
+    }
+
+    public static Appointment getAlertAppointment(int user_id, LocalDateTime loginTime) {
         // TODO
     }
 
