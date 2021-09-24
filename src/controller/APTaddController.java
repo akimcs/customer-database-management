@@ -135,8 +135,13 @@ public class APTaddController implements Initializable {
                 int userId = useridCBText.getSelectionModel().getSelectedItem().getId();
                 int contactId = contactCBText.getSelectionModel().getSelectedItem().getId();
 
-                DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
-                Main.changeScene("/view/APTmenu.fxml");
+                if (DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)) > 0) {
+                    Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Successfully Added", "New appointment has been added.");
+                    Main.changeScene("/view/APTmenu.fxml");
+                }
+                else {
+                    Main.dialogBox(Alert.AlertType.ERROR, "Appointment Not Added", "Appointment was unable to be added.");
+                }
             }
             catch (Exception e) {
                 Main.dialogBox(Alert.AlertType.ERROR, "Improper Input Detected", "Ensure All Fields Are Correctly Formatted.");

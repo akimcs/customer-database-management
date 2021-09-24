@@ -85,12 +85,17 @@ public class CUSmenuController implements Initializable {
         else {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and all their appointments. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                DBappointment.deleteAppointments(selectedCustomer.getId());
-                if (DBcustomer.deleteCustomer(selectedCustomer.getId()) > 0) {
-                    Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Deleted", "Customer Successfully Deleted.");
+                if (DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()) > 0) {
+                    Main.dialogBox(Alert.AlertType.INFORMATION, "Customer's Appointments Deleted", "All appointments associated with selected customer were deleted.");
+                    if (DBcustomer.deleteCustomer(selectedCustomer.getId()) > 0) {
+                        Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Deleted", "Customer Successfully Deleted.");
+                    }
+                    else {
+                        Main.dialogBox(Alert.AlertType.ERROR, "Customer Was Not Deleted", "An error caused the Customer to not be deleted.");
+                    }
                 }
                 else {
-                    Main.dialogBox(Alert.AlertType.ERROR, "Customer Was Not Delete", "An error Caused the Customer to not be deleted.");
+                    Main.dialogBox(Alert.AlertType.ERROR, "Customer and Customer's Appointments Were Not Deleted", "An error caused the customer's appointments to not be deleted. Therefore, the customer was also not deleted.");
                 }
             }
         }

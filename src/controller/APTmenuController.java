@@ -1,16 +1,16 @@
 package controller;
 
 import database.DBappointment;
-import database.DBcustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
-import javafx.fxml.FXML;
 import model.Appointment;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -127,8 +127,13 @@ public class APTmenuController implements Initializable {
         else {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Appointment Delete Confirmation", "This action will delete the appointment. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                DBappointment.deleteAppointment(selectedAppointment.getId());
-                Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Deleted", "Appointment Successfully Deleted.");
+                if (DBappointment.deleteAppointment(selectedAppointment.getId()) > 0) {
+                    Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Deleted", "Appointment Successfully Deleted.");
+                }
+                else {
+                    Main.dialogBox(Alert.AlertType.ERROR, "Appointment Was Not Deleted", "An error Caused the Customer to not be deleted.");
+                }
+
             }
         }
         appointmentTableview.getSelectionModel().select(null);

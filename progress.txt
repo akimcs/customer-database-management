@@ -12,3 +12,4 @@ database
 view
 README+login_activity
 use println to test all times,strings, etc.
+check all apt / cus specific files incase a keyword was switched (like using cu isntead of apt)

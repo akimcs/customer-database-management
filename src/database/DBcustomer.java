@@ -39,7 +39,7 @@ public class DBcustomer {
 
     // CUSmodController - Updates customer object in database
     public static int modifyCustomer(Customer customer) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Last_Update=NOW(), Last_Updated_By=?, Division_ID=? WHERE Customer_Id = ?");
+        PreparedStatement stmt = JDBC.pStatement("UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Last_Update=NOW(), Last_Updated_By=?, Division_ID=? WHERE Customer_Id=?");
         stmt.setString(1, customer.getName());
         stmt.setString(2, customer.getAddress());
         stmt.setString(3, customer.getPostal());
@@ -54,7 +54,7 @@ public class DBcustomer {
 
     // CUSmenuController - Customer Menu screen button for deleting selected customer
     public static int deleteCustomer(int customer_id) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("DELETE FROM customers WHERE Customer_ID = ?");
+        PreparedStatement stmt = JDBC.pStatement("DELETE FROM customers WHERE Customer_ID=?");
         stmt.setInt(1, customer_id);
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
