@@ -1,16 +1,15 @@
 package controller;
 
 import database.DBappointment;
+import database.DBcustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import model.Appointment;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.WeekFields;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class APTmenuController implements Initializable {
@@ -107,13 +107,31 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickModifyButton(ActionEvent event) {
-
+    void clickModifyButton(ActionEvent event) throws IOException, SQLException {
+        Appointment selectedAppointment = appointmentTableview.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null) {
+            Main.dialogBox(Alert.AlertType.ERROR, "No Appointment Selected", "Please select an appointment and try again.");
+        }
+        else {
+            APTmodController controller = Main.changeScene("/view/APTmod.fxml").getController();
+            controller.displayAppointment(selectedAppointment);
+        }
     }
 
     @FXML
-    void clickDeleteButton(ActionEvent event) {
-
+    void clickDeleteButton(ActionEvent event) throws SQLException {
+        Appointment selectedAppointment = appointmentTableview.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null) {
+            Main.dialogBox(Alert.AlertType.ERROR, "No Appointment Selected", "Please select an appointment and try again.");
+        }
+        else {
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Appointment Delete Confirmation", "This action will delete the appointment. Continue?");
+            if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
+                DBappointment.deleteAppointment(selectedAppointment.getId());
+                Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Deleted", "Appointment Successfully Deleted.");
+            }
+        }
+        appointmentTableview.getSelectionModel().select(null);
     }
 
     @FXML

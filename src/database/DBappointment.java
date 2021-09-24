@@ -29,6 +29,10 @@ public class DBappointment {
         // TODO
     }
 
+    public static void deleteAppointment(int appointment_id) throws SQLException {
+        // TODO
+    }
+
     public static void deleteAppointments(int customer_id) throws SQLException {
         // TODO
     }
