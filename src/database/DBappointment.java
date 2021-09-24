@@ -2,8 +2,11 @@ package database;
 
 import javafx.collections.ObservableList;
 import model.Appointment;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Month;
+
 import static database.JDBC.conn;
 
 public class DBappointment {
@@ -39,6 +42,18 @@ public class DBappointment {
 
     public static ObservableList<Appointment> getAllAppointments() {
         // TODO
+    }
+
+    public static ObservableList<String> getAllTypes() {
+        // TODO
+    }
+
+    public static Integer getMonthTypeAppointments(Month month, String type) {
+
+    }
+
+    public static ObservableList<Appointment> getContactAppointments(int contact_id) {
+
     }
 
 
