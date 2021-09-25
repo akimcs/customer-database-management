@@ -23,15 +23,13 @@ public class DBcustomer {
 
     // CUSaddController - Adds customer object to database table customers
     public static int addCustomer(Customer customer) throws SQLException{
-        PreparedStatement stmt = JDBC.pStatement("INSERT INTO customers VALUES (?, ?, ?, ?, ?, NOW(), ?, NOW(), ?, ?)");
+        PreparedStatement stmt = JDBC.pStatement("INSERT INTO customers VALUES (?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?)");
         stmt.setInt(1, customer.getId());
         stmt.setString(2, customer.getName());
         stmt.setString(3, customer.getAddress());
         stmt.setString(4, customer.getPostal());
         stmt.setString(5, customer.getPhone());
-        stmt.setString(6, User.getCurrentUserName());
-        stmt.setString(7, User.getCurrentUserName());
-        stmt.setInt(8, customer.getDivisionId());
+        stmt.setInt(6, customer.getDivisionId());
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
         return rowCount;
@@ -39,14 +37,13 @@ public class DBcustomer {
 
     // CUSmodController - Updates customer object in database
     public static int modifyCustomer(Customer customer) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Last_Update=NOW(), Last_Updated_By=?, Division_ID=? WHERE Customer_Id=?");
+        PreparedStatement stmt = JDBC.pStatement("UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_Id=?");
         stmt.setString(1, customer.getName());
         stmt.setString(2, customer.getAddress());
         stmt.setString(3, customer.getPostal());
         stmt.setString(4, customer.getPhone());
-        stmt.setString(5, User.getCurrentUserName());
-        stmt.setInt(6, customer.getDivisionId());
-        stmt.setInt(7, customer.getId());
+        stmt.setInt(5, customer.getDivisionId());
+        stmt.setInt(6, customer.getId());
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
         return rowCount;

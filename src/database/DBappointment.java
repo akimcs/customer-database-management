@@ -24,7 +24,7 @@ public class DBappointment {
 
     // APTaddController - Adds appointment object to database table appointments
     public static int addAppointment(Appointment appointment) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?, ?, ?, ?)");
+        PreparedStatement stmt = JDBC.pStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?, ?, ?)");
         stmt.setInt(1, appointment.getId());
         stmt.setString(2, appointment.getTitle());
         stmt.setString(3, appointment.getDescription());
@@ -32,11 +32,9 @@ public class DBappointment {
         stmt.setString(5, appointment.getType());
         stmt.setTimestamp(6, Timestamp.valueOf(appointment.getStart()));
         stmt.setTimestamp(7, Timestamp.valueOf(appointment.getEnd()));
-        stmt.setString(8, User.getCurrentUserName());
-        stmt.setString(9, User.getCurrentUserName());
-        stmt.setInt(10, appointment.getCustomerId());
-        stmt.setInt(11, appointment.getUserId());
-        stmt.setInt(12, appointment.getContactId());
+        stmt.setInt(8, appointment.getCustomerId());
+        stmt.setInt(9, appointment.getUserId());
+        stmt.setInt(10, appointment.getContactId());
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
         return rowCount;
@@ -44,18 +42,17 @@ public class DBappointment {
 
     // APTmodController - Updates appointment object in database
     public static int modifyAppointment(Appointment appointment) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Last_Update=NOW(), Last_Updated_By=?, Customer_ID=?, User_ID=?, Contact_ID=? WHERE Appointment_ID=?");
+        PreparedStatement stmt = JDBC.pStatement("UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Customer_ID=?, User_ID=?, Contact_ID=? WHERE Appointment_ID=?");
         stmt.setString(1, appointment.getTitle());
         stmt.setString(2, appointment.getDescription());
         stmt.setString(3, appointment.getLocation());
         stmt.setString(4, appointment.getType());
         stmt.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
         stmt.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
-        stmt.setString(7, User.getCurrentUserName());
-        stmt.setInt(8, appointment.getCustomerId());
-        stmt.setInt(9, appointment.getUserId());
-        stmt.setInt(10, appointment.getContactId());
-        stmt.setInt(11, appointment.getId());
+        stmt.setInt(7, appointment.getCustomerId());
+        stmt.setInt(8, appointment.getUserId());
+        stmt.setInt(9, appointment.getContactId());
+        stmt.setInt(10, appointment.getId());
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
         return rowCount;

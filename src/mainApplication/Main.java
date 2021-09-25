@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 
 public class Main extends Application {
@@ -15,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        //Locale.setDefault(new Locale("fr"));
+        // Locale.setDefault(new Locale("fr"));
         Main.primaryStage = primaryStage;
         primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login.fxml"))));
         primaryStage.centerOnScreen();
