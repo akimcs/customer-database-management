@@ -58,6 +58,7 @@ public class CUSmenuController implements Initializable {
         phonenumberTable.setCellValueFactory(new PropertyValueFactory<>("phone"));
         countryTable.setCellValueFactory(new PropertyValueFactory<>("countryId"));
         firstleveldivisionTable.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        customerTableview.getSortOrder().add(cusidTable);
     }
 
     @FXML

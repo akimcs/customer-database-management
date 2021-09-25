@@ -70,11 +70,13 @@ public class APTmenuController implements Initializable {
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         cusIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        appointmentTableview.getSortOrder().add(appIdText);
     }
 
     @FXML
     void clickAllRadioButton(ActionEvent event) throws SQLException {
         appointmentTableview.setItems(DBappointment.getAllAppointments());
+        appointmentTableview.getSortOrder().add(appIdText);
     }
 
     @FXML
@@ -87,6 +89,7 @@ public class APTmenuController implements Initializable {
             }
         }
         appointmentTableview.setItems(currentMonthAppointments);
+        appointmentTableview.getSortOrder().add(appIdText);
     }
 
     @FXML
@@ -99,6 +102,7 @@ public class APTmenuController implements Initializable {
             }
         }
         appointmentTableview.setItems(currentWeekAppointments);
+        appointmentTableview.getSortOrder().add(appIdText);
     }
 
     @FXML

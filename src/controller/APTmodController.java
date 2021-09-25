@@ -136,7 +136,7 @@ public class APTmodController implements Initializable {
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
         if (noChanges()) {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "No Changes Detected. Appointment Will Not Be Modified?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "No Changes Detected. Appointment Will Not Be Modified.");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/APTmenu.fxml");
             }
