@@ -7,7 +7,6 @@ database            - finished
 
 // TODO
 no changes in add/mod form should just let you leave
-delete all > 0 attempts in controllers + make all rowCount DB methods void
 controller - implement filtering in add/modify appointment/customer methods (business hours, no overlap)
 view
 README+login_activity

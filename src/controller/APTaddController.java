@@ -135,10 +135,7 @@ public class APTaddController implements Initializable {
                 int userId = useridCBText.getSelectionModel().getSelectedItem().getId();
                 int contactId = contactCBText.getSelectionModel().getSelectedItem().getId();
 
-                // TODO
-                int ZZZ = DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
-                System.out.println(ZZZ);
-                if (ZZZ > 0) {
+                if (DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)) == 1) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Successfully Added", "New appointment has been added.");
                     Main.changeScene("/view/APTmenu.fxml");
                 }

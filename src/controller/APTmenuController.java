@@ -127,10 +127,7 @@ public class APTmenuController implements Initializable {
         else {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Appointment Delete Confirmation", "This action will delete the appointment. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
-                // TODO
-                int ZZZ = DBappointment.deleteAppointment(selectedAppointment.getId());
-                System.out.println(ZZZ);
-                if (ZZZ > 0) {
+                if (DBappointment.deleteAppointment(selectedAppointment.getId()) == 1) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Deleted", "Appointment Successfully Deleted.");
                 }
                 else {

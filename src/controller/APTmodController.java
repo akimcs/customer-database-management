@@ -131,7 +131,6 @@ public class APTmodController implements Initializable {
                 originalAppointment.getEnd().format(DateTimeFormatter.ofPattern("mm")).equals(EndMinText.getSelectionModel().getSelectedItem()) &&
                 originalAppointment.getCustomerId() == customeridCBText.getSelectionModel().getSelectedItem().getId() &&
                 originalAppointment.getUserId() == useridCBText.getSelectionModel().getSelectedItem().getId();
-
     }
 
     @FXML
@@ -167,10 +166,7 @@ public class APTmodController implements Initializable {
                 int userId = useridCBText.getSelectionModel().getSelectedItem().getId();
                 int contactId = contactCBText.getSelectionModel().getSelectedItem().getId();
 
-                // TODO
-                int ZZZ = DBappointment.modifyAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
-                System.out.println(ZZZ);
-                if (ZZZ > 0) {
+                if (DBappointment.modifyAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)) == 1) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Successfully Modified", "Appointment has been added.");
                     Main.changeScene("/view/APTmenu.fxml");
                 }
