@@ -18,9 +18,8 @@ import model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.sql.Time;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -97,6 +96,31 @@ public class APTaddController implements Initializable {
         return startTime.isBefore(endTime);
     }
 
+    private boolean withinBusinessHours() {
+        ZoneId localZoneId = ZoneId.systemDefault();
+        ZoneId estZoneId = ZoneId.of("America/New_York");
+
+        LocalDateTime appStartLocal = LocalDateTime.of(dateDPText.getValue(), startTime);
+        LocalDateTime appEndLocal = LocalDateTime.of(dateDPText.getValue(), endTime);
+
+        ZonedDateTime appStartLocalZoned = appStartLocal.atZone(localZoneId);
+        ZonedDateTime appEndLocalZoned = appEndLocal.atZone(localZoneId);
+
+        ZonedDateTime appStartESTZoned = appStartLocalZoned.withZoneSameInstant(estZoneId);
+        ZonedDateTime appEndESTZoned = appEndLocalZoned.withZoneSameInstant(estZoneId);
+
+        LocalDateTime appStartEST = appStartESTZoned.toLocalDateTime();
+        LocalDateTime appEndEST = appEndESTZoned.toLocalDateTime();
+
+        LocalTime estStart = appStartEST.toLocalTime();
+        LocalTime estEnd = appEndEST.toLocalTime();
+
+        LocalTime estOpen = LocalTime.parse("08:00");
+        LocalTime estClose = LocalTime.parse("22:00");
+
+        return ((estStart.equals(estOpen) || estStart.isAfter(estOpen)) && (estStart.isBefore(estClose))) && (estEnd.equals(estClose) || estEnd.isBefore(estClose) && (estEnd.isAfter(estOpen)));
+    }
+
     private boolean emptyFieldDetected() {
         return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
                 locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
@@ -122,6 +146,9 @@ public class APTaddController implements Initializable {
         }
         else if (!validStartEndTimes()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Improper Start and End Times", "Make sure End Time is after Start Time.");
+        }
+        else if (!withinBusinessHours()) {
+            Main.dialogBox(Alert.AlertType.ERROR, "Appointment Time is Outside Business Hours", "Business Hours (EST): 8:00 AM - 10:00 PM, 7 Days a Week.");
         }
         else {
             try {
