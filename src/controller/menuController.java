@@ -79,14 +79,14 @@ public class menuController implements Initializable {
 
     private void checkForAppointment() throws SQLException {
         Appointment upcomingAppointment = DBappointment.getAlertAppointment(User.getCurrentUserId());
+        String msg;
         if (upcomingAppointment != null) {
-            String msg = "User " + User.getCurrentUserName() + " has an upcoming appointment (ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
-            upcomingappointmentText.setText(msg);
+            msg = "User " + User.getCurrentUserName() + " has an upcoming appointment (ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
         }
         else {
-            String msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
-            upcomingappointmentText.setText(msg);
+            msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
         }
+        upcomingappointmentText.setText(msg);
     }
 
     private void populateScreen() throws SQLException {

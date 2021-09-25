@@ -6,9 +6,7 @@ login_activity      - finished
 database            - finished
 
 // TODO
-check timezones
 controller - implement filtering in add/modify appointment/customer methods (business hours, no overlap)
-view
+Fix/Remake Report C
 README+login_activity
-use println to test all times,strings, etc.
-make sure fxml files dont have /16 in them
+view (make sure fxml files dont have /16 in them)
