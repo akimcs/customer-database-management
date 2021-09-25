@@ -60,6 +60,9 @@ public class APTmodController implements Initializable {
 
     private Appointment originalAppointment;
 
+    private LocalTime startTime;
+    private LocalTime endTime;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Modify Appointment");
@@ -95,16 +98,15 @@ public class APTmodController implements Initializable {
     }
 
     private boolean validStartEndTimes() {
-        int startHr = Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem());
-        int startMin = Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem());
-        int endHr = Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem());
-        int endMin = Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem());
+        String startHr = StartHrText.getSelectionModel().getSelectedItem();
+        String startMin = StartMinText.getSelectionModel().getSelectedItem();
+        String endHr = EndHrText.getSelectionModel().getSelectedItem();
+        String endMin = EndMinText.getSelectionModel().getSelectedItem();
 
-        if (!(endHr < startHr) ||
-                ((StartHrText.getSelectionModel().getSelectedItem().equals(EndHrText.getSelectionModel().getSelectedItem())) && endMin <= startMin)) {
-            return true;
-        }
-        return false;
+        startTime = LocalTime.parse(startHr + ":" + startMin);
+        endTime = LocalTime.parse(endHr + ":" + endMin);
+
+        return startTime.isBefore(endTime);
     }
 
     private boolean emptyFieldDetected() {
@@ -144,6 +146,9 @@ public class APTmodController implements Initializable {
         else if (emptyFieldDetected()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
+        else if (!validStartEndTimes()) {
+            Main.dialogBox(Alert.AlertType.ERROR, "Improper Start and End Times", "Make sure End Time is after Start Time.");
+        }
         else {
             try {
                 int id = Integer.parseInt(appointmentidText.getText());
@@ -151,17 +156,8 @@ public class APTmodController implements Initializable {
                 String description = descriptionText.getText();
                 String location = locationText.getText();
                 String type = typeText.getText();
-
-                String startHr = StartHrText.getSelectionModel().getSelectedItem();
-                String startMin = StartMinText.getSelectionModel().getSelectedItem();
-                String endHr = EndHrText.getSelectionModel().getSelectedItem();
-                String endMin = EndMinText.getSelectionModel().getSelectedItem();
-                LocalTime startTime = LocalTime.parse(startHr + ":" + startMin, DateTimeFormatter.ofPattern("HH:mm"));
-                LocalTime endTime = LocalTime.parse(endHr + ":" + endMin, DateTimeFormatter.ofPattern("HH:mm"));
-                LocalDate date = dateDPText.getValue();
-                LocalDateTime start = LocalDateTime.of(date, startTime);
-                LocalDateTime end = LocalDateTime.of(date, endTime);
-
+                LocalDateTime start = LocalDateTime.of(dateDPText.getValue(), startTime);
+                LocalDateTime end = LocalDateTime.of(dateDPText.getValue(), endTime);
                 int customerId = customeridCBText.getSelectionModel().getSelectedItem().getId();
                 int userId = useridCBText.getSelectionModel().getSelectedItem().getId();
                 int contactId = contactCBText.getSelectionModel().getSelectedItem().getId();

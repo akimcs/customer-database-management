@@ -82,7 +82,7 @@ public class CUSmodController implements Initializable {
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
         if (noChanges()) {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "This action will not update any records. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.INFORMATION, "No Changes Detected in Form", "No Changes Detected. Customer Will Not Be Modified.");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/CUSmenu.fxml");
             }

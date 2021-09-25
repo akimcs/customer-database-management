@@ -54,6 +54,9 @@ public class loginController implements Initializable {
             passwordLabel.setText(rb.getString("passwordLabel"));
             submitButton.setText(rb.getString("submitButton"));
         }
+        // TODO - autofill for speed, remove later
+        usernameText.setText("test");
+        passwordText.setText("test");
     }
 
     @FXML

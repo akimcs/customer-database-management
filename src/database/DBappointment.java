@@ -100,8 +100,8 @@ public class DBappointment {
     }
 
     // menuController - Fill Type combo box for report A
-    public static ObservableList<String> getAllTypes() throws SQLException {
-        ResultSet result = JDBC.exQuery("SELECT Type FROM appointments");
+    public static ObservableList<String> getAllDistinctTypes() throws SQLException {
+        ResultSet result = JDBC.exQuery("SELECT DISTINCT Type FROM appointments");
 
         ObservableList<String> allTypes = FXCollections.observableArrayList();
         while (result.next()) {
@@ -156,9 +156,8 @@ public class DBappointment {
 
     // menuController - Returns a List of all unique ID numbers of a given ID type
     public static ObservableList<Integer> getIdNumbers(String id_type) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("SELECT DISTINCT ? FROM appointments ORDER BY ?");
+        PreparedStatement stmt = JDBC.pStatement("SELECT DISTINCT ? FROM appointments");
         stmt.setString(1, id_type);
-        stmt.setString(2, id_type);
         ResultSet result = stmt.executeQuery();
 
         ObservableList<Integer> allIdNumbers = FXCollections.observableArrayList();

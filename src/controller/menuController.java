@@ -96,13 +96,15 @@ public class menuController implements Initializable {
             allMonths.add(Month.of(i));
         }
         monthACBText.setItems(allMonths);
-        typeACBText.setItems(DBappointment.getAllTypes());
+        monthACBText.setVisibleRowCount(12);
+        typeACBText.setItems(DBappointment.getAllDistinctTypes());
         // Report B
         contactBCBText.setItems(DBcontact.getAllContacts());
         // Report C
         ObservableList<String> idTypes = FXCollections.observableArrayList();
         idTypes.addAll("Customer_ID", "User_ID", "Contact_ID");
         customIdType.setItems(idTypes);
+        customIdType.setVisibleRowCount(3);
     }
 
     // Report A
