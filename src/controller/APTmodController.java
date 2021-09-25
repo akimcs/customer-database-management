@@ -127,10 +127,10 @@ public class APTmodController implements Initializable {
                 originalAppointment.getContactId() == contactCBText.getSelectionModel().getSelectedItem().getId() &&
                 originalAppointment.getType().equals(typeText.getText()) &&
                 originalAppointment.getStart().toLocalDate().isEqual(dateDPText.getValue()) &&
-                originalAppointment.getStart().format(DateTimeFormatter.ofPattern("HH")).equals(StartHrText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getStart().format(DateTimeFormatter.ofPattern("HH")).equals(StartHrText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getEnd().format(DateTimeFormatter.ofPattern("mm")).equals(EndHrText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getEnd().format(DateTimeFormatter.ofPattern("mm")).equals(EndMinText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getStart().getHour()==Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getStart().getMinute()==Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getEnd().getHour()==Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getEnd().getMinute()==Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem()) &&
                 originalAppointment.getCustomerId() == customeridCBText.getSelectionModel().getSelectedItem().getId() &&
                 originalAppointment.getUserId() == useridCBText.getSelectionModel().getSelectedItem().getId();
     }
@@ -138,7 +138,7 @@ public class APTmodController implements Initializable {
     @FXML
     void clickSubmitButton(ActionEvent event) throws IOException {
         if (noChanges()) {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "This action will not update any records. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "No Changes Detected. Appointment Will Not Be Modified?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/APTmenu.fxml");
             }
@@ -183,7 +183,7 @@ public class APTmodController implements Initializable {
             Main.changeScene("/view/APTmenu.fxml");
         }
         else {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "Changes will not be saved. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "Changes will not be saved. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/APTmenu.fxml");
             }

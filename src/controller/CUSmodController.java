@@ -120,7 +120,7 @@ public class CUSmodController implements Initializable {
             Main.changeScene("/view/CUSmenu.fxml");
         }
         else {
-            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "Changes will not be saved. Continue?");
+            Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "Changes will not be saved. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/CUSmenu.fxml");
             }
