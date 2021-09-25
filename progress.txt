@@ -11,3 +11,4 @@ controller - implement filtering in add/modify appointment/customer methods (bus
 view
 README+login_activity
 use println to test all times,strings, etc.
+make sure fxml files dont have /16 in them

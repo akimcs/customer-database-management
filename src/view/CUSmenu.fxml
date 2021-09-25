@@ -16,8 +16,8 @@
             <TableColumn fx:id="addressTable" prefWidth="192.0" text="Address" />
             <TableColumn fx:id="postalcodeTable" prefWidth="79.0" text="Postal Code" />
             <TableColumn fx:id="phonenumberTable" prefWidth="122.0" text="Phone Number" />
-            <TableColumn fx:id="countryTable" prefWidth="99.0" text="Country" />
-            <TableColumn fx:id="firstleveldivisionTable" prefWidth="130.0" text="First_Level Division" />
+            <TableColumn fx:id="countryTable" prefWidth="99.0" text="Country ID" />
+            <TableColumn fx:id="firstleveldivisionTable" prefWidth="130.0" text="First Level Division ID" />
         </columns>
       </TableView>
       <Button layoutX="870.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickAddButton" prefWidth="80.0" text="Add" textAlignment="CENTER" />
