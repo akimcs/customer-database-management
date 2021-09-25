@@ -32,7 +32,6 @@ public class Main extends Application {
     public static FXMLLoader changeScene(String filepath) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource(filepath));
         primaryStage.setScene(new Scene(loader.load()));
-        primaryStage.centerOnScreen();
         primaryStage.show();
         return loader;      // Returns loader for when data needs to be passed between scenes.
     }

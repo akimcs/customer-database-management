@@ -76,7 +76,7 @@ public class DBappointment {
         stmt.setInt(1, customer_id);
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
-        return rowCount;
+        return 1;
     }
 
     // APTmenuController - Populate Tableview
@@ -211,7 +211,7 @@ public class DBappointment {
 
     // menucontroller - Returns next soonest appointment within 15 minutes, null otherwise
     public static Appointment getAlertAppointment(int user_id) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND NOW() <= Start AND Start <= DATEADD(minute, 15, NOW()) ORDER BY Start ASC LIMIT 1");
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND NOW() <= Start AND Start <= DATE_ADD(NOW(), INTERVAL 15 MINUTE) ORDER BY Start ASC LIMIT 1");
         stmt.setInt(1, user_id);
         ResultSet result = stmt.executeQuery();
 
