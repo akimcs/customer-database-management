@@ -28,7 +28,7 @@ public class DBdivision {
     // CUSmodController - Auto populate division combo box choices using original customer's country id
     // CUSmodController, CUSaddController - Autopopulate division combo box after selecting a country
     public static ObservableList<Division> getAllDivisions(int country_id) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM first_level_divisions WHERE Country_ID = ?");
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM first_level_divisions WHERE Country_ID = ? ORDER BY Division_ID");
         stmt.setInt(1, country_id);;
         ResultSet result = stmt.executeQuery();
 

@@ -26,7 +26,7 @@ public class DBcountry {
 
     // CUSaddController, CUSmodController - Populate combo box with all countries
     public static ObservableList<Country> getAllCountries() throws SQLException {
-        ResultSet result = JDBC.exQuery("SELECT * FROM countries");
+        ResultSet result = JDBC.exQuery("SELECT * FROM countries ORDER BY Country_ID");
 
         ObservableList<Country> allCountries = FXCollections.observableArrayList();
         while (result.next()) {

@@ -80,7 +80,7 @@ public class DBcustomer {
     // CUSmenuController - Fill tableview with allCustomers objects
     // APTaddController, APTmodController - Populate customer id combo box with customer objects
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
-        ResultSet result = JDBC.exQuery("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID");
+        ResultSet result = JDBC.exQuery("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID ORDER BY Customer_ID");
 
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
         while (result.next()) {

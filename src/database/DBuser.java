@@ -52,7 +52,7 @@ public class DBuser {
 
     // APTaddController, APTmodController - Get all User objects to set combo box items
     public static ObservableList<User> getAllUsers() throws SQLException{
-        ResultSet result = JDBC.exQuery("SELECT * FROM users");
+        ResultSet result = JDBC.exQuery("SELECT * FROM users ORDER BY User_ID");
 
         ObservableList<User> allUsers = FXCollections.observableArrayList();
         while (result.next()) {

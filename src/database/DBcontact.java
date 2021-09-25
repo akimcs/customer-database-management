@@ -27,7 +27,7 @@ public class DBcontact {
 
     // APTmodController, APTaddController, menuController - Autopopulate combo box with all contacts
     public static ObservableList<Contact> getAllContacts() throws SQLException {
-        ResultSet result = JDBC.exQuery("SELECT * FROM contacts");
+        ResultSet result = JDBC.exQuery("SELECT * FROM contacts ORDER BY Contact_ID");
 
         ObservableList<Contact> allContacts = FXCollections.observableArrayList();
         while (result.next()) {
