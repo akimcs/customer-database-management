@@ -100,6 +100,8 @@ public class CUSmodController implements Initializable {
                 int countryId = countryCBText.getSelectionModel().getSelectedItem().getId();
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
+                // TODO
+                System.out.println(DBcustomer.modifyCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)));
                 if (DBcustomer.modifyCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)) > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Successfully Modified", "Customer has been modified.");
                     Main.changeScene("/view/CUSmenu.fxml");

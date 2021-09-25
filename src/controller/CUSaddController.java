@@ -78,6 +78,8 @@ public class CUSaddController implements Initializable {
                 int countryId = countryCBText.getSelectionModel().getSelectedItem().getId();
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
+                // TODO
+                System.out.print(DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)));
                 if (DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)) > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Successfully Added", "New customer has been added.");
                     Main.changeScene("/view/CUSmenu.fxml");

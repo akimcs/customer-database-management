@@ -7,7 +7,6 @@ database            - finished
 
 // TODO
 delete all > 0 attempts in controllers + make all rowCount DB methods void
-repopulate tableviews after APTmenu and CUSmenu delete
 controller - implement filtering in add/modify appointment/customer methods (business hours, no overlap)
 view
 README+login_activity

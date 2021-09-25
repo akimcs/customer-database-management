@@ -167,6 +167,8 @@ public class APTmodController implements Initializable {
                 int userId = useridCBText.getSelectionModel().getSelectedItem().getId();
                 int contactId = contactCBText.getSelectionModel().getSelectedItem().getId();
 
+                // TODO
+                System.out.println(DBappointment.modifyAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)));
                 if (DBappointment.modifyAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)) > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Successfully Modified", "Appointment has been added.");
                     Main.changeScene("/view/APTmenu.fxml");

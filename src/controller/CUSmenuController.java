@@ -3,8 +3,8 @@ package controller;
 import database.DBappointment;
 import database.DBcustomer;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
 import model.Customer;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -86,23 +87,24 @@ public class CUSmenuController implements Initializable {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and all their appointments. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 // TODO
-                DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId());
-                DBcustomer.deleteCustomer(selectedCustomer.getId());
-//                System.out.println(DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()));
-//                if (DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()) > 0) {
-//                    Main.dialogBox(Alert.AlertType.INFORMATION, "Customer's Appointments Deleted", "All appointments associated with selected customer were deleted.");
-//                    if (DBcustomer.deleteCustomer(selectedCustomer.getId()) > 0) {
-//                        Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Deleted", "Customer Successfully Deleted.");
-//                    }
-//                    else {
-//                        Main.dialogBox(Alert.AlertType.ERROR, "Customer Was Not Deleted", "An error caused the Customer to not be deleted.");
-//                    }
-//                }
-//                else {
-//                    Main.dialogBox(Alert.AlertType.ERROR, "Customer and Customer's Appointments Were Not Deleted", "An error caused the customer's appointments to not be deleted. Therefore, the customer was also not deleted.");
-//                }
+                System.out.println(DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()));
+                if (DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()) > 0) {
+                    Main.dialogBox(Alert.AlertType.INFORMATION, "Customer's Appointments Deleted", "All appointments associated with selected customer were deleted.");
+                    // TODO
+                    System.out.println(DBcustomer.deleteCustomer(selectedCustomer.getId()));
+                    if (DBcustomer.deleteCustomer(selectedCustomer.getId()) > 0) {
+                        Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Deleted", "Customer Successfully Deleted.");
+                    }
+                    else {
+                        Main.dialogBox(Alert.AlertType.ERROR, "Customer Was Not Deleted", "An error caused the Customer to not be deleted.");
+                    }
+                }
+                else {
+                    Main.dialogBox(Alert.AlertType.ERROR, "Customer and Customer's Appointments Were Not Deleted", "An error caused the customer's appointments to not be deleted. Therefore, the customer was also not deleted.");
+                }
             }
         }
+        populateScreen();
         customerTableview.getSelectionModel().select(null);
     }
 
