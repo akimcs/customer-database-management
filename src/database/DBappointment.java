@@ -1,13 +1,11 @@
 package database;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 import model.User;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -74,7 +72,6 @@ public class DBappointment {
 
     // CUSmenuController - Appointment menu screen button for deleting all appointments associated with given customer.
     public static int deleteAllCustomerAppointments(int customer_id) throws SQLException {
-        // TODO
         PreparedStatement stmt = JDBC.pStatement("DELETE FROM appointments WHERE Customer_ID=?");
         stmt.setInt(1, customer_id);
         int rowCount = stmt.executeUpdate();
@@ -82,32 +79,158 @@ public class DBappointment {
         return rowCount;
     }
 
-    public static ObservableList<Appointment> getAllAppointments() {
-        // TODO
+    // APTmenuController - Populate Tableview
+    public static ObservableList<Appointment> getAllAppointments() throws SQLException {
+        ResultSet result = JDBC.exQuery("SELECT * FROM appointments");
 
+        ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+        while (result.next()) {
+            int id = result.getInt("Appointment_ID");
+            String title = result.getString("Title");
+            String description = result.getString("Description");
+            String location = result.getString("Location");
+            String type = result.getString("Type");
+            LocalDateTime start = result.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime end = result.getTimestamp("End").toLocalDateTime();
+            int customerId = result.getInt("Customer_ID");
+            int userId = result.getInt("User_ID");
+            int contactId = result.getInt("Contact_ID");
+            allAppointments.add(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
+        }
+
+        JDBC.disconnect();
+        return allAppointments;
     }
 
-    public static ObservableList<String> getAllTypes() {
-        // TODO
+    // menuController - Fill Type combo box for report A
+    public static ObservableList<String> getAllTypes() throws SQLException {
+        ResultSet result = JDBC.exQuery("SELECT Type FROM appointments");
+
+        ObservableList<String> allTypes = FXCollections.observableArrayList();
+        while (result.next()) {
+            String type = result.getString("Type");
+            allTypes.add(type);
+        }
+
+        JDBC.disconnect();
+        return allTypes;
     }
 
-    public static Integer getMonthTypeAppointments(Month month, String type) {
-        // TODO
+    // menuController - Returns number of specified appointments for Report A
+    public static Integer getMonthTypeAppointments(Month month, String type) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE MONTH(Start)=? AND Type=?");
+        stmt.setInt(1, month.getValue());
+        stmt.setString(2, type);
+        ResultSet result = stmt.executeQuery();
+
+        int count = 0;
+        while (result.next()) {
+            count++;
+        }
+
+        JDBC.disconnect();
+        return count;
     }
 
-    public static ObservableList<Appointment> getContactAppointments(int contact_id) {
-        // TODO
+    // menuController - Gets all appointments for specified contact
+    public static ObservableList<Appointment> getContactAppointments(int contact_id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE Contact_ID=?");
+        stmt.setInt(1, contact_id);
+        ResultSet result = stmt.executeQuery();
+
+        ObservableList<Appointment> allContactAppointments = FXCollections.observableArrayList();
+        while (result.next()) {
+            int id = result.getInt("Appointment_ID");
+            String title = result.getString("Title");
+            String description = result.getString("Description");
+            String location = result.getString("Location");
+            String type = result.getString("Type");
+            LocalDateTime start = result.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime end = result.getTimestamp("End").toLocalDateTime();
+            int customerId = result.getInt("Customer_ID");
+            int userId = result.getInt("User_ID");
+            int contactId = result.getInt("Contact_ID");
+            allContactAppointments.add(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
+        }
+
+        JDBC.disconnect();
+        return allContactAppointments;
     }
 
-    public static ObservableList<Integer> getIdNumbers(String id_type) {
-        // TODO
+    // menuController - Returns a List of all unique ID numbers of a given ID type
+    public static ObservableList<Integer> getIdNumbers(String id_type) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT DISTINCT ? FROM appointments ORDER BY ?");
+        stmt.setString(1, id_type);
+        stmt.setString(2, id_type);
+        ResultSet result = stmt.executeQuery();
+
+        ObservableList<Integer> allIdNumbers = FXCollections.observableArrayList();
+        while (result.next()) {
+            int id = result.getInt(id_type);
+            allIdNumbers.add(id);
+        }
+
+        JDBC.disconnect();
+        return allIdNumbers;
     }
 
-    public static Integer getNumberOfCustomAppointments(int id) {
-        // TODO
+    public static String getCustomIdName(String idType, int idNum) throws SQLException {
+        String idTypeFormat = idType.substring(0, idType.length() - 3);
+        String tableName = idTypeFormat.toLowerCase() + "s";
+        String idColumnName = idTypeFormat + "_ID";
+        String nameColumnName = idTypeFormat + "_Name";
+
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM ? WHERE ? = ?");
+        stmt.setString(1, tableName);
+        stmt.setString(2, idColumnName);
+        stmt.setInt(3, idNum);
+        ResultSet result = stmt.executeQuery();
+
+        result.next();
+        String name = result.getString(nameColumnName);
+
+        JDBC.disconnect();
+        return name;
     }
 
-    public static Appointment getAlertAppointment(int user_id, LocalDateTime loginTime) {
-        // TODO
+    // menuController - Returns the number of appointments associated with the id type's id number
+    public static Integer getNumberOfCustomAppointments(String id_type, int id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE ? = ?");
+        stmt.setString(1, id_type);
+        stmt.setInt(2, id);
+        ResultSet result = stmt.executeQuery();
+
+        int counter = 0;
+        while (result.next()) {
+            counter++;
+        }
+
+        JDBC.disconnect();
+        return counter;
+    }
+
+    // menucontroller - Returns next soonest appointment within 15 minutes, null otherwise
+    public static Appointment getAlertAppointment(int user_id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND NOW() <= Start AND Start <= DATEADD(minute, 15, NOW()) ORDER BY Start ASC LIMIT 1");
+        stmt.setInt(1, user_id);
+        ResultSet result = stmt.executeQuery();
+
+        Appointment nextAppointment = null;
+        if (result.next()) {
+            int id = result.getInt("Appointment_ID");
+            String title = result.getString("Title");
+            String description = result.getString("Description");
+            String location = result.getString("Location");
+            String type = result.getString("Type");
+            LocalDateTime start = result.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime end = result.getTimestamp("End").toLocalDateTime();
+            int customerId = result.getInt("Customer_ID");
+            int userId = result.getInt("User_ID");
+            int contactId = result.getInt("Contact_ID");
+            nextAppointment = new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId);
+        }
+
+        JDBC.disconnect();
+        return nextAppointment;
     }
 }

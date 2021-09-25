@@ -13,7 +13,6 @@ import mainApplication.Main;
 import model.Appointment;
 import model.Contact;
 import model.User;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,8 +22,11 @@ import java.util.ResourceBundle;
 
 public class menuController implements Initializable {
 
+    // Upcoming Appointment
     @FXML
     private Label upcomingappointmentText;
+
+    // Report A
     @FXML
     private ComboBox<Month> monthACBText;
     @FXML
@@ -32,6 +34,8 @@ public class menuController implements Initializable {
     @FXML
     private Label totalAText;
     @FXML
+
+    // Report B
     private ComboBox<Contact> contactBCBText;
     @FXML
     private TableView<Appointment> scheduleBTableview;
@@ -49,10 +53,14 @@ public class menuController implements Initializable {
     private TableColumn<Appointment, LocalDateTime> endBTable;
     @FXML
     private TableColumn<Appointment, Integer> customeridBTable;
+
+    // Report C
     @FXML
     private ComboBox<String> customIdType;
     @FXML
     private ComboBox<Integer> customIdNumber;
+    @FXML
+    private Label customInsertNameText;
     @FXML
     private Label customAnswerText;
 
@@ -70,7 +78,7 @@ public class menuController implements Initializable {
     }
 
     private void checkForAppointment() throws SQLException {
-        Appointment upcomingAppointment = DBappointment.getAlertAppointment(User.getCurrentUserId(), LocalDateTime.now());
+        Appointment upcomingAppointment = DBappointment.getAlertAppointment(User.getCurrentUserId());
         if (upcomingAppointment != null) {
             String msg = "User " + User.getCurrentUserName() + " has an upcoming appointment (ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
             upcomingappointmentText.setText(msg);
@@ -99,22 +107,26 @@ public class menuController implements Initializable {
         customIdType.setItems(idTypes);
     }
 
+    // Report A
+
     @FXML
-    void selectedMonthReportA(ActionEvent event) {
+    void selectedMonthReportA(ActionEvent event) throws SQLException {
         if (typeACBText.getSelectionModel().getSelectedItem() != null) {
             totalAText.setText(String.valueOf(DBappointment.getMonthTypeAppointments(monthACBText.getSelectionModel().getSelectedItem(), typeACBText.getSelectionModel().getSelectedItem())));
         }
     }
 
     @FXML
-    void selectedTypeReportA(ActionEvent event) {
+    void selectedTypeReportA(ActionEvent event) throws SQLException {
         if (monthACBText.getSelectionModel().getSelectedItem() != null) {
             totalAText.setText(String.valueOf(DBappointment.getMonthTypeAppointments(monthACBText.getSelectionModel().getSelectedItem(), typeACBText.getSelectionModel().getSelectedItem())));
         }
     }
 
+    // Report B
+
     @FXML
-    void selectedContactReportB(ActionEvent event) {
+    void selectedContactReportB(ActionEvent event) throws SQLException {
         scheduleBTableview.setItems(DBappointment.getContactAppointments(contactBCBText.getSelectionModel().getSelectedItem().getId()));
         appidBTable.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleBTable.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -125,15 +137,22 @@ public class menuController implements Initializable {
         customeridBTable.setCellValueFactory(new PropertyValueFactory<>("customerId"));
     }
 
+    // Report C
+
     @FXML
-    void selectedCustomIdType(ActionEvent event) {
+    void selectedCustomIdType(ActionEvent event) throws SQLException {
         customIdNumber.setItems(DBappointment.getIdNumbers(customIdType.getSelectionModel().getSelectedItem()));
     }
 
     @FXML
-    void selectedCustomIdNumber(ActionEvent event) {
-        customAnswerText.setText(String.valueOf(DBappointment.getNumberOfCustomAppointments(customIdNumber.getSelectionModel().getSelectedItem())));
+    void selectedCustomIdNumber(ActionEvent event) throws SQLException {
+        if (customIdType.getSelectionModel().getSelectedItem() != null) {
+            customInsertNameText.setText(DBappointment.getCustomIdName(customIdType.getSelectionModel().getSelectedItem(), customIdNumber.getSelectionModel().getSelectedItem()));
+            customAnswerText.setText(String.valueOf(DBappointment.getNumberOfCustomAppointments(customIdType.getSelectionModel().getSelectedItem(), customIdNumber.getSelectionModel().getSelectedItem())));
+        }
     }
+
+    // Menu Buttons
 
     @FXML
     void clickCustomersButton(ActionEvent event) throws IOException {

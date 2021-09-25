@@ -73,12 +73,12 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickAllRadioButton(ActionEvent event) {
+    void clickAllRadioButton(ActionEvent event) throws SQLException {
         appointmentTableview.setItems(DBappointment.getAllAppointments());
     }
 
     @FXML
-    void clickMonthRadioButton(ActionEvent event) {
+    void clickMonthRadioButton(ActionEvent event) throws SQLException {
         Month currentMonth = LocalDateTime.now().getMonth();
         ObservableList<Appointment> currentMonthAppointments = FXCollections.observableArrayList();
         for (Appointment apt : DBappointment.getAllAppointments()) {
@@ -90,7 +90,7 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickWeekRadioButton(ActionEvent event) {
+    void clickWeekRadioButton(ActionEvent event) throws SQLException {
         int currentWeek = LocalDateTime.now().get(WeekFields.SUNDAY_START.weekOfWeekBasedYear());
         ObservableList<Appointment> currentWeekAppointments = FXCollections.observableArrayList();
         for (Appointment apt : DBappointment.getAllAppointments()) {
