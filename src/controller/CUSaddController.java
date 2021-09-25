@@ -57,10 +57,15 @@ public class CUSaddController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
-                addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
-                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().getSelectedItem()==null ||
-                firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
+        return customernameText.getText().trim().isEmpty() || addressText.getText().trim().isEmpty() ||
+                postalcodeText.getText().trim().isEmpty() || phonenumberText.getText().trim().isEmpty() ||
+                countryCBText.getSelectionModel().getSelectedItem()==null || firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
+    }
+
+    private boolean textDetected() {
+        return !(customernameText.getText().trim().isEmpty() && addressText.getText().trim().isEmpty() &&
+                postalcodeText.getText().trim().isEmpty() && phonenumberText.getText().trim().isEmpty() &&
+                countryCBText.getSelectionModel().getSelectedItem()==null && firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null);
     }
 
     @FXML
@@ -94,7 +99,7 @@ public class CUSaddController implements Initializable {
 
     @FXML
     void clickCancelButton(ActionEvent event) throws IOException {
-        if (!emptyFieldDetected()) {
+        if (textDetected()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/CUSmenu.fxml");

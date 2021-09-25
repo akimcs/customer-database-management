@@ -110,18 +110,16 @@ public class APTmodController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return appointmentidText.getText().trim().isEmpty() || titleText.getText().trim().isEmpty() ||
-                descriptionText.getText().trim().isEmpty() || locationText.getText().trim().isEmpty() ||
-                contactCBText.getSelectionModel().getSelectedItem()==null || typeText.getText().trim().isEmpty() ||
-                dateDPText.getValue() == null || StartHrText.getSelectionModel().getSelectedItem()==null ||
-                StartMinText.getSelectionModel().getSelectedItem()==null || EndHrText.getSelectionModel().getSelectedItem()==null ||
-                EndMinText.getSelectionModel().getSelectedItem()==null || customeridCBText.getSelectionModel().getSelectedItem()==null ||
-                useridCBText.getSelectionModel().getSelectedItem()==null;
+        return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
+                locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
+                typeText.getText().trim().isEmpty() || dateDPText.getValue() == null ||
+                StartHrText.getSelectionModel().getSelectedItem()==null || StartMinText.getSelectionModel().getSelectedItem()==null ||
+                EndHrText.getSelectionModel().getSelectedItem()==null || EndMinText.getSelectionModel().getSelectedItem()==null ||
+                customeridCBText.getSelectionModel().getSelectedItem()==null || useridCBText.getSelectionModel().getSelectedItem()==null;
     }
 
     private boolean noChanges() {
-        return originalAppointment.getId() == Integer.parseInt(appointmentidText.getText()) &&
-                originalAppointment.getTitle().equals(titleText.getText()) &&
+        return originalAppointment.getTitle().equals(titleText.getText()) &&
                 originalAppointment.getDescription().equals(descriptionText.getText()) &&
                 originalAppointment.getLocation().equals(locationText.getText()) &&
                 originalAppointment.getContactId() == contactCBText.getSelectionModel().getSelectedItem().getId() &&

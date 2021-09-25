@@ -98,13 +98,21 @@ public class APTaddController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return appointmentidText.getText().trim().isEmpty() || titleText.getText().trim().isEmpty() ||
-                descriptionText.getText().trim().isEmpty() || locationText.getText().trim().isEmpty() ||
-                contactCBText.getSelectionModel().getSelectedItem()==null || typeText.getText().trim().isEmpty() ||
-                dateDPText.getValue() == null || StartHrText.getSelectionModel().getSelectedItem()==null ||
+        return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
+                locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
+                typeText.getText().trim().isEmpty() || dateDPText.getValue() == null || StartHrText.getSelectionModel().getSelectedItem()==null ||
                 StartMinText.getSelectionModel().getSelectedItem()==null || EndHrText.getSelectionModel().getSelectedItem()==null ||
                 EndMinText.getSelectionModel().getSelectedItem()==null || customeridCBText.getSelectionModel().getSelectedItem()==null ||
                 useridCBText.getSelectionModel().getSelectedItem()==null;
+    }
+    
+    private boolean textDetected() {
+        return !(titleText.getText().trim().isEmpty() && descriptionText.getText().trim().isEmpty() &&
+                locationText.getText().trim().isEmpty() && contactCBText.getSelectionModel().getSelectedItem()==null &&
+                typeText.getText().trim().isEmpty() && dateDPText.getValue() == null &&
+                StartHrText.getSelectionModel().getSelectedItem()==null && StartMinText.getSelectionModel().getSelectedItem()==null &&
+                EndHrText.getSelectionModel().getSelectedItem()==null && EndMinText.getSelectionModel().getSelectedItem()==null &&
+                customeridCBText.getSelectionModel().getSelectedItem()==null && useridCBText.getSelectionModel().getSelectedItem()==null);
     }
 
     @FXML
@@ -144,7 +152,7 @@ public class APTaddController implements Initializable {
 
     @FXML
     void clickCancelButton(ActionEvent event) throws IOException {
-        if (!emptyFieldDetected()) {
+        if (textDetected()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 Main.changeScene("/view/APTmenu.fxml");

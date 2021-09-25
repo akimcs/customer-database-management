@@ -63,15 +63,13 @@ public class CUSmodController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
-                addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
-                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().getSelectedItem()==null ||
-                firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
+        return customernameText.getText().trim().isEmpty() || addressText.getText().trim().isEmpty() ||
+                postalcodeText.getText().trim().isEmpty() || phonenumberText.getText().trim().isEmpty() ||
+                countryCBText.getSelectionModel().getSelectedItem()==null || firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
     }
 
     private boolean noChanges() {
-        return originalCustomer.getId() == Integer.parseInt(customeridText.getText()) &&
-                originalCustomer.getName().equals(customernameText.getText()) &&
+        return originalCustomer.getName().equals(customernameText.getText()) &&
                 originalCustomer.getAddress().equals(addressText.getText()) &&
                 originalCustomer.getPostal().equals(postalcodeText.getText()) &&
                 originalCustomer.getPhone().equals(phonenumberText.getText()) &&
