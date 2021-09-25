@@ -87,12 +87,14 @@ public class CUSmenuController implements Initializable {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Customer Delete Confirmation", "This action will delete the customer's record and all their appointments. Continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
                 // TODO
-                System.out.println(DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()));
-                if (DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId()) > 0) {
+                int ZZZ = DBappointment.deleteAllCustomerAppointments(selectedCustomer.getId());
+                System.out.println(ZZZ);
+                if (ZZZ > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Customer's Appointments Deleted", "All appointments associated with selected customer were deleted.");
                     // TODO
-                    System.out.println(DBcustomer.deleteCustomer(selectedCustomer.getId()));
-                    if (DBcustomer.deleteCustomer(selectedCustomer.getId()) > 0) {
+                    int ZZZA = DBcustomer.deleteCustomer(selectedCustomer.getId());
+                    System.out.println(ZZZA);
+                    if (ZZZA > 0) {
                         Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Deleted", "Customer Successfully Deleted.");
                     }
                     else {

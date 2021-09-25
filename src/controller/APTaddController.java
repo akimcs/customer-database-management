@@ -98,15 +98,15 @@ public class APTaddController implements Initializable {
     private boolean emptyFieldDetected() {
         return appointmentidText.getText().trim().isEmpty() || titleText.getText().trim().isEmpty() ||
                 descriptionText.getText().trim().isEmpty() || locationText.getText().trim().isEmpty() ||
-                contactCBText.getSelectionModel().isEmpty() || typeText.getText().trim().isEmpty() ||
-                dateDPText.getValue() == null || StartHrText.getSelectionModel().isEmpty() ||
-                StartMinText.getSelectionModel().isEmpty() || EndHrText.getSelectionModel().isEmpty() ||
-                EndMinText.getSelectionModel().isEmpty() || customeridCBText.getSelectionModel().isEmpty() ||
-                useridCBText.getSelectionModel().isEmpty();
+                contactCBText.getSelectionModel().getSelectedItem()==null || typeText.getText().trim().isEmpty() ||
+                dateDPText.getValue() == null || StartHrText.getSelectionModel().getSelectedItem()==null ||
+                StartMinText.getSelectionModel().getSelectedItem()==null || EndHrText.getSelectionModel().getSelectedItem()==null ||
+                EndMinText.getSelectionModel().getSelectedItem()==null || customeridCBText.getSelectionModel().getSelectedItem()==null ||
+                useridCBText.getSelectionModel().getSelectedItem()==null;
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) {
+    void clickSubmitButton(ActionEvent event) throws SQLException, IOException {
         if (emptyFieldDetected()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
@@ -136,8 +136,9 @@ public class APTaddController implements Initializable {
                 int contactId = contactCBText.getSelectionModel().getSelectedItem().getId();
 
                 // TODO
-                System.out.println(DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)));
-                if (DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId)) > 0) {
+                int ZZZ = DBappointment.addAppointment(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
+                System.out.println(ZZZ);
+                if (ZZZ > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Appointment Successfully Added", "New appointment has been added.");
                     Main.changeScene("/view/APTmenu.fxml");
                 }

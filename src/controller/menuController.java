@@ -82,12 +82,10 @@ public class menuController implements Initializable {
         if (upcomingAppointment != null) {
             String msg = "User " + User.getCurrentUserName() + " has an upcoming appointment (ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
             upcomingappointmentText.setText(msg);
-            Main.dialogBox(Alert.AlertType.INFORMATION, "Upcoming Appointment Detected", msg);
         }
         else {
             String msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
             upcomingappointmentText.setText(msg);
-            Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointment Detected", msg);
         }
     }
 

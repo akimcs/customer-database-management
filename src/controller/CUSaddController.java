@@ -59,8 +59,8 @@ public class CUSaddController implements Initializable {
     private boolean emptyFieldDetected() {
         return customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
                 addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
-                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().isEmpty() ||
-                firstleveldivisionCBText.getSelectionModel().isEmpty();
+                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().getSelectedItem()==null ||
+                firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
     }
 
     @FXML
@@ -79,8 +79,9 @@ public class CUSaddController implements Initializable {
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
                 // TODO
-                System.out.print(DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)));
-                if (DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)) > 0) {
+                int ZZZ = DBcustomer.addCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId));
+                System.out.print(ZZZ);
+                if (ZZZ > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Successfully Added", "New customer has been added.");
                     Main.changeScene("/view/CUSmenu.fxml");
                 }

@@ -65,8 +65,8 @@ public class CUSmodController implements Initializable {
     private boolean emptyFieldDetected() {
         return customeridText.getText().trim().isEmpty() || customernameText.getText().trim().isEmpty() ||
                 addressText.getText().trim().isEmpty() || postalcodeText.getText().trim().isEmpty() ||
-                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().isEmpty() ||
-                firstleveldivisionCBText.getSelectionModel().isEmpty();
+                phonenumberText.getText().trim().isEmpty() || countryCBText.getSelectionModel().getSelectedItem()==null ||
+                firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
     }
 
     private boolean noChanges() {
@@ -101,8 +101,9 @@ public class CUSmodController implements Initializable {
                 int divisionId = firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
 
                 // TODO
-                System.out.println(DBcustomer.modifyCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)));
-                if (DBcustomer.modifyCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId)) > 0) {
+                int ZZZ = DBcustomer.modifyCustomer(new Customer(id, name, address, postal, phone,countryId, divisionId));
+                System.out.println(ZZZ);
+                if (ZZZ > 0) {
                     Main.dialogBox(Alert.AlertType.INFORMATION, "Customer Successfully Modified", "Customer has been modified.");
                     Main.changeScene("/view/CUSmenu.fxml");
                 }
