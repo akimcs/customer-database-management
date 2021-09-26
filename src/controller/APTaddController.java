@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lambda.CheckTextEmpty;
+import lambda.CheckComboNull;
+import lambda.CheckDateNull;
 import mainApplication.Main;
 import javafx.fxml.FXML;
 import model.Appointment;
@@ -18,9 +21,7 @@ import model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -126,21 +127,25 @@ public class APTaddController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
-                locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
-                typeText.getText().trim().isEmpty() || dateDPText.getValue() == null || StartHrText.getSelectionModel().getSelectedItem()==null ||
-                StartMinText.getSelectionModel().getSelectedItem()==null || EndHrText.getSelectionModel().getSelectedItem()==null ||
-                EndMinText.getSelectionModel().getSelectedItem()==null || customeridCBText.getSelectionModel().getSelectedItem()==null ||
-                useridCBText.getSelectionModel().getSelectedItem()==null;
+        // LAMBDA
+        CheckTextEmpty text = s -> s.getText().trim().isEmpty();
+        CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
+        CheckDateNull date = x -> x.getValue()==null;
+
+        return text.isE(titleText) || text.isE(descriptionText) || text.isE(locationText) || text.isE(typeText) || combo.isN(contactCBText) ||
+                combo.isN(StartHrText) || combo.isN(StartMinText) || combo.isN(EndHrText) || combo.isN(EndMinText) || combo.isN(customeridCBText) ||
+                combo.isN(useridCBText) || date.isN(dateDPText);
     }
-    
+
     private boolean textDetected() {
-        return !(titleText.getText().trim().isEmpty() && descriptionText.getText().trim().isEmpty() &&
-                locationText.getText().trim().isEmpty() && contactCBText.getSelectionModel().getSelectedItem()==null &&
-                typeText.getText().trim().isEmpty() && dateDPText.getValue() == null &&
-                StartHrText.getSelectionModel().getSelectedItem()==null && StartMinText.getSelectionModel().getSelectedItem()==null &&
-                EndHrText.getSelectionModel().getSelectedItem()==null && EndMinText.getSelectionModel().getSelectedItem()==null &&
-                customeridCBText.getSelectionModel().getSelectedItem()==null && useridCBText.getSelectionModel().getSelectedItem()==null);
+        // LAMBDA
+        CheckTextEmpty text = s -> s.getText().trim().isEmpty();
+        CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
+        CheckDateNull date = x -> x.getValue()==null;
+        
+        return !(text.isE(titleText) && text.isE(descriptionText) && text.isE(locationText) && text.isE(typeText) && combo.isN(contactCBText) &&
+                combo.isN(StartHrText) && combo.isN(StartMinText) && combo.isN(EndHrText) && combo.isN(EndMinText) && combo.isN(customeridCBText) &&
+                combo.isN(useridCBText) && date.isN(dateDPText));
     }
 
     @FXML

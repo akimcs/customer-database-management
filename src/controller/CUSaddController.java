@@ -7,6 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lambda.CheckTextEmpty;
+import lambda.CheckComboNull;
+import lambda.CheckDateNull;
 import mainApplication.Main;
 import model.Country;
 import model.Customer;
@@ -57,15 +60,23 @@ public class CUSaddController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return customernameText.getText().trim().isEmpty() || addressText.getText().trim().isEmpty() ||
-                postalcodeText.getText().trim().isEmpty() || phonenumberText.getText().trim().isEmpty() ||
-                countryCBText.getSelectionModel().getSelectedItem()==null || firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
+        // LAMBDA
+        CheckTextEmpty text = s -> s.getText().trim().isEmpty();
+        CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
+        CheckDateNull date = x -> x.getValue()==null;
+
+        return text.isE(customernameText) || text.isE(addressText) || text.isE(postalcodeText) ||
+                text.isE(phonenumberText) || combo.isN(countryCBText) || combo.isN(firstleveldivisionCBText);
     }
 
     private boolean textDetected() {
-        return !(customernameText.getText().trim().isEmpty() && addressText.getText().trim().isEmpty() &&
-                postalcodeText.getText().trim().isEmpty() && phonenumberText.getText().trim().isEmpty() &&
-                countryCBText.getSelectionModel().getSelectedItem()==null && firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null);
+        // LAMBDA
+        CheckTextEmpty text = s -> s.getText().trim().isEmpty();
+        CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
+        CheckDateNull date = x -> x.getValue()==null;
+
+        return !(text.isE(customernameText) && text.isE(addressText) && text.isE(postalcodeText) &&
+                text.isE(phonenumberText) && combo.isN(countryCBText) && combo.isN(firstleveldivisionCBText));
     }
 
     @FXML

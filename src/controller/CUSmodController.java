@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lambda.*;
 import mainApplication.Main;
 import model.Country;
 import model.Customer;
@@ -63,18 +64,27 @@ public class CUSmodController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return customernameText.getText().trim().isEmpty() || addressText.getText().trim().isEmpty() ||
-                postalcodeText.getText().trim().isEmpty() || phonenumberText.getText().trim().isEmpty() ||
-                countryCBText.getSelectionModel().getSelectedItem()==null || firstleveldivisionCBText.getSelectionModel().getSelectedItem()==null;
+        // LAMBDA
+        CheckTextEmpty text = s -> s.getText().trim().isEmpty();
+        CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
+        CheckDateNull date = x -> x.getValue()==null;
+
+        return text.isE(customernameText) || text.isE(addressText) || text.isE(postalcodeText) ||
+                text.isE(phonenumberText) || combo.isN(countryCBText) || combo.isN(firstleveldivisionCBText);
     }
 
     private boolean noChanges() {
-        return originalCustomer.getName().equals(customernameText.getText()) &&
-                originalCustomer.getAddress().equals(addressText.getText()) &&
-                originalCustomer.getPostal().equals(postalcodeText.getText()) &&
-                originalCustomer.getPhone().equals(phonenumberText.getText()) &&
-                originalCustomer.getCountryId() == countryCBText.getSelectionModel().getSelectedItem().getId() &&
-                originalCustomer.getDivisionId() == firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId();
+        // LAMBDA
+        VerifyEqualString text = (q, r) -> q.equals(r);
+        VerifyEqualInteger combo = (s, t) -> s==t;
+        GetStr str = a -> a.getText();
+
+        return  text.eq(originalCustomer.getName(),         str.gt(customernameText)) &&
+                text.eq(originalCustomer.getAddress(),      str.gt(addressText)) &&
+                text.eq(originalCustomer.getPostal(),       str.gt(postalcodeText)) &&
+                text.eq(originalCustomer.getPhone(),        str.gt(phonenumberText)) &&
+                combo.eq(originalCustomer.getCountryId(),   countryCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalCustomer.getDivisionId(),  firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId());
     }
 
     @FXML

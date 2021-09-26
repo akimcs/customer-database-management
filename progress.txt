@@ -4,13 +4,17 @@ mainApplication     - finished
 model               - finished
 login_activity      - finished
 database            - finished
+LAMBDA              - emptyFieldDetected(), textDetected(), noChanges()
 
 
 // TODO
-Requirements Video
-2 LAMBDAS
-JAVADOC
 
-Things to Do
+// Requirements Video
+JAVADOC - watch end of q&a webinar 9-24
+
+// Things to Do
+Go over resources links (like faq and check list)
+* make sure everything is original
 * clear login activity
-view (make sure fxml files dont have /16 in them)
+* view (make sure fxml files dont have /16 in them)
+* make code visually better using spacing, tabs, etc.

@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lambda.*;
 import mainApplication.Main;
 import model.Appointment;
 import model.Contact;
@@ -147,27 +148,35 @@ public class APTmodController implements Initializable {
     }
 
     private boolean emptyFieldDetected() {
-        return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
-                locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
-                typeText.getText().trim().isEmpty() || dateDPText.getValue() == null ||
-                StartHrText.getSelectionModel().getSelectedItem()==null || StartMinText.getSelectionModel().getSelectedItem()==null ||
-                EndHrText.getSelectionModel().getSelectedItem()==null || EndMinText.getSelectionModel().getSelectedItem()==null ||
-                customeridCBText.getSelectionModel().getSelectedItem()==null || useridCBText.getSelectionModel().getSelectedItem()==null;
+        // LAMBDA
+        CheckTextEmpty text = s -> s.getText().trim().isEmpty();
+        CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
+        CheckDateNull date = x -> x.getValue()==null;
+
+        return text.isE(titleText) || text.isE(descriptionText) || text.isE(locationText) || text.isE(typeText) || combo.isN(contactCBText) ||
+                combo.isN(StartHrText) || combo.isN(StartMinText) || combo.isN(EndHrText) || combo.isN(EndMinText) || combo.isN(customeridCBText) ||
+                combo.isN(useridCBText) || date.isN(dateDPText);
     }
 
     private boolean noChanges() {
-        return originalAppointment.getTitle().equals(titleText.getText()) &&
-                originalAppointment.getDescription().equals(descriptionText.getText()) &&
-                originalAppointment.getLocation().equals(locationText.getText()) &&
-                originalAppointment.getContactId() == contactCBText.getSelectionModel().getSelectedItem().getId() &&
-                originalAppointment.getType().equals(typeText.getText()) &&
-                originalAppointment.getStart().toLocalDate().isEqual(dateDPText.getValue()) &&
-                originalAppointment.getStart().getHour()==Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getStart().getMinute()==Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getEnd().getHour()==Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getEnd().getMinute()==Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem()) &&
-                originalAppointment.getCustomerId() == customeridCBText.getSelectionModel().getSelectedItem().getId() &&
-                originalAppointment.getUserId() == useridCBText.getSelectionModel().getSelectedItem().getId();
+        // LAMBDA
+        VerifyEqualString text = (q, r) -> q.equals(r);
+        VerifyEqualInteger combo = (s, t) -> s==t;
+        VerifyEqualDate date = (u, v) -> u.equals(v);
+        GetStr str = a -> a.getText();
+
+        return  text.eq(originalAppointment.getTitle(),         str.gt(titleText)) &&
+                text.eq(originalAppointment.getDescription(),      str.gt(descriptionText)) &&
+                text.eq(originalAppointment.getLocation(),       str.gt(locationText)) &&
+                text.eq(originalAppointment.getType(),        str.gt(typeText)) &&
+                combo.eq(originalAppointment.getContactId(),   contactCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalAppointment.getCustomerId(),   customeridCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalAppointment.getUserId(),   useridCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalAppointment.getStart().getHour(),   Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem())) &&
+                combo.eq(originalAppointment.getStart().getMinute(),   Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem())) &&
+                combo.eq(originalAppointment.getEnd().getHour(),   Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem())) &&
+                combo.eq(originalAppointment.getEnd().getMinute(),   Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem())) &&
+                date.eq(originalAppointment.getStart().toLocalDate(), dateDPText.getValue());
     }
 
     @FXML
