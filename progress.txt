@@ -5,8 +5,12 @@ model               - finished
 login_activity      - finished
 database            - finished
 
+
 // TODO
-controller - implement filtering in add/modify appointment/customer methods (business hours, no overlap)
-Fix/Remake Report C
-README+login_activity
+Requirements Video
+2 LAMBDAS
+JAVADOC
+
+Things to Do
+* clear login activity
 view (make sure fxml files dont have /16 in them)
