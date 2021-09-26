@@ -207,13 +207,15 @@ public class DBappointment {
     }
 
     // menucontroller - Returns next soonest appointment within 15 minutes, null otherwise
-    public static Appointment getAlertAppointment(int user_id) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND NOW() <= Start AND Start <= DATE_ADD(NOW(), INTERVAL 15 MINUTE) ORDER BY Start ASC LIMIT 1");
+    public static ObservableList<Appointment> getAlertAppointments(int user_id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND Start >= ? AND Start <= DATE_ADD(?, INTERVAL 15 MINUTE) ORDER BY Start ASC");
         stmt.setInt(1, user_id);
+        stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+        stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
         ResultSet result = stmt.executeQuery();
 
-        Appointment nextAppointment = null;
-        if (result.next()) {
+        ObservableList<Appointment> allUpcomingAppointments = FXCollections.observableArrayList();
+        while (result.next()) {
             int id = result.getInt("Appointment_ID");
             String title = result.getString("Title");
             String description = result.getString("Description");
@@ -224,11 +226,11 @@ public class DBappointment {
             int customerId = result.getInt("Customer_ID");
             int userId = result.getInt("User_ID");
             int contactId = result.getInt("Contact_ID");
-            nextAppointment = new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId);
+            allUpcomingAppointments.add(new Appointment(id, title, description, location, type, start, end, customerId, userId, contactId));
         }
 
         JDBC.disconnect();
-        return nextAppointment;
+        return allUpcomingAppointments;
     }
 
     // APTaddCoontroller, AptmodController - Scans database for given customer's time conflicting appointments

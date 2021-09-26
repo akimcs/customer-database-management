@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class menuController implements Initializable {
@@ -64,29 +65,36 @@ public class menuController implements Initializable {
     @FXML
     private Label customAnswerText;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Menu");
         try {
             populateScreen();
-            checkForAppointment();
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    private void checkForAppointment() throws SQLException {
-        Appointment upcomingAppointment = DBappointment.getAlertAppointment(User.getCurrentUserId());
+    public void checkForAppointment() throws SQLException {
+        ObservableList<Appointment> allUpcomingAppointments = DBappointment.getAlertAppointments(User.getCurrentUserId());
         String msg;
-        if (upcomingAppointment != null) {
-            msg = "User " + User.getCurrentUserName() + " has an upcoming appointment (ID=" + upcomingAppointment.getId() + ") at " + upcomingAppointment.getStart();
+
+        if (allUpcomingAppointments.isEmpty()) {
+            msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
+            upcomingappointmentText.setText(msg);
+            Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointments", msg);
         }
         else {
-            msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
+            Appointment soonestAppointment = allUpcomingAppointments.get(0);
+            for (Appointment apt : allUpcomingAppointments) {
+                msg = "User   " + User.getCurrentUserName() + "   has an upcoming appointment   (ID=" + apt.getId() + ")   at   " + apt.getStart().format(DateTimeFormatter.ofPattern("HH:mm   yyyy-MM-dd")) + "   local time.";
+                upcomingappointmentText.setText(msg);
+                Main.dialogBox(Alert.AlertType.INFORMATION, "Upcoming Appointment Detected", msg);
+            }
+            msg = "User   " + User.getCurrentUserName() + "   has their soonest upcoming appointment   (ID=" + soonestAppointment.getId() + ")   at   " + soonestAppointment.getStart().format(DateTimeFormatter.ofPattern("HH:mm   yyyy-MM-dd")) + "   local time.";
+            upcomingappointmentText.setText(msg);
         }
-        upcomingappointmentText.setText(msg);
     }
 
     private void populateScreen() throws SQLException {

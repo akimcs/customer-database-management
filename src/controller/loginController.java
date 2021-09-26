@@ -3,11 +3,14 @@ package controller;
 import database.DBuser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import mainApplication.Main;
 import model.User;
 
@@ -65,7 +68,14 @@ public class loginController implements Initializable {
             recordLoginActivity("SUCCESS");
             User.setCurrentUserId(DBuser.getUserId(usernameText.getText()));
             User.setCurrentUserName(usernameText.getText());
-            Main.changeScene("/view/menu.fxml");
+
+            Stage stage = Main.getStage();
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/menu.fxml"));
+            stage.setScene(new Scene(loader.load()));
+            stage.centerOnScreen();
+            stage.show();
+            menuController controller = loader.getController();
+            controller.checkForAppointment();
         }
         else {
             recordLoginActivity("FAIL   ");
