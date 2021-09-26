@@ -154,58 +154,6 @@ public class DBappointment {
         return allContactAppointments;
     }
 
-    // menuController - Returns a List of all unique ID numbers of a given ID type
-    public static ObservableList<Integer> getIdNumbers(String id_type) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("SELECT DISTINCT ? FROM appointments ORDER BY ?");
-        stmt.setString(1, id_type);
-        stmt.setString(2, id_type);
-        ResultSet result = stmt.executeQuery();
-
-        ObservableList<Integer> allIdNumbers = FXCollections.observableArrayList();
-        while (result.next()) {
-            int id = result.getInt(id_type);
-            allIdNumbers.add(id);
-        }
-
-        JDBC.disconnect();
-        return allIdNumbers;
-    }
-
-    public static String getCustomIdName(String idType, int idNum) throws SQLException {
-        String idTypeFormat = idType.substring(0, idType.length() - 3);
-        String tableName = idTypeFormat.toLowerCase() + "s";
-        String idColumnName = idTypeFormat + "_ID";
-        String nameColumnName = idTypeFormat + "_Name";
-
-        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM ? WHERE ? = ?");
-        stmt.setString(1, tableName);
-        stmt.setString(2, idColumnName);
-        stmt.setInt(3, idNum);
-        ResultSet result = stmt.executeQuery();
-
-        result.next();
-        String name = result.getString(nameColumnName);
-
-        JDBC.disconnect();
-        return name;
-    }
-
-    // menuController - Returns the number of appointments associated with the id type's id number
-    public static Integer getNumberOfCustomAppointments(String id_type, int id) throws SQLException {
-        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE ? = ?");
-        stmt.setString(1, id_type);
-        stmt.setInt(2, id);
-        ResultSet result = stmt.executeQuery();
-
-        int counter = 0;
-        while (result.next()) {
-            counter++;
-        }
-
-        JDBC.disconnect();
-        return counter;
-    }
-
     // menucontroller - Returns next soonest appointment within 15 minutes, null otherwise
     public static ObservableList<Appointment> getAlertAppointments(int user_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND Start >= ? AND Start <= DATE_ADD(?, INTERVAL 15 MINUTE) ORDER BY Start ASC");

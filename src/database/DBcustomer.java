@@ -97,4 +97,25 @@ public class DBcustomer {
         JDBC.disconnect();
         return allCustomers;
     }
+
+    public static ObservableList<Customer> getAllCountryCustomers(int country_id) throws SQLException {
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID WHERE countries.Country_ID=?");
+        stmt.setInt(1, country_id);
+        ResultSet result = stmt.executeQuery();
+
+        ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+        while (result.next()) {
+            int id = result.getInt("Customer_ID");
+            String name = result.getString("Customer_Name");
+            String address = result.getString("Address");
+            String postal = result.getString("Postal_Code");
+            String phone = result.getString("Phone");
+            int country = result.getInt("Country_ID");
+            int division = result.getInt("Division_ID");
+            allCustomers.add(new Customer(id, name, address, postal, phone, country, division));
+        }
+
+        JDBC.disconnect();
+        return allCustomers;
+    }
 }

@@ -1,7 +1,6 @@
 package controller;
 
-import database.DBappointment;
-import database.DBcontact;
+import database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,9 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
-import model.Appointment;
-import model.Contact;
-import model.User;
+import model.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,9 +32,10 @@ public class menuController implements Initializable {
     private ComboBox<String> typeACBText;
     @FXML
     private Label totalAText;
-    @FXML
+
 
     // Report B
+    @FXML
     private ComboBox<Contact> contactBCBText;
     @FXML
     private TableView<Appointment> scheduleBTableview;
@@ -57,13 +56,22 @@ public class menuController implements Initializable {
 
     // Report C
     @FXML
-    private ComboBox<String> customIdType;
+    private ComboBox<Country> customCountryCB;
     @FXML
-    private ComboBox<Integer> customIdNumber;
+    private TableView<Customer> customCustomersTable;
     @FXML
-    private Label customInsertNameText;
+    private TableColumn<Customer, Integer> customIDColumn;
     @FXML
-    private Label customAnswerText;
+    private TableColumn<Customer, String> customNameColumn;
+    @FXML
+    private TableColumn<Customer, String> customAddressColumn;
+    @FXML
+    private TableColumn<Customer, String> customPostalColumn;
+    @FXML
+    private TableColumn<Customer, String> customPhoneColumn;
+    @FXML
+    private TableColumn<Customer, Integer> customDivisionColumn;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,10 +117,7 @@ public class menuController implements Initializable {
         // Report B
         contactBCBText.setItems(DBcontact.getAllContacts());
         // Report C
-        ObservableList<String> idTypes = FXCollections.observableArrayList();
-        idTypes.addAll("Customer_ID", "User_ID", "Contact_ID");
-        customIdType.setItems(idTypes);
-        customIdType.setVisibleRowCount(3);
+        customCountryCB.setItems(DBcountry.getAllCountries());
     }
 
     // Report A
@@ -148,17 +153,17 @@ public class menuController implements Initializable {
     // Report C
 
     @FXML
-    void selectedCustomIdType(ActionEvent event) throws SQLException {
-        customIdNumber.setItems(DBappointment.getIdNumbers(customIdType.getSelectionModel().getSelectedItem()));
+    void selectedCustomCountryCB(ActionEvent event) throws SQLException {
+        customCustomersTable.setItems(DBcustomer.getAllCountryCustomers(customCountryCB.getSelectionModel().getSelectedItem().getId()));
+        customIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        customAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customPostalColumn.setCellValueFactory(new PropertyValueFactory<>("postal"));
+        customPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        customDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        customCustomersTable.getSortOrder().add(customIDColumn);
     }
 
-    @FXML
-    void selectedCustomIdNumber(ActionEvent event) throws SQLException {
-        if (customIdType.getSelectionModel().getSelectedItem() != null) {
-            customInsertNameText.setText(DBappointment.getCustomIdName(customIdType.getSelectionModel().getSelectedItem(), customIdNumber.getSelectionModel().getSelectedItem()));
-            customAnswerText.setText(String.valueOf(DBappointment.getNumberOfCustomAppointments(customIdType.getSelectionModel().getSelectedItem(), customIdNumber.getSelectionModel().getSelectedItem())));
-        }
-    }
 
     // Menu Buttons
 

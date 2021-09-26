@@ -33,12 +33,12 @@
             <Button layoutX="927.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickLogoutButton" text="Log Out" />
          </children>
       </Pane>
-      <Label layoutX="456.0" layoutY="155.0" text="Reports">
+      <Label layoutX="456.0" layoutY="141.0" text="Reports">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Pane layoutX="24.0" layoutY="205.0" prefHeight="145.0" prefWidth="432.0" style="-fx-background-color: #FFF8DC; -fx-background-radius: 20 20 20 20; -fx-border-color: #FFA500; -fx-border-radius: 20 20 20 20;">
+      <Pane layoutX="24.0" layoutY="186.0" prefHeight="200.0" prefWidth="394.0" style="-fx-background-color: #FFF8DC; -fx-background-radius: 20 20 20 20; -fx-border-color: #FFA500; -fx-border-radius: 20 20 20 20;">
          <children>
             <Label layoutX="192.0" layoutY="6.0" text="Report A" underline="true">
                <font>
@@ -50,7 +50,7 @@
             <ComboBox fx:id="monthACBText" layoutX="25.0" layoutY="58.0" onAction="#selectedMonthReportA" prefWidth="150.0" />
             <ComboBox fx:id="typeACBText" layoutX="227.0" layoutY="58.0" onAction="#selectedTypeReportA" prefWidth="150.0" />
             <Label layoutX="14.0" layoutY="108.0" text="Total Number of Customer Appointments = " />
-            <Label fx:id="totalAText" layoutX="302.0" layoutY="108.0" prefHeight="17.0" prefWidth="65.0" text="____________">
+            <Label fx:id="totalAText" layoutX="282.0" layoutY="117.0" prefHeight="17.0" prefWidth="65.0" text="____________">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -79,23 +79,25 @@
             </TableView>
          </children>
       </Pane>
-      <Pane layoutX="544.0" layoutY="205.0" prefHeight="145.0" prefWidth="432.0" style="-fx-background-color: #FFF8DC; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20; -fx-border-color: #FFA500;">
+      <Pane layoutX="431.0" layoutY="186.0" prefHeight="200.0" prefWidth="553.0" style="-fx-background-color: #FFF8DC; -fx-background-radius: 20 20 20 20; -fx-border-radius: 20 20 20 20; -fx-border-color: #FFA500;">
          <children>
-            <Label fx:id="customInsertNameText" layoutX="14.0" layoutY="95.0" prefHeight="17.0" prefWidth="401.0" text="Number of Appointments Associated with ____________" />
-            <Label layoutX="192.0" layoutY="6.0" text="Custom Report" underline="true">
+            <Label layoutX="46.0" layoutY="15.0" text="Custom Report" underline="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="customIdType" layoutX="31.0" layoutY="60.0" onAction="#selectedCustomIdType" prefWidth="150.0" />
-            <ComboBox fx:id="customIdNumber" layoutX="249.0" layoutY="60.0" onAction="#selectedCustomIdNumber" prefWidth="150.0" />
-            <Label fx:id="customAnswerText" layoutX="354.0" layoutY="112.0" prefHeight="19.0" prefWidth="59.0" text="_______">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="81.0" layoutY="31.0" prefHeight="17.0" prefWidth="50.0" text="ID Type" />
-            <Label layoutX="295.0" layoutY="31.0" text="ID Number" />
+            <Label layoutX="202.0" layoutY="15.0" text="Country" />
+            <ComboBox fx:id="customCountryCB" layoutX="291.0" layoutY="11.0" onAction="#selectedCustomCountryCB" prefWidth="150.0" />
+            <TableView fx:id="customCustomersTable" layoutX="14.0" layoutY="52.0" prefHeight="134.0" prefWidth="521.0">
+              <columns>
+                <TableColumn fx:id="customIDColumn" minWidth="7.0" prefWidth="66.0" text="Cus_ID" />
+                <TableColumn fx:id="customNameColumn" prefWidth="118.0" text="Customer Name" />
+                  <TableColumn fx:id="customAddressColumn" prefWidth="111.0" text="Address" />
+                  <TableColumn fx:id="customPostalColumn" prefWidth="81.0" text="Postal" />
+                  <TableColumn fx:id="customPhoneColumn" prefWidth="101.0" text="Phone" />
+                  <TableColumn fx:id="customDivisionColumn" prefWidth="43.0" text="Div_ID" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
    </children>
