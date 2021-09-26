@@ -230,4 +230,27 @@ public class DBappointment {
         JDBC.disconnect();
         return nextAppointment;
     }
+
+    // APTaddCoontroller, AptmodController - Scans database for given customer's time conflicting appointments
+    public static boolean conflictExists(int cus_Id, int app_Id, LocalDateTime startTime, LocalDateTime endTime) throws SQLException {
+        Timestamp start = Timestamp.valueOf(startTime);
+        Timestamp end = Timestamp.valueOf(endTime);
+        String c1 = "(? >= Start AND ? < End)";
+        String c2 = "(? > Start AND ? <= End)";
+        String c3 = "(? <= Start AND ? >= End)";
+        PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE Customer_ID=? AND Appointment_ID<>? AND (" + c1 + " OR " + c2 + " OR " + c3 + ")");
+        stmt.setInt(1, cus_Id);
+        stmt.setInt(2, app_Id);
+        stmt.setTimestamp(3, start);
+        stmt.setTimestamp(4, start);
+        stmt.setTimestamp(5, end);
+        stmt.setTimestamp(6, end);
+        stmt.setTimestamp(7, start);
+        stmt.setTimestamp(8, end);
+        ResultSet result = stmt.executeQuery();
+
+        boolean conflictingAppointmentDetected = result.next();
+        JDBC.disconnect();
+        return conflictingAppointmentDetected;
+    }
 }

@@ -132,6 +132,20 @@ public class APTmodController implements Initializable {
         return ((estStart.equals(estOpen) || estStart.isAfter(estOpen)) && (estStart.isBefore(estClose))) && (estEnd.equals(estClose) || estEnd.isBefore(estClose) && (estEnd.isAfter(estOpen)));
     }
 
+    private boolean timeConflict() throws SQLException {
+        if (originalAppointment.getStart().toLocalDate().isEqual(dateDPText.getValue()) &&
+                originalAppointment.getStart().getHour()==Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getStart().getMinute()==Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getEnd().getHour()==Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem()) &&
+                originalAppointment.getEnd().getMinute()==Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem())) {
+            return false;
+        }
+        else if (DBappointment.conflictExists(customeridCBText.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(appointmentidText.getText()), LocalDateTime.of(dateDPText.getValue(), startTime), LocalDateTime.of(dateDPText.getValue(), endTime))) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean emptyFieldDetected() {
         return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
                 locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
@@ -157,7 +171,7 @@ public class APTmodController implements Initializable {
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws IOException {
+    void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
         if (noChanges()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "No Changes Detected. Appointment Will Not Be Modified.");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
@@ -172,6 +186,9 @@ public class APTmodController implements Initializable {
         }
         else if (!withinBusinessHours()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Appointment Time is Outside Business Hours", "Business Hours (EST): 8:00 AM - 10:00 PM, 7 Days a Week.");
+        }
+        else if (timeConflict()) {
+            Main.dialogBox(Alert.AlertType.ERROR, "Conflicting Appointment Detected", "The requested start/end date and time overlap with an existing appointment.");
         }
         else {
             try {

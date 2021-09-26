@@ -10,3 +10,8 @@ controller - implement filtering in add/modify appointment/customer methods (bus
 Fix/Remake Report C
 README+login_activity
 view (make sure fxml files dont have /16 in them)
+
+
+
+make sure application shows local time (use MST).
+check application is using UTC by comparing localvsdatabase TIME

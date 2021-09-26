@@ -121,6 +121,10 @@ public class APTaddController implements Initializable {
         return ((estStart.equals(estOpen) || estStart.isAfter(estOpen)) && (estStart.isBefore(estClose))) && (estEnd.equals(estClose) || estEnd.isBefore(estClose) && (estEnd.isAfter(estOpen)));
     }
 
+    private boolean timeConflict() throws SQLException {
+        return DBappointment.conflictExists(customeridCBText.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(appointmentidText.getText()), LocalDateTime.of(dateDPText.getValue(), startTime), LocalDateTime.of(dateDPText.getValue(), endTime));
+    }
+
     private boolean emptyFieldDetected() {
         return titleText.getText().trim().isEmpty() || descriptionText.getText().trim().isEmpty() ||
                 locationText.getText().trim().isEmpty() || contactCBText.getSelectionModel().getSelectedItem()==null ||
@@ -149,6 +153,9 @@ public class APTaddController implements Initializable {
         }
         else if (!withinBusinessHours()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Appointment Time is Outside Business Hours", "Business Hours (EST): 8:00 AM - 10:00 PM, 7 Days a Week.");
+        }
+        else if (timeConflict()) {
+            Main.dialogBox(Alert.AlertType.ERROR, "Conflicting Appointment Detected", "The requested start/end date and time overlap with an existing appointment.");
         }
         else {
             try {
