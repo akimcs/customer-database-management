@@ -61,7 +61,9 @@ public class CUSmenuController implements Initializable {
         }
     }
 
-    /**Populates the tableview with customers*/
+    /**Populates the tableview with customer objects using an allCustomers list.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private void populateScreen() throws SQLException {
         customerTableview.setItems(DBcustomer.getAllCustomers());
         cusidTable.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -74,11 +76,18 @@ public class CUSmenuController implements Initializable {
         customerTableview.getSortOrder().add(cusidTable);
     }
 
+    /** Sends GUI to add form screen.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickAddButton() throws IOException {
         Main.changeScene("/view/CUSadd.fxml");
     }
 
+    /** Sends GUI to modify form screen, bringing selected object.
+     * @throws IOException Scene change may cause error.
+     * @throws SQLException Database Calls may cause error.
+     * */
     @FXML
     void clickModifyButton() throws IOException, SQLException {
         Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
@@ -91,6 +100,9 @@ public class CUSmenuController implements Initializable {
         }
     }
 
+    /** Deletes the selected customer after deleting all associated appointments.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void clickDeleteButton() throws SQLException {
         Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
@@ -118,6 +130,9 @@ public class CUSmenuController implements Initializable {
         customerTableview.getSelectionModel().select(null);
     }
 
+    /** Go from Customer Menu to Mainscreen.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickMainscreenButton() throws IOException {
         Main.changeScene("/view/menu.fxml");

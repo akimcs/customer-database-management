@@ -11,7 +11,10 @@ import java.sql.SQLException;
 /**Handles all database calls that access the customers table.*/
 public class DBcustomer {
 
-    // CUSaddController - Generates the next highest customer ID to use
+    /**Generates the next highest customer ID to use/
+     * @return int of next available customer id
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int nextCustomerId() throws SQLException {
         ResultSet result = JDBC.exQuery("SELECT max(Customer_ID) + 1 as Customer_ID FROM customers");
 
@@ -22,7 +25,11 @@ public class DBcustomer {
         return id;
     }
 
-    // CUSaddController - Adds customer object to database table customers
+    /**Adds customer object to database table customers.
+     * @param customer customer object to add to database
+     * @return number of rows affected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int addCustomer(Customer customer) throws SQLException{
         PreparedStatement stmt = JDBC.pStatement("INSERT INTO customers VALUES (?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?)");
         stmt.setInt(1, customer.getId());
@@ -36,7 +43,11 @@ public class DBcustomer {
         return rowCount;
     }
 
-    // CUSmodController - Updates customer object in database
+    /**Updates customer object in database
+     * @param customer customer object to replace existing one
+     * @return number of rows affected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int modifyCustomer(Customer customer) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_Id=?");
         stmt.setString(1, customer.getName());
@@ -50,7 +61,11 @@ public class DBcustomer {
         return rowCount;
     }
 
-    // CUSmenuController - Customer Menu screen button for deleting selected customer
+    /**Customer Menu screen button for deleting selected customer
+     * @param customer_id the customer id of customer to delete.
+     * @return number of rows affected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int deleteCustomer(int customer_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("DELETE FROM customers WHERE Customer_ID=?");
         stmt.setInt(1, customer_id);
@@ -59,7 +74,11 @@ public class DBcustomer {
         return rowCount;
     }
 
-    // APTmodController - Auto selects original appointment's customer object using customer id.
+    /**Auto selects original appointment's customer object using customer id.
+     * @param customer_id  the customer id of customer requested
+     * @return Customer object of requested customer
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static Customer getCustomer(int customer_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID WHERE customers.Customer_ID = ?");
         stmt.setInt(1, customer_id);
@@ -78,8 +97,10 @@ public class DBcustomer {
         return new Customer(id, name, address, postal, phone, country, division);
     }
 
-    // CUSmenuController - Fill tableview with allCustomers objects
-    // APTaddController, APTmodController - Populate customer id combo box with customer objects
+    /**Fill tableview with allCustomers objects and Populate customer id combo box with customer objects.
+     * @return a list of all customers in database.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
         ResultSet result = JDBC.exQuery("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID ORDER BY Customer_ID");
 
@@ -99,6 +120,11 @@ public class DBcustomer {
         return allCustomers;
     }
 
+    /** Obtains all customers in a specified country.
+     * @param country_id the chosen country id of country
+     * @return a list of all customers in given country
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<Customer> getAllCountryCustomers(int country_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM customers JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID WHERE countries.Country_ID=?");
         stmt.setInt(1, country_id);

@@ -11,7 +11,11 @@ import java.sql.SQLException;
 /**Handles all database calls that access the contacts table.*/
 public class DBcontact {
 
-    // APTmodController - Auto select original appointment's contact object in combo box
+    /**Auto select original appointment's contact object in combo box
+     * @param contact_id the contact id of contact
+     * @return the Contact object requested
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static Contact getContact(int contact_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM contacts WHERE Contact_ID = ?");
         stmt.setInt(1, contact_id);
@@ -25,7 +29,10 @@ public class DBcontact {
         return new Contact(id, name);
     }
 
-    // APTmodController, APTaddController, menuController - Autopopulate combo box with all contacts
+    /**Autopopulate combo box with all contacts
+     * @return a list of all contacts in database
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<Contact> getAllContacts() throws SQLException {
         ResultSet result = JDBC.exQuery("SELECT * FROM contacts ORDER BY Contact_ID");
 

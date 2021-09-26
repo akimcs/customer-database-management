@@ -56,7 +56,8 @@ public class Appointment {
         return id;
     }
 
-    /**Sets the id of the appointment.*/
+    /**Sets the id of the appointment.
+     * @param id appointment id*/
     public void setId(int id) {
         this.id = id;
     }
@@ -67,7 +68,8 @@ public class Appointment {
         return title;
     }
 
-    /**Sets the title of the appointment.*/
+    /**Sets the title of the appointment.
+     * @param title appointment title*/
     public void setTitle(String title) {
         this.title = title;
     }
@@ -84,7 +86,8 @@ public class Appointment {
         return location;
     }
 
-    /**Sets the if of the appointment.*/
+    /**Sets the location of the appointment.
+     * @param location appointment location*/
     public void setLocation(String location) {
         this.location = location;
     }
@@ -95,7 +98,8 @@ public class Appointment {
         return type;
     }
 
-    /**Sets the if of the appointment.*/
+    /**Sets the type of the appointment.
+     * @param type appointment type*/
     public void setType(String type) {
         this.type = type;
     }
@@ -106,7 +110,8 @@ public class Appointment {
         return start;
     }
 
-    /**Sets the if of the appointment.*/
+    /**Sets the start of the appointment.
+     * @param start appointment start*/
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
@@ -117,7 +122,8 @@ public class Appointment {
         return end;
     }
 
-    /**Sets the if of the appointment.*/
+    /**Sets the end of the appointment.
+     * @param end appointment end*/
     public void setEnd(LocalDateTime end) {
         this.end = end;
     }

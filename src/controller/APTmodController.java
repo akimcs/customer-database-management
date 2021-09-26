@@ -92,6 +92,10 @@ public class APTmodController implements Initializable {
         Main.getStage().setTitle("Modify Appointment");
     }
 
+    /** Fills in all original appointment information to be modified.
+     * @param originalAppointment The original appointment to be changed.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public void displayAppointment(Appointment originalAppointment) throws SQLException {
         this.originalAppointment = originalAppointment;
 
@@ -121,6 +125,9 @@ public class APTmodController implements Initializable {
         useridCBText.getSelectionModel().select(DBuser.getUser(originalAppointment.getUserId()));
     }
 
+    /** Ensures that the inputted times are valid.
+     * @return Boolean true if valid time.
+     * */
     private boolean validStartEndTimes() {
         String startHr = StartHrText.getSelectionModel().getSelectedItem();
         String startMin = StartMinText.getSelectionModel().getSelectedItem();
@@ -133,6 +140,9 @@ public class APTmodController implements Initializable {
         return startTime.isBefore(endTime);
     }
 
+    /** Checks that the start/end times are within 8am-10pm EST.
+     * @return Boolean true if time within businees hours.
+     * */
     private boolean withinBusinessHours() {
         ZoneId localZoneId = ZoneId.systemDefault();
         ZoneId estZoneId = ZoneId.of("America/New_York");
@@ -158,6 +168,10 @@ public class APTmodController implements Initializable {
         return ((estStart.equals(estOpen) || estStart.isAfter(estOpen)) && (estStart.isBefore(estClose))) && (estEnd.equals(estClose) || estEnd.isBefore(estClose) && (estEnd.isAfter(estOpen)));
     }
 
+    /**Checks if suggested appointment time overlaps an existing appointment.
+     * @return Boolean true if there is an overlap.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private boolean timeConflict() throws SQLException {
         if (originalAppointment.getStart().toLocalDate().isEqual(dateDPText.getValue()) &&
                 originalAppointment.getStart().getHour()==Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem()) &&
@@ -169,6 +183,11 @@ public class APTmodController implements Initializable {
         else return DBappointment.conflictExists(customeridCBText.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(appointmentidText.getText()), LocalDateTime.of(dateDPText.getValue(), startTime), LocalDateTime.of(dateDPText.getValue(), endTime));
     }
 
+    /** Uses a Lambda Expression to detect empty fields in form.
+     * The lambda expressions are used to check if fields are empty or null. They provide great use in shrinking the code.
+     * Without them, the method requires repeated clutter of checking Strings, Integers, etc. Before they were implemented, the return statement was unreadable and cluttered with many parentheses.
+     * @return Boolean true if empty/null field is detected.
+     * */
     private boolean emptyFieldDetected() {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
@@ -180,6 +199,12 @@ public class APTmodController implements Initializable {
                 combo.isN(useridCBText) || date.isN(dateDPText);
     }
 
+    /**Uses a Lambda Expression to detect if changes were made in the form.
+     * The lambda expressions used in this form were critical for readability and shortening of code.
+     * Before, the method utilized too many repeating segments and cluttered the method, making it difficult to understand.
+     * With the lambda expression, the code becomes readable and better.
+     * @return Boolean true if original appointment remained unchanged.
+     * */
     private boolean noChanges() {
         // LAMBDA
         VerifyEqualString text = (q, r) -> q.equals(r);
@@ -187,20 +212,25 @@ public class APTmodController implements Initializable {
         VerifyEqualDate date = (u, v) -> u.equals(v);
         GetStr str = a -> a.getText();
 
-        return  text.eq(originalAppointment.getTitle(),         str.gt(titleText)) &&
-                text.eq(originalAppointment.getDescription(),      str.gt(descriptionText)) &&
-                text.eq(originalAppointment.getLocation(),       str.gt(locationText)) &&
-                text.eq(originalAppointment.getType(),        str.gt(typeText)) &&
-                combo.eq(originalAppointment.getContactId(),   contactCBText.getSelectionModel().getSelectedItem().getId()) &&
-                combo.eq(originalAppointment.getCustomerId(),   customeridCBText.getSelectionModel().getSelectedItem().getId()) &&
-                combo.eq(originalAppointment.getUserId(),   useridCBText.getSelectionModel().getSelectedItem().getId()) &&
-                combo.eq(originalAppointment.getStart().getHour(),   Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem())) &&
-                combo.eq(originalAppointment.getStart().getMinute(),   Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem())) &&
-                combo.eq(originalAppointment.getEnd().getHour(),   Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem())) &&
-                combo.eq(originalAppointment.getEnd().getMinute(),   Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem())) &&
-                date.eq(originalAppointment.getStart().toLocalDate(), dateDPText.getValue());
+        return  text.eq(originalAppointment.getTitle(),                 str.gt(titleText)) &&
+                text.eq(originalAppointment.getDescription(),           str.gt(descriptionText)) &&
+                text.eq(originalAppointment.getLocation(),              str.gt(locationText)) &&
+                text.eq(originalAppointment.getType(),                  str.gt(typeText)) &&
+                combo.eq(originalAppointment.getContactId(),            contactCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalAppointment.getCustomerId(),           customeridCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalAppointment.getUserId(),               useridCBText.getSelectionModel().getSelectedItem().getId()) &&
+                combo.eq(originalAppointment.getStart().getHour(),      Integer.parseInt(StartHrText.getSelectionModel().getSelectedItem())) &&
+                combo.eq(originalAppointment.getStart().getMinute(),    Integer.parseInt(StartMinText.getSelectionModel().getSelectedItem())) &&
+                combo.eq(originalAppointment.getEnd().getHour(),        Integer.parseInt(EndHrText.getSelectionModel().getSelectedItem())) &&
+                combo.eq(originalAppointment.getEnd().getMinute(),      Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem())) &&
+                date.eq(originalAppointment.getStart().toLocalDate(),   dateDPText.getValue());
     }
 
+    /**The submit button to add the data to the database.
+     * Implements many error checks and input validation to ensure data integrity.
+     * @throws IOException Scene change may cause error.
+     * @throws SQLException Database Calls may cause error.
+     * */
     @FXML
     void clickSubmitButton() throws IOException, SQLException {
         if (noChanges()) {
@@ -248,6 +278,9 @@ public class APTmodController implements Initializable {
         }
     }
 
+    /** Cancels the add/mod form and goes back to menu without saving.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickCancelButton() throws IOException {
         if (noChanges()) {

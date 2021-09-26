@@ -10,7 +10,12 @@ import java.sql.SQLException;
 /**Handles all database calls that access the users table.*/
 public class DBuser {
 
-    // loginController - validate user credentials
+    /**validates user credentials.
+     * @param username checks username.
+     * @param password checks password.
+     * @return true if user credentials correct.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static boolean isValidLogin(String username, String password) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM users WHERE User_Name = ? AND Password = ?");
         stmt.setString(1, username);
@@ -23,7 +28,11 @@ public class DBuser {
         return isValid;
     }
 
-    // APTmodController - Returns user object to pre-select in combo box given original appointment's user id
+    /**Returns user object to pre-select in combo box given original appointment's user id.
+     * @param user_id the user id of requested user.
+     * @return the user object requested
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static User getUser(int user_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM users WHERE User_ID = ?");
         stmt.setInt(1, user_id);
@@ -37,7 +46,11 @@ public class DBuser {
         return new User(id, name);
     }
 
-    // loginController - get user id using login username and set user id to currentUserId
+    /**get user id using login username and set user id to currentUserId.
+     * @param username given username of user
+     * @return the user id of user
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int getUserId(String username) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM users WHERE User_Name = ?");
         stmt.setString(1, username);
@@ -50,7 +63,10 @@ public class DBuser {
         return id;
     }
 
-    // APTaddController, APTmodController - Get all User objects to set combo box items
+    /**Get all User objects to set combo box items.
+     * @return list of all users in database
+     * @throws SQLException due to database calls.
+     * */
     public static ObservableList<User> getAllUsers() throws SQLException{
         ResultSet result = JDBC.exQuery("SELECT * FROM users ORDER BY User_ID");
 

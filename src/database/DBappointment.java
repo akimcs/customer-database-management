@@ -14,7 +14,10 @@ import java.time.Month;
 /**Handles all database calls that access the appointments table.*/
 public class DBappointment {
 
-    // APTaddController - display/create next highest available appointment id
+    /** display/create next highest available appointment id.
+     * @return id next highest appointment id
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int nextAppointmentId() throws SQLException {
         ResultSet result = JDBC.exQuery("SELECT max(Appointment_ID) + 1 as Appointment_ID FROM appointments");
 
@@ -25,7 +28,11 @@ public class DBappointment {
         return id;
     }
 
-    // APTaddController - Adds appointment object to database table appointments
+    /**Adds appointment object to database table appointments.
+     * @param appointment The appointment to add to database.
+     * @return number of rows affected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int addAppointment(Appointment appointment) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, ?, ?, ?)");
         stmt.setInt(1, appointment.getId());
@@ -43,7 +50,11 @@ public class DBappointment {
         return rowCount;
     }
 
-    // APTmodController - Updates appointment object in database
+    /** Updates appointment object in database
+     * @param appointment the new appointment to replace the old
+     * @return number of rows affected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int modifyAppointment(Appointment appointment) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Customer_ID=?, User_ID=?, Contact_ID=? WHERE Appointment_ID=?");
         stmt.setString(1, appointment.getTitle());
@@ -61,7 +72,11 @@ public class DBappointment {
         return rowCount;
     }
 
-    // APTmenuController - Appointment Menu screen button for deleting selected appointment
+    /**Appointment Menu screen button for deleting selected appointment.
+     * @return number of rows affected.
+     * @param appointment_id appointment id of appointment to delete
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int deleteAppointment(int appointment_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("DELETE FROM appointments WHERE Appointment_ID=?");
         stmt.setInt(1, appointment_id);
@@ -70,7 +85,11 @@ public class DBappointment {
         return rowCount;
     }
 
-    // CUSmenuController - Appointment menu screen button for deleting all appointments associated with given customer.
+    /**Appointment menu screen button for deleting all appointments associated with given customer.
+     * @return number of rows affected.
+     * @param customer_id customer id of of customer appointments to delete
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static int deleteAllCustomerAppointments(int customer_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("DELETE FROM appointments WHERE Customer_ID=?");
         stmt.setInt(1, customer_id);
@@ -79,7 +98,10 @@ public class DBappointment {
         return rowCount;
     }
 
-    // APTmenuController - Populate Tableview
+    /** Populate Tableview with all appointments.
+     * @return list of all appointments from database
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<Appointment> getAllAppointments() throws SQLException {
         ResultSet result = JDBC.exQuery("SELECT * FROM appointments ORDER BY Appointment_ID");
 
@@ -102,7 +124,10 @@ public class DBappointment {
         return allAppointments;
     }
 
-    // menuController - Fill Type combo box for report A
+    /**Fill Type combo box for report A
+     * @return a list of all types
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<String> getAllDistinctTypes() throws SQLException {
         ResultSet result = JDBC.exQuery("SELECT DISTINCT Type FROM appointments ORDER BY Type");
 
@@ -116,7 +141,12 @@ public class DBappointment {
         return allTypes;
     }
 
-    // menuController - Returns number of specified appointments for Report A
+    /**Returns number of specified appointments for Report A.
+     * @param month the selected month from report A.
+     * @param type the selected type from report A.
+     * @return an int for the number of appointments in report A
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static Integer getMonthTypeAppointments(Month month, String type) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE MONTH(Start)=? AND Type=?");
         stmt.setInt(1, month.getValue());
@@ -132,7 +162,11 @@ public class DBappointment {
         return count;
     }
 
-    // menuController - Gets all appointments for specified contact
+    /**Gets all appointments for specified contact.
+     * @param contact_id the contact id of contact
+     * @return a list of all appointments associated with contact.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<Appointment> getContactAppointments(int contact_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE Contact_ID=? ORDER BY Appointment_ID");
         stmt.setInt(1, contact_id);
@@ -157,7 +191,11 @@ public class DBappointment {
         return allContactAppointments;
     }
 
-    // menucontroller - Returns next soonest appointment within 15 minutes, null otherwise
+    /**Returns next soonest appointment within 15 minutes, null otherwise
+     * @param user_id the logged in user for alert detection.
+     * @return a list of all appointments within 15 minutes
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static ObservableList<Appointment> getAlertAppointments(int user_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM appointments WHERE User_ID=? AND Start >= ? AND Start <= DATE_ADD(?, INTERVAL 15 MINUTE) ORDER BY Start ASC");
         stmt.setInt(1, user_id);
@@ -184,7 +222,14 @@ public class DBappointment {
         return allUpcomingAppointments;
     }
 
-    // APTaddCoontroller, AptmodController - Scans database for given customer's time conflicting appointments
+    /**Scans database for given customer's time conflicting appointments
+     * @param cus_Id the customer id of appointment
+     * @param app_Id the appointment id of appointment
+     * @param startTime the start time of appointment
+     * @param endTime the end time of appointment
+     * @return true if suggested appointment overlaps with existing ones
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public static boolean conflictExists(int cus_Id, int app_Id, LocalDateTime startTime, LocalDateTime endTime) throws SQLException {
         Timestamp start = Timestamp.valueOf(startTime);
         Timestamp end = Timestamp.valueOf(endTime);

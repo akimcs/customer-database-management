@@ -74,7 +74,10 @@ public class APTmenuController implements Initializable {
         }
     }
 
-    /**Populates the tableview with appointments*/
+
+    /**Populates the tableview with appointment objects obtained using database calls for allAppointments.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private void populateScreen() throws SQLException {
         appointmentTableview.setItems(DBappointment.getAllAppointments());
         appIdText.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -90,12 +93,18 @@ public class APTmenuController implements Initializable {
         appointmentTableview.getSortOrder().add(appIdText);
     }
 
+    /** Filters the tableview of appointments to show all.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void clickAllRadioButton() throws SQLException {
         appointmentTableview.setItems(DBappointment.getAllAppointments());
         appointmentTableview.getSortOrder().add(appIdText);
     }
 
+    /**Filters the tableview of appointments to show current month.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void clickMonthRadioButton() throws SQLException {
         Month currentMonth = LocalDateTime.now().getMonth();
@@ -109,6 +118,9 @@ public class APTmenuController implements Initializable {
         appointmentTableview.getSortOrder().add(appIdText);
     }
 
+    /**Filters the tableview of appointments to show current week.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void clickWeekRadioButton() throws SQLException {
         int currentWeek = LocalDateTime.now().get(WeekFields.SUNDAY_START.weekOfWeekBasedYear());
@@ -122,11 +134,18 @@ public class APTmenuController implements Initializable {
         appointmentTableview.getSortOrder().add(appIdText);
     }
 
+    /** Sends GUI to add form screen.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickAddButton() throws IOException {
         Main.changeScene("/view/APTadd.fxml");
     }
 
+    /** Sends GUI to modify form screen, bringing selected object.
+     * @throws IOException Scene change may cause error.
+     * @throws SQLException Database Calls may cause error.
+     * */
     @FXML
     void clickModifyButton() throws IOException, SQLException {
         Appointment selectedAppointment = appointmentTableview.getSelectionModel().getSelectedItem();
@@ -139,6 +158,9 @@ public class APTmenuController implements Initializable {
         }
     }
 
+    /** Deletes the selected appointment.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void clickDeleteButton() throws SQLException {
         Appointment selectedAppointment = appointmentTableview.getSelectionModel().getSelectedItem();
@@ -163,6 +185,9 @@ public class APTmenuController implements Initializable {
         appointmentTableview.getSelectionModel().select(null);
     }
 
+    /** Go from Appointment Menu to Mainscreen.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickMainscreenButton() throws IOException {
         Main.changeScene("/view/menu.fxml");

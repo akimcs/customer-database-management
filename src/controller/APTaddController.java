@@ -66,12 +66,10 @@ public class APTaddController implements Initializable {
     /**Combo Box to select user*/
     @FXML
     private ComboBox<User> useridCBText;
-
     /**Holds strings of all hours in a day*/
     private final ObservableList<String> allHours = FXCollections.observableArrayList();
     /**Holds strings of 0,15,30,45 minute increments in an hour*/
     private final ObservableList<String> allMinutes = FXCollections.observableArrayList();
-
     /**Time objet to hold start*/
     private LocalTime startTime;
     /**Time objet to hold end*/
@@ -92,7 +90,9 @@ public class APTaddController implements Initializable {
         }
     }
 
-    /**Fills combo boxes.*/
+    /**Fills all combo boxes on the form with lists and fills the hours/minutes in the time combo boxes.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private void populateScreen() throws SQLException {
         appointmentidText.setText(String.valueOf(DBappointment.nextAppointmentId()));
         contactCBText.setItems(DBcontact.getAllContacts());
@@ -107,6 +107,9 @@ public class APTaddController implements Initializable {
         EndMinText.setItems(allMinutes);
     }
 
+    /** Ensures that the inputted times are valid.
+     * @return Boolean true if valid time.
+     * */
     private boolean validStartEndTimes() {
         String startHr = StartHrText.getSelectionModel().getSelectedItem();
         String startMin = StartMinText.getSelectionModel().getSelectedItem();
@@ -119,6 +122,9 @@ public class APTaddController implements Initializable {
         return startTime.isBefore(endTime);
     }
 
+    /** Checks that the start/end times are within 8am-10pm EST.
+     * @return Boolean true if time within businees hours.
+     * */
     private boolean withinBusinessHours() {
         ZoneId localZoneId = ZoneId.systemDefault();
         ZoneId estZoneId = ZoneId.of("America/New_York");
@@ -144,10 +150,19 @@ public class APTaddController implements Initializable {
         return ((estStart.equals(estOpen) || estStart.isAfter(estOpen)) && (estStart.isBefore(estClose))) && (estEnd.equals(estClose) || estEnd.isBefore(estClose) && (estEnd.isAfter(estOpen)));
     }
 
+    /**Checks if suggested appointment time overlaps an existing appointment.
+     * @return Boolean true if there is an overlap.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private boolean timeConflict() throws SQLException {
         return DBappointment.conflictExists(customeridCBText.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(appointmentidText.getText()), LocalDateTime.of(dateDPText.getValue(), startTime), LocalDateTime.of(dateDPText.getValue(), endTime));
     }
 
+    /** Uses a Lambda Expression to detect empty fields in form.
+     * The lambda expressions are used to check if fields are empty or null. They provide great use in shrinking the code.
+     * Without them, the method requires repeated clutter of checking Strings, Integers, etc. Before they were implemented, the return statement was unreadable and cluttered with many parentheses.
+     * @return Boolean true if empty/null field is detected.
+     * */
     private boolean emptyFieldDetected() {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
@@ -159,6 +174,11 @@ public class APTaddController implements Initializable {
                 combo.isN(useridCBText) || date.isN(dateDPText);
     }
 
+    /**Uses a Lambda Expression to detect if there is any text in the form.
+     * Before the lambda expression was implemented, the method utilized repeated code to check each field, which created a big block of shirnkable code.
+     * The lambda expressions are justified in that they allow the user to read the fields while still understanding that the lambda checks for null/empty.
+     * @return Boolean true if text/selected values are detected in the form.
+     * */
     private boolean textDetected() {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
@@ -170,6 +190,10 @@ public class APTaddController implements Initializable {
                 combo.isN(useridCBText) && date.isN(dateDPText));
     }
 
+    /** The submit button to add the data to the database.
+     * Implements many error checks and input validation to ensure data integrity.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void clickSubmitButton() throws SQLException {
         if (emptyFieldDetected()) {
@@ -211,6 +235,9 @@ public class APTaddController implements Initializable {
         }
     }
 
+    /** Cancels the add/mod form and goes back to menu without saving.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickCancelButton() throws IOException {
         if (textDetected()) {

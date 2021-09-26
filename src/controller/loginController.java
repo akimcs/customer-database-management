@@ -72,6 +72,11 @@ public class loginController implements Initializable {
         }
     }
 
+    /**The submit button to add the data to the database.
+     * Implements many error checks and input validation to ensure data integrity.
+     * @throws IOException Scene change may cause error.
+     * @throws SQLException Database Calls may cause error.
+     * */
     @FXML
     void clickSubmitButton() throws IOException, SQLException {
         if (DBuser.isValidLogin(usernameText.getText(), passwordText.getText())) {
@@ -93,6 +98,10 @@ public class loginController implements Initializable {
         }
     }
 
+    /** Records each login attempt in the local txt file.
+     * @param loginStatus Either "Success" or "Fail"
+     * @throws IOException Possible input/out errors.
+     * */
     private void recordLoginActivity(String loginStatus) throws IOException {
         BufferedWriter bf = new BufferedWriter(new FileWriter("login_activity.txt", true));
         bf.write(LocalDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " UTC - " + loginStatus + " USER(" + usernameText.getText() + ")");

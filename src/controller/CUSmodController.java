@@ -55,6 +55,10 @@ public class CUSmodController implements Initializable {
         Main.getStage().setTitle("Modify Customer");
     }
 
+    /** Fills in all original customer information to be modified.
+     * @param originalCustomer The original customer to be changed.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public void displayCustomer(Customer originalCustomer) throws SQLException {
         this.originalCustomer = originalCustomer;
 
@@ -70,11 +74,19 @@ public class CUSmodController implements Initializable {
         firstleveldivisionCBText.getSelectionModel().select(DBdivision.getDivision(originalCustomer.getDivisionId()));
     }
 
+    /** Fills Division Choice Box only when Country Combo Box choice is selected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void countrySelected() throws SQLException {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
+    /** Uses a Lambda Expression to detect empty fields in form.
+     * The lambda expressions are used to check if fields are empty or null. They provide great use in shrinking the code.
+     * Without them, the method requires repeated clutter of checking Strings, Integers, etc. Before they were implemented, the return statement was unreadable and cluttered with many parentheses.
+     * @return Boolean true if empty/null field is detected.
+     * */
     private boolean emptyFieldDetected() {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
@@ -84,6 +96,12 @@ public class CUSmodController implements Initializable {
                 text.isE(phonenumberText) || combo.isN(countryCBText) || combo.isN(firstleveldivisionCBText);
     }
 
+    /**Uses a Lambda Expression to detect if changes were made in the form.
+     * The lambda expressions used in this form were critical for readability and shortening of code.
+     * Before, the method utilized too many repeating segments and cluttered the method, making it difficult to understand.
+     * With the lambda expression, the code becomes readable and better.
+     * @return Boolean true if original appointment remained unchanged.
+     * */
     private boolean noChanges() {
         // LAMBDA
         VerifyEqualString text = (q, r) -> q.equals(r);
@@ -98,6 +116,10 @@ public class CUSmodController implements Initializable {
                 combo.eq(originalCustomer.getDivisionId(),  firstleveldivisionCBText.getSelectionModel().getSelectedItem().getId());
     }
 
+    /**The submit button to add the data to the database.
+     * Implements many error checks and input validation to ensure data integrity.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickSubmitButton() throws IOException {
         if (noChanges()) {
@@ -133,6 +155,9 @@ public class CUSmodController implements Initializable {
         }
     }
 
+    /** Cancels the add/mod form and goes back to menu without saving.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickCancelButton() throws IOException {
         if (noChanges()) {

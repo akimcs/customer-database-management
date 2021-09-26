@@ -59,17 +59,27 @@ public class CUSaddController implements Initializable {
         }
     }
 
-    /**Fills combo boxes*/
+    /**Fills combo boxes using database calls for lists of respective objects.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private void populateScreen() throws SQLException {
         customeridText.setText(String.valueOf(DBcustomer.nextCustomerId()));
         countryCBText.setItems(DBcountry.getAllCountries());
     }
 
+    /** Fills Division Choice Box only when Country Combo Box choice is selected.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void countrySelected() throws SQLException {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
+    /** Uses a Lambda Expression to detect empty fields in form.
+     * The lambda expressions are used to check if fields are empty or null. They provide great use in shrinking the code.
+     * Without them, the method requires repeated clutter of checking Strings, Integers, etc. Before they were implemented, the return statement was unreadable and cluttered with many parentheses.
+     * @return Boolean true if empty/null field is detected.
+     * */
     private boolean emptyFieldDetected() {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
@@ -79,6 +89,11 @@ public class CUSaddController implements Initializable {
                 text.isE(phonenumberText) || combo.isN(countryCBText) || combo.isN(firstleveldivisionCBText);
     }
 
+    /**Uses a Lambda Expression to detect if there is any text in the form.
+     * Before the lambda expression was implemented, the method utilized repeated code to check each field, which created a big block of shirnkable code.
+     * The lambda expressions are justified in that they allow the user to read the fields while still understanding that the lambda checks for null/empty.
+     * @return Boolean true if text/selected values are detected in the form.
+     * */
     private boolean textDetected() {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
@@ -88,6 +103,9 @@ public class CUSaddController implements Initializable {
                 text.isE(phonenumberText) && combo.isN(countryCBText) && combo.isN(firstleveldivisionCBText));
     }
 
+    /**The submit button to add the data to the database.
+     * Implements many error checks and input validation to ensure data integrity.
+     * */
     @FXML
     void clickSubmitButton() {
         if (emptyFieldDetected()) {
@@ -117,6 +135,9 @@ public class CUSaddController implements Initializable {
         }
     }
 
+    /** Cancels the add/mod form and goes back to menu without saving.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickCancelButton() throws IOException {
         if (textDetected()) {

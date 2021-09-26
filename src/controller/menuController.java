@@ -109,6 +109,9 @@ public class menuController implements Initializable {
         }
     }
 
+    /** Checks if the logged user has any appointments within 15 minutes.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     public void checkForAppointment() throws SQLException {
         ObservableList<Appointment> allUpcomingAppointments = DBappointment.getAlertAppointments(User.getCurrentUserId());
         String msg;
@@ -130,6 +133,9 @@ public class menuController implements Initializable {
         }
     }
 
+    /** Fills the combo boxes with their respective lists of objects and fills the month combo box with a custom list of months.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     private void populateScreen() throws SQLException {
         // Report A
         ObservableList<Month> allMonths = FXCollections.observableArrayList();
@@ -147,6 +153,9 @@ public class menuController implements Initializable {
 
     // Report A
 
+    /** Displays the number of appointments associated with the month and type.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void selectedMonthReportA() throws SQLException {
         if (typeACBText.getSelectionModel().getSelectedItem() != null) {
@@ -154,6 +163,9 @@ public class menuController implements Initializable {
         }
     }
 
+    /** Displays the number of appointments associated with the month and type.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void selectedTypeReportA() throws SQLException {
         if (monthACBText.getSelectionModel().getSelectedItem() != null) {
@@ -163,6 +175,9 @@ public class menuController implements Initializable {
 
     // Report B
 
+    /** Displays the schedule for the chosen contact.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void selectedContactReportB() throws SQLException {
         scheduleBTableview.setItems(DBappointment.getContactAppointments(contactBCBText.getSelectionModel().getSelectedItem().getId()));
@@ -177,6 +192,9 @@ public class menuController implements Initializable {
 
     // Report C
 
+    /** Displays all associated customers to the selected country.
+     * @throws SQLException Calls SQL Database Statements.
+     * */
     @FXML
     void selectedCustomCountryCB() throws SQLException {
         customCustomersTable.setItems(DBcustomer.getAllCountryCustomers(customCountryCB.getSelectionModel().getSelectedItem().getId()));
@@ -192,16 +210,25 @@ public class menuController implements Initializable {
 
     // Menu Buttons
 
+    /** Changes the screen to the Customers Menu.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickCustomersButton() throws IOException {
         Main.changeScene("/view/CUSmenu.fxml");
     }
 
+    /** Changes the screen to the Appointments Menu.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickAppointmentsButton() throws IOException {
         Main.changeScene("/view/APTmenu.fxml");
     }
 
+    /** Logs the user out by sending them to the login screen.
+     * @throws IOException Possible input/out errors.
+     * */
     @FXML
     void clickLogoutButton() throws IOException {
         Main.changeScene("/view/login.fxml");
