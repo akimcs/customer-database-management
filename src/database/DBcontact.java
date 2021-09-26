@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**Handles all database calls that access the contacts table.*/
 public class DBcontact {
 
     // APTmodController - Auto select original appointment's contact object in combo box

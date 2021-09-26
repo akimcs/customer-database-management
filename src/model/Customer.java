@@ -1,13 +1,21 @@
 package model;
 
+/**Describes the Customer object.*/
 public class Customer {
 
+    /**holds customer id*/
     private int id;
+    /**holds customer name*/
     private String name;
+    /**holds customer address*/
     private String address;
+    /**holds customer postal*/
     private String postal;
+    /**holds customer phone*/
     private String phone;
+    /**holds customer country id*/
     private int countryId;
+    /**holds customer division id*/
     private int divisionId;
 
     public Customer(int id, String name, String address, String postal, String phone, int countryId, int divisionId) {

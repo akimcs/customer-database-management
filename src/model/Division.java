@@ -1,9 +1,13 @@
 package model;
 
+/**Describes the Division object.*/
 public class Division {
 
+    /**holds first level division id*/
     private int id;
+    /**holds first level division name*/
     private String name;
+    /**holds first level division country id*/
     private String countryId;
 
     public Division(int id, String name, String countryId) {

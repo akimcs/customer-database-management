@@ -20,32 +20,42 @@ import java.time.temporal.WeekFields;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**Handles the TableView display, radio buttons, appointment deletion, and Add/Modify Scence changes of the Appointments Menu.*/
 public class APTmenuController implements Initializable {
 
+    /**Tableview for all appointments*/
     @FXML
     private TableView<Appointment> appointmentTableview;
+    /**Column in Tableview for appointment id*/
     @FXML
     private TableColumn<Appointment, Integer> appIdText;
+    /**Column in Tableview for title*/
     @FXML
     private TableColumn<Appointment, String> titleColumn;
+    /**Column in Tableview for description*/
     @FXML
     private TableColumn<Appointment, String> descriptionColumn;
+    /**Column in Tableview for location*/
     @FXML
     private TableColumn<Appointment, String> locationColumn;
+    /**Column in Tableview for contact*/
     @FXML
     private TableColumn<Appointment, Integer> contactColumn;
+    /**Column in Tableview for type*/
     @FXML
     private TableColumn<Appointment, String> typeColumn;
+    /**Column in Tableview for start*/
     @FXML
     private TableColumn<Appointment, LocalDateTime> startColumn;
+    /**Column in Tableview for end*/
     @FXML
     private TableColumn<Appointment, LocalDateTime> endColumn;
+    /**Column in Tableview for customer*/
     @FXML
     private TableColumn<Appointment, Integer> cusIdColumn;
+    /**Column in Tableview for user*/
     @FXML
     private TableColumn<Appointment, Integer> userIdColumn;
-    @FXML
-    private ToggleGroup Timespan;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

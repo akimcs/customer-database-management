@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**Handles all database calls that access the customers table.*/
 public class DBcustomer {
 
     // CUSaddController - Generates the next highest customer ID to use

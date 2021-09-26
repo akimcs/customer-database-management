@@ -2,17 +2,28 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**Describes the Appointment object.*/
 public class Appointment {
 
+    /** contains appointment id*/
     private int id;
+    /** contains appointment title*/
     private String title;
+    /** contains appointment description*/
     private String description;
+    /** contains appointment location*/
     private String location;
+    /** contains appointment type*/
     private String type;
+    /** contains appointment start*/
     private LocalDateTime start;
+    /** contains appointment end*/
     private LocalDateTime end;
+    /** contains appointment customer id*/
     private int customerId;
+    /** contains appointment user id*/
     private int userId;
+    /** contains appointment contact id*/
     private int contactId;
 
     public Appointment(int id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) {

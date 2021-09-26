@@ -1,8 +1,11 @@
 package model;
 
+/**Describes the Country object.*/
 public class Country {
 
+    /**holds country id*/
     private int id;
+    /**holds country name*/
     private String name;
 
     public Country(int id, String name) {

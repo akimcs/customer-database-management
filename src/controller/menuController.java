@@ -19,56 +19,76 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/** Handles the access to customer/appointment menus, 3 required reports to display, and upcoming appointment alerts in the Main Menu.*/
 public class menuController implements Initializable {
 
-    // Upcoming Appointment
+    /**Label for upcoming appointment text*/
     @FXML
     private Label upcomingappointmentText;
 
-    // Report A
+
+    /**Combo Box for report A month*/
     @FXML
     private ComboBox<Month> monthACBText;
+    /**Combo Box for report A type*/
     @FXML
     private ComboBox<String> typeACBText;
+    /**Label for report A result*/
     @FXML
     private Label totalAText;
 
 
-    // Report B
+    /**Combo Box for report B contacts*/
     @FXML
     private ComboBox<Contact> contactBCBText;
+    /**Tableview for report B appointments*/
     @FXML
     private TableView<Appointment> scheduleBTableview;
+    /**Table Column for report B appointment id*/
     @FXML
     private TableColumn<Appointment, Integer> appidBTable;
+    /**Table Column for report B title*/
     @FXML
     private TableColumn<Appointment, String> titleBTable;
+    /**Table Column for report B type*/
     @FXML
     private TableColumn<Appointment, String> typeBTable;
+    /**Table Column for report B description*/
     @FXML
     private TableColumn<Appointment, String> descriptionBTable;
+    /**Table Column for report B start*/
     @FXML
     private TableColumn<Appointment, LocalDateTime> startBTable;
+    /**Table Column for report B end*/
     @FXML
     private TableColumn<Appointment, LocalDateTime> endBTable;
+    /**Table Column for report B customer id*/
     @FXML
     private TableColumn<Appointment, Integer> customeridBTable;
 
-    // Report C
+
+    /**Combo Box for custom report countries*/
     @FXML
     private ComboBox<Country> customCountryCB;
+    /**Tableview for custome report customers*/
     @FXML
     private TableView<Customer> customCustomersTable;
+    /**Table Column for custom report customer id*/
     @FXML
     private TableColumn<Customer, Integer> customIDColumn;
+    /**Table Column for custom report name*/
     @FXML
     private TableColumn<Customer, String> customNameColumn;
+    /**Table Column for custom report address*/
     @FXML
     private TableColumn<Customer, String> customAddressColumn;
+    /**Table Column for custom report postal code*/
     @FXML
     private TableColumn<Customer, String> customPostalColumn;
+    /**Table Column for custom report phone*/
     @FXML
     private TableColumn<Customer, String> customPhoneColumn;
+    /**Table Column for custom report division*/
     @FXML
     private TableColumn<Customer, Integer> customDivisionColumn;
 

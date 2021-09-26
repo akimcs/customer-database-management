@@ -11,6 +11,7 @@ LAMBDA              - emptyFieldDetected(), textDetected(), noChanges()
 
 // Requirements Video
 JAVADOC - watch end of q&a webinar 9-24
+describe/document lambdas - Your comments should include a justification for each lambda expression in the method where it is used.
 
 // Things to Do
 Go over resources links (like faq and check list)

@@ -19,22 +19,31 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**Handles the TableView display, customer deletion, and Add/Modify Scence changes of the Customer Menu.*/
 public class CUSmenuController implements Initializable {
 
+    /**Tableview for all customers*/
     @FXML
     private TableView<Customer> customerTableview;
+    /**Column in Tableview for customer id*/
     @FXML
     private TableColumn<Customer, Integer> cusidTable;
+    /**Column in Tableview for name*/
     @FXML
     private TableColumn<Customer, String> nameTable;
+    /**Column in Tableview for address*/
     @FXML
     private TableColumn<Customer, String> addressTable;
+    /**Column in Tableview for postal code*/
     @FXML
     private TableColumn<Customer, String> postalcodeTable;
+    /**Column in Tableview for phone number*/
     @FXML
     private TableColumn<Customer, String> phonenumberTable;
+    /**Column in Tableview for country*/
     @FXML
     private TableColumn<Customer, Integer> countryTable;
+    /**Column in Tableview for division*/
     @FXML
     private TableColumn<Customer, Integer> firstleveldivisionTable;
 

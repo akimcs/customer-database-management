@@ -2,8 +2,10 @@ package database;
 
 import java.sql.*;
 
+/**Deals with connecting/disconnecting with database and generating queries/updates to database.*/
 public class JDBC {
 
+    /**Connection object for database*/
     private static Connection conn;
 
     // SELECT

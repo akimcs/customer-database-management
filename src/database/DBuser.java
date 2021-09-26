@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**Handles all database calls that access the users table.*/
 public class DBuser {
 
     // loginController - validate user credentials

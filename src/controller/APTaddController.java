@@ -25,39 +25,57 @@ import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**Handles the input validation, buttons, and display of the Add Appointment Form.*/
 public class APTaddController implements Initializable {
 
+    /**Displays the next available appointment id*/
     @FXML
     private Label appointmentidText;
+    /**Field to input title*/
     @FXML
     private TextField titleText;
+    /**Field to input description*/
     @FXML
     private TextField descriptionText;
+    /**Field to input location*/
     @FXML
     private TextField locationText;
+    /**Combo Box to select contact*/
     @FXML
     private ComboBox<Contact> contactCBText;
+    /**Field to input type*/
     @FXML
     private TextField typeText;
+    /**Field to input date*/
     @FXML
     private DatePicker dateDPText;
+    /**Combo Box to select start hour*/
     @FXML
     private ComboBox<String> StartHrText;
+    /**Combo Box to select start minute*/
     @FXML
     private ComboBox<String> StartMinText;
+    /**Combo Box to select end hour*/
     @FXML
     private ComboBox<String> EndHrText;
+    /**Combo Box to select end minute*/
     @FXML
     private ComboBox<String> EndMinText;
+    /**Combo Box to select customer*/
     @FXML
     private ComboBox<Customer> customeridCBText;
+    /**Combo Box to select user*/
     @FXML
     private ComboBox<User> useridCBText;
 
+    /**Holds strings of all hours in a day*/
     private ObservableList<String> allHours = FXCollections.observableArrayList();
+    /**Holds strings of 0,15,30,45 minute increments in an hour*/
     private ObservableList<String> allMinutes = FXCollections.observableArrayList();
 
+    /**Time objet to hold start*/
     private LocalTime startTime;
+    /**Time objet to hold end*/
     private LocalTime endTime;
 
     @Override

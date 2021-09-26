@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**Handles all database calls that access the divisions table.*/
 public class DBdivision {
 
     // CUSmodController - Auto select division object using original customer's division id to find division

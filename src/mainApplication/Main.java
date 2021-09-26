@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Optional;
 
+/**Creates the scene, hosts reusable scene change and dialog box methods.*/
 public class Main extends Application {
 
+    /**Stage object that holds the application window*/
     static Stage primaryStage;
 
     @Override

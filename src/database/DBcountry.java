@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**Handles all database calls that access the countries table.*/
 public class DBcountry {
 
     // CUSmodController - Autoselect country in combo box using original customer's country id

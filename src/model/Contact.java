@@ -1,9 +1,13 @@
 package model;
 
+/**Describes the Contact object.*/
 public class Contact {
 
+    /**holds contact id*/
     private int id;
+    /**holds contact name*/
     private String name;
+    /**holds contact email*/
     private String email;
 
     public Contact(int id, String name, String email) {

@@ -26,23 +26,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**Handles the user login control, language changes, login activity recording of the Login Screen*/
 public class loginController implements Initializable {
 
+    /**Label for location*/
     @FXML
     private Label locationLabel;
+    /**Label for username*/
     @FXML
     private Label usernameLabel;
+    /**Label for password*/
     @FXML
     private Label passwordLabel;
+    /**TextField for location*/
     @FXML
     private Label locationText;
+    /**TextField for username*/
     @FXML
     private TextField usernameText;
+    /**TextField for password*/
     @FXML
     private TextField passwordText;
+    /**Button to input credentials and log in*/
     @FXML
     private Button submitButton;
 
+    /**Resource Bundle holding either en or fr language properties*/
     private ResourceBundle rb;
 
     @Override

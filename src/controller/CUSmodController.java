@@ -19,23 +19,32 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**Handles the input validation, buttons, and display of the Modify Customer Form.*/
 public class CUSmodController implements Initializable {
 
+    /**Displays the next available customer id*/
     @FXML
     private Label customeridText;
+    /**Field to input name*/
     @FXML
     private TextField customernameText;
+    /**Field to input address*/
     @FXML
     private TextField addressText;
+    /**Field to input postal code*/
     @FXML
     private TextField postalcodeText;
+    /**Field to input phone number*/
     @FXML
     private TextField phonenumberText;
+    /**Combo Box to select country*/
     @FXML
     private ComboBox<Country> countryCBText;
+    /**Combo Box to select division*/
     @FXML
     private ComboBox<Division> firstleveldivisionCBText;
 
+    /**Holds original customer being modification*/
     private Customer originalCustomer;
 
     @Override

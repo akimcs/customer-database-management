@@ -1,12 +1,18 @@
 package model;
 
+/**Describes the User object.*/
 public class User {
 
+    /**holds currently logged in user's id*/
     private static int currentUserId;
+    /**holds currently logged in user's username*/
     private static String currentUserName;
 
+    /**holds user id*/
     private int id;
+    /**holds user username*/
     private String user;
+    /**holds user password*/
     private String pass;
 
     public User(int id, String user, String pass) {

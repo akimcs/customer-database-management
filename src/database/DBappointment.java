@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+/**Handles all database calls that access the appointments table.*/
 public class DBappointment {
 
     // APTaddController - display/create next highest available appointment id
