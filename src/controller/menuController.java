@@ -1,9 +1,11 @@
 package controller;
 
-import database.*;
+import database.DBappointment;
+import database.DBcontact;
+import database.DBcountry;
+import database.DBcustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -92,7 +94,10 @@ public class menuController implements Initializable {
     @FXML
     private TableColumn<Customer, Integer> customDivisionColumn;
 
-
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Menu");
@@ -143,14 +148,14 @@ public class menuController implements Initializable {
     // Report A
 
     @FXML
-    void selectedMonthReportA(ActionEvent event) throws SQLException {
+    void selectedMonthReportA() throws SQLException {
         if (typeACBText.getSelectionModel().getSelectedItem() != null) {
             totalAText.setText(String.valueOf(DBappointment.getMonthTypeAppointments(monthACBText.getSelectionModel().getSelectedItem(), typeACBText.getSelectionModel().getSelectedItem())));
         }
     }
 
     @FXML
-    void selectedTypeReportA(ActionEvent event) throws SQLException {
+    void selectedTypeReportA() throws SQLException {
         if (monthACBText.getSelectionModel().getSelectedItem() != null) {
             totalAText.setText(String.valueOf(DBappointment.getMonthTypeAppointments(monthACBText.getSelectionModel().getSelectedItem(), typeACBText.getSelectionModel().getSelectedItem())));
         }
@@ -159,7 +164,7 @@ public class menuController implements Initializable {
     // Report B
 
     @FXML
-    void selectedContactReportB(ActionEvent event) throws SQLException {
+    void selectedContactReportB() throws SQLException {
         scheduleBTableview.setItems(DBappointment.getContactAppointments(contactBCBText.getSelectionModel().getSelectedItem().getId()));
         appidBTable.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleBTable.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -173,7 +178,7 @@ public class menuController implements Initializable {
     // Report C
 
     @FXML
-    void selectedCustomCountryCB(ActionEvent event) throws SQLException {
+    void selectedCustomCountryCB() throws SQLException {
         customCustomersTable.setItems(DBcustomer.getAllCountryCustomers(customCountryCB.getSelectionModel().getSelectedItem().getId()));
         customIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         customNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -188,17 +193,17 @@ public class menuController implements Initializable {
     // Menu Buttons
 
     @FXML
-    void clickCustomersButton(ActionEvent event) throws IOException {
+    void clickCustomersButton() throws IOException {
         Main.changeScene("/view/CUSmenu.fxml");
     }
 
     @FXML
-    void clickAppointmentsButton(ActionEvent event) throws IOException {
+    void clickAppointmentsButton() throws IOException {
         Main.changeScene("/view/APTmenu.fxml");
     }
 
     @FXML
-    void clickLogoutButton(ActionEvent event) throws IOException {
+    void clickLogoutButton() throws IOException {
         Main.changeScene("/view/login.fxml");
     }
 }

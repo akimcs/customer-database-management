@@ -3,13 +3,11 @@ package controller;
 import database.DBcountry;
 import database.DBcustomer;
 import database.DBdivision;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import lambda.CheckTextEmpty;
 import lambda.CheckComboNull;
-import lambda.CheckDateNull;
+import lambda.CheckTextEmpty;
 import mainApplication.Main;
 import model.Country;
 import model.Customer;
@@ -46,6 +44,10 @@ public class CUSaddController implements Initializable {
     @FXML
     private ComboBox<Division> firstleveldivisionCBText;
 
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Add Customer");
@@ -57,13 +59,14 @@ public class CUSaddController implements Initializable {
         }
     }
 
+    /**Fills combo boxes*/
     private void populateScreen() throws SQLException {
         customeridText.setText(String.valueOf(DBcustomer.nextCustomerId()));
         countryCBText.setItems(DBcountry.getAllCountries());
     }
 
     @FXML
-    void countrySelected(ActionEvent event) throws SQLException {
+    void countrySelected() throws SQLException {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
@@ -71,7 +74,6 @@ public class CUSaddController implements Initializable {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
         CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
-        CheckDateNull date = x -> x.getValue()==null;
 
         return text.isE(customernameText) || text.isE(addressText) || text.isE(postalcodeText) ||
                 text.isE(phonenumberText) || combo.isN(countryCBText) || combo.isN(firstleveldivisionCBText);
@@ -81,14 +83,13 @@ public class CUSaddController implements Initializable {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
         CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
-        CheckDateNull date = x -> x.getValue()==null;
 
         return !(text.isE(customernameText) && text.isE(addressText) && text.isE(postalcodeText) &&
                 text.isE(phonenumberText) && combo.isN(countryCBText) && combo.isN(firstleveldivisionCBText));
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws IOException {
+    void clickSubmitButton() {
         if (emptyFieldDetected()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
@@ -117,7 +118,7 @@ public class CUSaddController implements Initializable {
     }
 
     @FXML
-    void clickCancelButton(ActionEvent event) throws IOException {
+    void clickCancelButton() throws IOException {
         if (textDetected()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {

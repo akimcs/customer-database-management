@@ -3,10 +3,12 @@ package controller;
 import database.DBappointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainApplication.Main;
 import model.Appointment;
@@ -57,6 +59,10 @@ public class APTmenuController implements Initializable {
     @FXML
     private TableColumn<Appointment, Integer> userIdColumn;
 
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Appointment Menu");
@@ -68,6 +74,7 @@ public class APTmenuController implements Initializable {
         }
     }
 
+    /**Populates the tableview with appointments*/
     private void populateScreen() throws SQLException {
         appointmentTableview.setItems(DBappointment.getAllAppointments());
         appIdText.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -84,13 +91,13 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickAllRadioButton(ActionEvent event) throws SQLException {
+    void clickAllRadioButton() throws SQLException {
         appointmentTableview.setItems(DBappointment.getAllAppointments());
         appointmentTableview.getSortOrder().add(appIdText);
     }
 
     @FXML
-    void clickMonthRadioButton(ActionEvent event) throws SQLException {
+    void clickMonthRadioButton() throws SQLException {
         Month currentMonth = LocalDateTime.now().getMonth();
         ObservableList<Appointment> currentMonthAppointments = FXCollections.observableArrayList();
         for (Appointment apt : DBappointment.getAllAppointments()) {
@@ -103,7 +110,7 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickWeekRadioButton(ActionEvent event) throws SQLException {
+    void clickWeekRadioButton() throws SQLException {
         int currentWeek = LocalDateTime.now().get(WeekFields.SUNDAY_START.weekOfWeekBasedYear());
         ObservableList<Appointment> currentWeekAppointments = FXCollections.observableArrayList();
         for (Appointment apt : DBappointment.getAllAppointments()) {
@@ -116,12 +123,12 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickAddButton(ActionEvent event) throws IOException {
+    void clickAddButton() throws IOException {
         Main.changeScene("/view/APTadd.fxml");
     }
 
     @FXML
-    void clickModifyButton(ActionEvent event) throws IOException, SQLException {
+    void clickModifyButton() throws IOException, SQLException {
         Appointment selectedAppointment = appointmentTableview.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null) {
             Main.dialogBox(Alert.AlertType.ERROR, "No Appointment Selected", "Please select an appointment and try again.");
@@ -133,7 +140,7 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickDeleteButton(ActionEvent event) throws SQLException {
+    void clickDeleteButton() throws SQLException {
         Appointment selectedAppointment = appointmentTableview.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null) {
             Main.dialogBox(Alert.AlertType.ERROR, "No Appointment Selected", "Please select an appointment and try again.");
@@ -157,7 +164,7 @@ public class APTmenuController implements Initializable {
     }
 
     @FXML
-    void clickMainscreenButton(ActionEvent event) throws IOException {
+    void clickMainscreenButton() throws IOException {
         Main.changeScene("/view/menu.fxml");
     }
 }

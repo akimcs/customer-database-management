@@ -2,7 +2,8 @@ package lambda;
 
 import javafx.scene.control.ComboBox;
 
-/**Returns a boolean given a Combo Box*/
+/**Returns a boolean given a Combo Box. Used for checking if a Combo Box selection is null.*/
 public interface CheckComboNull {
-    boolean isN(ComboBox s);
+    /**Used in lambda expression to check if a Combo Box selection is null.*/
+    boolean isN(ComboBox<?> s);
 }

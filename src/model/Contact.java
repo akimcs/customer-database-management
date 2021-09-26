@@ -7,13 +7,10 @@ public class Contact {
     private int id;
     /**holds contact name*/
     private String name;
-    /**holds contact email*/
-    private String email;
 
-    public Contact(int id, String name, String email) {
+    public Contact(int id, String name) {
         this.id = id;
         this.name = name;
-        this.email = email;
     }
 
     public int getId() {
@@ -30,14 +27,6 @@ public class Contact {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override

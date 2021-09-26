@@ -10,12 +10,15 @@ LAMBDA              - emptyFieldDetected(), textDetected(), noChanges()
 // TODO
 
 // Requirements Video
-JAVADOC - watch end of q&a webinar 9-24
-describe/document lambdas - Your comments should include a justification for each lambda expression in the method where it is used.
+JAVADOC (describe/document lambdas - Your comments should include a justification for each lambda expression in the method where it is used)
 
 // Things to Do
-Go over resources links (like faq and check list)
 * make sure everything is original
 * clear login activity
-* view (make sure fxml files dont have /16 in them)
 * make code visually better using spacing, tabs, etc.
+
+
+
+COMPLETELY DONE UNTOUCHABLE FILES
+lambda
+view

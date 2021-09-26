@@ -32,10 +32,9 @@ public class DBuser {
         result.next();
         int id = result.getInt("User_ID");
         String name = result.getString("User_Name");
-        String pass = result.getString("Password");
 
         JDBC.disconnect();
-        return new User(id, name, pass);
+        return new User(id, name);
     }
 
     // loginController - get user id using login username and set user id to currentUserId
@@ -59,8 +58,7 @@ public class DBuser {
         while (result.next()) {
             int id = result.getInt("User_ID");
             String name = result.getString("User_Name");
-            String pass = result.getString("Password");
-            allUsers.add(new User(id, name, pass));
+            allUsers.add(new User(id, name));
         }
 
         JDBC.disconnect();

@@ -8,15 +8,15 @@ public class Customer {
     /**holds customer name*/
     private String name;
     /**holds customer address*/
-    private String address;
+    private final String address;
     /**holds customer postal*/
-    private String postal;
+    private final String postal;
     /**holds customer phone*/
-    private String phone;
+    private final String phone;
     /**holds customer country id*/
-    private int countryId;
+    private final int countryId;
     /**holds customer division id*/
-    private int divisionId;
+    private final int divisionId;
 
     public Customer(int id, String name, String address, String postal, String phone, int countryId, int divisionId) {
         this.id = id;
@@ -48,40 +48,20 @@ public class Customer {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPostal() {
         return postal;
-    }
-
-    public void setPostal(String postal) {
-        this.postal = postal;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public int getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(int countryId) {
-        this.countryId = countryId;
-    }
-
     public int getDivisionId() {
         return divisionId;
-    }
-
-    public void setDivisionId(int divisionId) {
-        this.divisionId = divisionId;
     }
 
     @Override

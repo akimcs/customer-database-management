@@ -3,9 +3,11 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import model.User;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -74,7 +76,7 @@ public class DBappointment {
         stmt.setInt(1, customer_id);
         int rowCount = stmt.executeUpdate();
         JDBC.disconnect();
-        return 1;
+        return rowCount;
     }
 
     // APTmenuController - Populate Tableview

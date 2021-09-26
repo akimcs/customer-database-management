@@ -6,7 +6,6 @@ import database.DBcustomer;
 import database.DBuser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import lambda.CheckTextEmpty;
@@ -69,15 +68,19 @@ public class APTaddController implements Initializable {
     private ComboBox<User> useridCBText;
 
     /**Holds strings of all hours in a day*/
-    private ObservableList<String> allHours = FXCollections.observableArrayList();
+    private final ObservableList<String> allHours = FXCollections.observableArrayList();
     /**Holds strings of 0,15,30,45 minute increments in an hour*/
-    private ObservableList<String> allMinutes = FXCollections.observableArrayList();
+    private final ObservableList<String> allMinutes = FXCollections.observableArrayList();
 
     /**Time objet to hold start*/
     private LocalTime startTime;
     /**Time objet to hold end*/
     private LocalTime endTime;
 
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Add Appointment");
@@ -89,6 +92,7 @@ public class APTaddController implements Initializable {
         }
     }
 
+    /**Fills combo boxes.*/
     private void populateScreen() throws SQLException {
         appointmentidText.setText(String.valueOf(DBappointment.nextAppointmentId()));
         contactCBText.setItems(DBcontact.getAllContacts());
@@ -167,7 +171,7 @@ public class APTaddController implements Initializable {
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws SQLException, IOException {
+    void clickSubmitButton() throws SQLException {
         if (emptyFieldDetected()) {
             Main.dialogBox(Alert.AlertType.ERROR, "Empty Field Detected", "Make Sure All Fields Are Filled Out.");
         }
@@ -208,7 +212,7 @@ public class APTaddController implements Initializable {
     }
 
     @FXML
-    void clickCancelButton(ActionEvent event) throws IOException {
+    void clickCancelButton() throws IOException {
         if (textDetected()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "Changes Detected in Form", "This action will delete all changes, continue?");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {

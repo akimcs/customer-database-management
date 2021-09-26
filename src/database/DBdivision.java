@@ -20,25 +20,23 @@ public class DBdivision {
         result.next();
         int id = result.getInt("Division_ID");
         String name = result.getString("Division");
-        String countryId = result.getString("Country_Id");
 
         JDBC.disconnect();
-        return new Division(id, name, countryId);
+        return new Division(id, name);
     }
 
     // CUSmodController - Auto populate division combo box choices using original customer's country id
     // CUSmodController, CUSaddController - Autopopulate division combo box after selecting a country
     public static ObservableList<Division> getAllDivisions(int country_id) throws SQLException {
         PreparedStatement stmt = JDBC.pStatement("SELECT * FROM first_level_divisions WHERE Country_ID = ? ORDER BY Division_ID");
-        stmt.setInt(1, country_id);;
+        stmt.setInt(1, country_id);
         ResultSet result = stmt.executeQuery();
 
         ObservableList<Division> allDivisions = FXCollections.observableArrayList();
         while (result.next()) {
             int id = result.getInt("Division_ID");
             String name = result.getString("Division");
-            String countryId = result.getString("Country_Id");
-            allDivisions.add(new Division(id, name, countryId));
+            allDivisions.add(new Division(id, name));
         }
 
         JDBC.disconnect();

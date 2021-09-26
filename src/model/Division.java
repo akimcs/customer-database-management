@@ -7,13 +7,10 @@ public class Division {
     private int id;
     /**holds first level division name*/
     private String name;
-    /**holds first level division country id*/
-    private String countryId;
 
-    public Division(int id, String name, String countryId) {
+    public Division(int id, String name) {
         this.id = id;
         this.name = name;
-        this.countryId = countryId;
     }
 
     public int getId() {
@@ -30,14 +27,6 @@ public class Division {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
     }
 
     @Override

@@ -20,10 +20,9 @@ public class DBcontact {
         result.next();
         int id = result.getInt("Contact_ID");
         String name = result.getString("Contact_Name");
-        String email = result.getString("Email");
 
         JDBC.disconnect();
-        return new Contact(id, name, email);
+        return new Contact(id, name);
     }
 
     // APTmodController, APTaddController, menuController - Autopopulate combo box with all contacts
@@ -34,8 +33,7 @@ public class DBcontact {
         while (result.next()) {
             int id = result.getInt("Contact_ID");
             String name = result.getString("Contact_Name");
-            String email = result.getString("Email");
-            allContacts.add(new Contact(id, name, email));
+            allContacts.add(new Contact(id, name));
         }
 
         JDBC.disconnect();

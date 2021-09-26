@@ -2,7 +2,6 @@ package controller;
 
 import database.DBappointment;
 import database.DBcustomer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -47,6 +46,10 @@ public class CUSmenuController implements Initializable {
     @FXML
     private TableColumn<Customer, Integer> firstleveldivisionTable;
 
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Customers Menu");
@@ -58,6 +61,7 @@ public class CUSmenuController implements Initializable {
         }
     }
 
+    /**Populates the tableview with customers*/
     private void populateScreen() throws SQLException {
         customerTableview.setItems(DBcustomer.getAllCustomers());
         cusidTable.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -71,12 +75,12 @@ public class CUSmenuController implements Initializable {
     }
 
     @FXML
-    void clickAddButton(ActionEvent event) throws IOException {
+    void clickAddButton() throws IOException {
         Main.changeScene("/view/CUSadd.fxml");
     }
 
     @FXML
-    void clickModifyButton(ActionEvent event) throws IOException, SQLException {
+    void clickModifyButton() throws IOException, SQLException {
         Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
@@ -88,7 +92,7 @@ public class CUSmenuController implements Initializable {
     }
 
     @FXML
-    void clickDeleteButton(ActionEvent event) throws SQLException {
+    void clickDeleteButton() throws SQLException {
         Customer selectedCustomer = customerTableview.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
             Main.dialogBox(Alert.AlertType.ERROR, "No Customer Selected", "Please select a customer and try again.");
@@ -115,7 +119,7 @@ public class CUSmenuController implements Initializable {
     }
 
     @FXML
-    void clickMainscreenButton(ActionEvent event) throws IOException {
+    void clickMainscreenButton() throws IOException {
         Main.changeScene("/view/menu.fxml");
     }
 }

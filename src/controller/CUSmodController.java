@@ -3,7 +3,6 @@ package controller;
 import database.DBcountry;
 import database.DBcustomer;
 import database.DBdivision;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -47,6 +46,10 @@ public class CUSmodController implements Initializable {
     /**Holds original customer being modification*/
     private Customer originalCustomer;
 
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Modify Customer");
@@ -68,7 +71,7 @@ public class CUSmodController implements Initializable {
     }
 
     @FXML
-    void countrySelected(ActionEvent event) throws SQLException {
+    void countrySelected() throws SQLException {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
     }
 
@@ -76,7 +79,6 @@ public class CUSmodController implements Initializable {
         // LAMBDA
         CheckTextEmpty text = s -> s.getText().trim().isEmpty();
         CheckComboNull combo = t -> t.getSelectionModel().getSelectedItem()==null;
-        CheckDateNull date = x -> x.getValue()==null;
 
         return text.isE(customernameText) || text.isE(addressText) || text.isE(postalcodeText) ||
                 text.isE(phonenumberText) || combo.isN(countryCBText) || combo.isN(firstleveldivisionCBText);
@@ -97,7 +99,7 @@ public class CUSmodController implements Initializable {
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws IOException {
+    void clickSubmitButton() throws IOException {
         if (noChanges()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.INFORMATION, "No Changes Detected in Form", "No Changes Detected. Customer Will Not Be Modified.");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
@@ -132,7 +134,7 @@ public class CUSmodController implements Initializable {
     }
 
     @FXML
-    void clickCancelButton(ActionEvent event) throws IOException {
+    void clickCancelButton() throws IOException {
         if (noChanges()) {
             Main.changeScene("/view/CUSmenu.fxml");
         }

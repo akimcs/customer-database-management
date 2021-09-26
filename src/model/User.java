@@ -13,12 +13,10 @@ public class User {
     /**holds user username*/
     private String user;
     /**holds user password*/
-    private String pass;
 
-    public User(int id, String user, String pass) {
+    public User(int id, String user) {
         this.id = id;
         this.user = user;
-        this.pass = pass;
     }
 
     public int getId() {
@@ -35,14 +33,6 @@ public class User {
 
     public void setUser(String user) {
         this.user = user;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public static int getCurrentUserId() {

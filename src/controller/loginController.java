@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-/**Handles the user login control, language changes, login activity recording of the Login Screen*/
+/**Handles the user login control, language changes, login activity recording of the Login Screen.*/
 public class loginController implements Initializable {
 
     /**Label for location*/
@@ -54,6 +54,10 @@ public class loginController implements Initializable {
     /**Resource Bundle holding either en or fr language properties*/
     private ResourceBundle rb;
 
+    /**Sets window title name, location, and correct language for stage.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.rb = ResourceBundle.getBundle("language/loginScreen");
@@ -66,13 +70,10 @@ public class loginController implements Initializable {
             passwordLabel.setText(rb.getString("passwordLabel"));
             submitButton.setText(rb.getString("submitButton"));
         }
-        // TODO - autofill for speed, remove later
-        usernameText.setText("test");
-        passwordText.setText("test");
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
+    void clickSubmitButton() throws IOException, SQLException {
         if (DBuser.isValidLogin(usernameText.getText(), passwordText.getText())) {
             recordLoginActivity("SUCCESS");
             User.setCurrentUserId(DBuser.getUserId(usernameText.getText()));

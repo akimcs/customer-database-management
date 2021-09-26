@@ -6,9 +6,8 @@ import database.DBcustomer;
 import database.DBuser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import lambda.*;
 import mainApplication.Main;
@@ -20,7 +19,10 @@ import model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -69,9 +71,9 @@ public class APTmodController implements Initializable {
     private ComboBox<User> useridCBText;
 
     /**Holds strings of all hours in a day*/
-    private ObservableList<String> allHours = FXCollections.observableArrayList();
+    private final ObservableList<String> allHours = FXCollections.observableArrayList();
     /**Holds strings of 0,15,30,45 minute increments in an hour*/
-    private ObservableList<String> allMinutes = FXCollections.observableArrayList();
+    private final ObservableList<String> allMinutes = FXCollections.observableArrayList();
 
     /**Time objet to hold start*/
     private LocalTime startTime;
@@ -81,6 +83,10 @@ public class APTmodController implements Initializable {
     /**Holds the original appointment being modified*/
     private Appointment originalAppointment;
 
+    /**Sets window title name.
+     * @param url the URL object
+     * @param resourceBundle the ResourceBundle object
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getStage().setTitle("Modify Appointment");
@@ -160,10 +166,7 @@ public class APTmodController implements Initializable {
                 originalAppointment.getEnd().getMinute()==Integer.parseInt(EndMinText.getSelectionModel().getSelectedItem())) {
             return false;
         }
-        else if (DBappointment.conflictExists(customeridCBText.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(appointmentidText.getText()), LocalDateTime.of(dateDPText.getValue(), startTime), LocalDateTime.of(dateDPText.getValue(), endTime))) {
-            return true;
-        }
-        return false;
+        else return DBappointment.conflictExists(customeridCBText.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(appointmentidText.getText()), LocalDateTime.of(dateDPText.getValue(), startTime), LocalDateTime.of(dateDPText.getValue(), endTime));
     }
 
     private boolean emptyFieldDetected() {
@@ -199,7 +202,7 @@ public class APTmodController implements Initializable {
     }
 
     @FXML
-    void clickSubmitButton(ActionEvent event) throws IOException, SQLException {
+    void clickSubmitButton() throws IOException, SQLException {
         if (noChanges()) {
             Optional<ButtonType> confirmationScreen = Main.dialogBox(Alert.AlertType.CONFIRMATION, "No Changes Detected in Form", "No Changes Detected. Appointment Will Not Be Modified.");
             if (confirmationScreen.isPresent() && confirmationScreen.get() == ButtonType.OK) {
@@ -246,7 +249,7 @@ public class APTmodController implements Initializable {
     }
 
     @FXML
-    void clickCancelButton(ActionEvent event) throws IOException {
+    void clickCancelButton() throws IOException {
         if (noChanges()) {
             Main.changeScene("/view/APTmenu.fxml");
         }
