@@ -1,0 +1,82 @@
+1. Download project files
+2. Download IntelliJ Community Edition
+3. Download Java SE Development Kit 11 from oracle.com/java/technologies/javase/jdk11-archive-downloads.html
+4. Download JavaFX SDK 11.0.2 from gluonhq.com/products/javafx/ (click "include older versions" button)
+5. Download MySql Installer
+
+Add Path Variable in Settings->Appearance&Behavior
+Name: "PATH_TO_FX" 
+Value: "javafx-sdk-11.0.2\lib" (located in JavaFX SDK)
+
+Project Structure->Libraries
+Add a new Java Project Library and select the "javafx-sdk-11.0.2\lib" folder (located in JavaFX SDK download)
+Add a new Java Project Library and select "mysql-connector-java-8.0.22.jar" from the "lib" folder (located in project files).
+
+In the "main.java" configuration:
+Click "Modify options" and check "Add VM options"
+set the "VM Options" to "--module-path ${PATH_TO_FX} --add-modules javafx.fxml,javafx.controls,javafx.graphics"
+
+Download the MySQL Installer from https://dev.mysql.com/downloads/windows/installer/8.0.html 
+Chose "Custom" setup. 
+Install "MySQL Server" and "MySQL Workbench".
+Click Next until you reach the "Accounts and Roles" page. 
+Set a password for the root account and remember it. 
+Click Next until MySQL installation is complete. 
+
+Open "MySQL Workbench" application. 
+Click on the "Local instance MYSQL80" box under "MySQL Connections"
+Enter the root password from earlier.
+On the left side of the window, in the "Navigator" tab click on "Administration" at the bottom then click on "Users and Privileges"
+Click the "Add Account" buttom on the bottom-left.
+set login name to "sqlUser"
+set limit to hosts matching to "localhost"
+set sqlUser account password to "Passw0rd!"
+Go to "Administrative Roles" tab
+check the "DBA" check box
+Click the Apply button.
+Click the X button at the top-left on the Local instance MYSQL80 tab
+
+Click the "+" button next to "MySQL Connections"
+Set connection name to "CustomerDBClient"
+set hostname to "localhost"
+set username to "sqlUser"
+Click "Test Connection" to check connection.
+Click "Ok" button
+
+Click on the "CustomerDBClient" box. 
+On the left-side of the winow, in the Navigator tab select "select" schemas at the bottom.
+Click on the "create a new schema" icon at the top of the window. 
+set name to "client_schedule"
+click "Apply", "Apply", then "Finish".
+
+Copy text from "sql_ddl_query_1.txt" file
+Past text into "Query 1" tab.
+click on the first "lightning bolt" icon
+
+copy all text from "sql_dml_query_2.txt" file
+replace text in "Query 1" tab with copied text
+click on the first "lightning bolt" icon
+
+---------------------------------------------------------------------------------------------------------------
+
+TODO
+- review code, database, and project files
+	remove language capability (it doesn't work on my custom text)
+- add project dependencies to project folder (rename txt files)
+- use screenshots for setting up this project
+- show way to use sql database without installing custom mysql database 
+	(instead use the sql queries and then change drivers or whatever other strings / settings)
+- simplify the swluser passord! account credentials
+
+DONE
+- removed alert box for "no upcoming appts"
+- changed JDBC to abstract from just public class
+- github desc = a java application for managing customers and appointments using a SQL database. 
+
+SQL
+- uninstall when done (ccleaner - windows services)
+root pass = Gid2Gid@
+sqlUser pass = Passw0rd!
+
+FILES CLEANED
+- 

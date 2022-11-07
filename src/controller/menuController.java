@@ -119,7 +119,7 @@ public class menuController implements Initializable {
         if (allUpcomingAppointments.isEmpty()) {
             msg = "User " + User.getCurrentUserName() + " does not have any upcoming appointments within 15 minutes.";
             upcomingappointmentText.setText(msg);
-            Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointments", msg);
+            // Main.dialogBox(Alert.AlertType.INFORMATION, "No Upcoming Appointments", msg);
         }
         else {
             Appointment soonestAppointment = allUpcomingAppointments.get(0);

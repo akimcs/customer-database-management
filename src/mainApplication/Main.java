@@ -7,10 +7,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-/**Creates the scene, hosts reusable scene change and dialog box methods.*/
+/**Creates the scene. Holds reusable scene changes and dialog box methods.*/
 public class Main extends Application {
 
     /**Stage object that holds the application window.*/

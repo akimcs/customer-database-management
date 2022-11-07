@@ -10,4 +10,4 @@
     <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
     <jarDirectory url="file://$PATH_TO_FX$" recursive="false" type="SOURCES" />
   </library>
-</component> 
+</component>
