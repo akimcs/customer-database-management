@@ -5,7 +5,6 @@ Customer Database Management
 A java application for managing customers and appointments using a SQL database.
 
 
-Title: CustomerAppointmentManagementApplication
 
 Purpose: To manage customer data and their appointments. Customers and their names, addresses, locations, etc. are stored and associated with a schedule of appointments that contain contact information, start/end times, appointment types, etc.
 
