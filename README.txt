@@ -1,3 +1,9 @@
+## Project Title:
+Customer Database Management
+
+## Description:
+A java application for managing customers and appointments using a SQL database.
+
 
 Title: CustomerAppointmentManagementApplication
 
