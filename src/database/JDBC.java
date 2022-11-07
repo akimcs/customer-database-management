@@ -15,7 +15,7 @@ public abstract class JDBC {
      * @throws SQLException Calls SQL Database Statements.
      * */
     public static ResultSet exQuery(String stmt) throws SQLException {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/client_schedule", "sqlUser", "Passw0rd!");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/client_schedule", "sqlUser", "Catcher54#");
         return conn.createStatement().executeQuery(stmt);
     }
 
@@ -26,7 +26,7 @@ public abstract class JDBC {
      * @throws SQLException Calls SQL Database Statements.
      * */
     public static PreparedStatement pStatement(String stmt) throws SQLException {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/client_schedule", "sqlUser", "Passw0rd!");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/client_schedule", "sqlUser", "Catcher54#");
         return conn.prepareStatement(stmt);
     }
 
