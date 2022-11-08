@@ -149,6 +149,14 @@ public class menuController implements Initializable {
         contactBCBText.setItems(DBcontact.getAllContacts());
         // Report C
         customCountryCB.setItems(DBcountry.getAllCountries());
+        // Auto-Select Item for Default Views
+        monthACBText.getSelectionModel().select(0);
+        typeACBText.getSelectionModel().select(0);
+        contactBCBText.getSelectionModel().select(0);
+        customCountryCB.getSelectionModel().select(0);
+        selectedTypeReportA();
+        selectedContactReportB();
+        selectedCustomCountryCB();
     }
 
     // Report A

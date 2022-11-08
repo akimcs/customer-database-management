@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="360.0" prefWidth="1000.0" style="-fx-background-color: #e08080;"
-            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
-            fx:controller="controller.CUSmenuController">
+<AnchorPane prefHeight="360.0" prefWidth="1000.0" style="-fx-background-color: #e08080;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CUSmenuController">
     <TableView fx:id="customerTableview" layoutX="30.0" layoutY="30.0" prefHeight="300.0" prefWidth="800.0">
       <columns>
-          <TableColumn fx:id="cusidTable" prefWidth="63.0" text="Cus_ID"/>
-          <TableColumn fx:id="nameTable" prefWidth="114.0" text="Name"/>
-          <TableColumn fx:id="addressTable" prefWidth="192.0" text="Address"/>
-          <TableColumn fx:id="postalcodeTable" prefWidth="79.0" text="Postal Code"/>
-          <TableColumn fx:id="phonenumberTable" prefWidth="122.0" text="Phone Number"/>
-          <TableColumn fx:id="countryTable" prefWidth="99.0" text="Country ID"/>
-          <TableColumn fx:id="firstleveldivisionTable" prefWidth="130.0" text="First Level Division ID"/>
+          <TableColumn fx:id="cusidTable" prefWidth="56.0" text="Cus_ID" />
+          <TableColumn fx:id="nameTable" prefWidth="123.0" text="Name" />
+          <TableColumn fx:id="addressTable" prefWidth="135.0" text="Address" />
+          <TableColumn fx:id="postalcodeTable" prefWidth="136.0" text="Postal Code" />
+          <TableColumn fx:id="phonenumberTable" prefWidth="122.0" text="Phone Number" />
+          <TableColumn fx:id="countryTable" prefWidth="99.0" text="Country ID" />
+          <TableColumn fx:id="firstleveldivisionTable" prefWidth="130.0" text="First Level Division ID" />
       </columns>
     </TableView>
-    <Button layoutX="870.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickAddButton" prefWidth="80.0"
-            text="Add" textAlignment="CENTER"/>
-    <Button layoutX="873.0" layoutY="130.0" mnemonicParsing="false" onAction="#clickModifyButton" prefWidth="80.0"
-            text="Modify" textAlignment="CENTER"/>
-    <Button layoutX="870.0" layoutY="189.0" mnemonicParsing="false" onAction="#clickDeleteButton" prefWidth="80.0"
-            text="Delete" textAlignment="CENTER"/>
-    <Button layoutX="847.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickMainscreenButton" prefHeight="25.0"
-            prefWidth="132.0" text="Back to Menu" textAlignment="CENTER"/>
+    <Button layoutX="870.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickAddButton" prefWidth="80.0" text="Add" textAlignment="CENTER" />
+    <Button layoutX="873.0" layoutY="130.0" mnemonicParsing="false" onAction="#clickModifyButton" prefWidth="80.0" text="Modify" textAlignment="CENTER" />
+    <Button layoutX="870.0" layoutY="189.0" mnemonicParsing="false" onAction="#clickDeleteButton" prefWidth="80.0" text="Delete" textAlignment="CENTER" />
+    <Button layoutX="847.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickMainscreenButton" prefHeight="25.0" prefWidth="132.0" text="Back to Menu" textAlignment="CENTER" />
     <Label layoutX="850.0" layoutY="14.0" text="Customers" textAlignment="CENTER">
         <font>
-          <Font name="System Bold" size="24.0"/>
+          <Font name="System Bold" size="24.0" />
         </font>
     </Label>
 </AnchorPane>

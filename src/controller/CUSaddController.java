@@ -65,6 +65,9 @@ public class CUSaddController implements Initializable {
     private void populateScreen() throws SQLException {
         customeridText.setText(String.valueOf(DBcustomer.nextCustomerId()));
         countryCBText.setItems(DBcountry.getAllCountries());
+        countryCBText.getSelectionModel().select(0);
+        countrySelected();
+        firstleveldivisionCBText.getSelectionModel().select(0);
     }
 
     /** Fills Division Choice Box only when Country Combo Box choice is selected.
@@ -73,6 +76,7 @@ public class CUSaddController implements Initializable {
     @FXML
     void countrySelected() throws SQLException {
         firstleveldivisionCBText.setItems(DBdivision.getAllDivisions(countryCBText.getSelectionModel().getSelectedItem().getId()));
+        firstleveldivisionCBText.getSelectionModel().select(0);
     }
 
     /** Uses a Lambda Expression to detect empty fields in form.

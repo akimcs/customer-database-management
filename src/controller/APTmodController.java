@@ -144,27 +144,33 @@ public class APTmodController implements Initializable {
      * @return Boolean true if time within businees hours.
      * */
     private boolean withinBusinessHours() {
+        // Grab the zone id of local timezone and EST timezone.
         ZoneId localZoneId = ZoneId.systemDefault();
         ZoneId estZoneId = ZoneId.of("America/New_York");
 
+        // Convert inputted date and time into local LocalDateTime object.
         LocalDateTime appStartLocal = LocalDateTime.of(dateDPText.getValue(), startTime);
         LocalDateTime appEndLocal = LocalDateTime.of(dateDPText.getValue(), endTime);
 
+        // Convert the LocalDateTime format into a local ZonedDateTime object.
         ZonedDateTime appStartLocalZoned = appStartLocal.atZone(localZoneId);
         ZonedDateTime appEndLocalZoned = appEndLocal.atZone(localZoneId);
 
+        // Convert the local ZonedDateTime object into EST ZonedDateTime object.
         ZonedDateTime appStartESTZoned = appStartLocalZoned.withZoneSameInstant(estZoneId);
         ZonedDateTime appEndESTZoned = appEndLocalZoned.withZoneSameInstant(estZoneId);
 
+        // Convert the EST ZonedDateTime object into EST LocalDateTimeObject.
         LocalDateTime appStartEST = appStartESTZoned.toLocalDateTime();
         LocalDateTime appEndEST = appEndESTZoned.toLocalDateTime();
 
+        // Convert EST LocalDateTimeObject into EST LocalTime object.
         LocalTime estStart = appStartEST.toLocalTime();
         LocalTime estEnd = appEndEST.toLocalTime();
 
+        // Evaluate the new EST time to 8am - 10pm EST timeframe.
         LocalTime estOpen = LocalTime.parse("08:00");
         LocalTime estClose = LocalTime.parse("22:00");
-
         return ((estStart.equals(estOpen) || estStart.isAfter(estOpen)) && (estStart.isBefore(estClose))) && (estEnd.equals(estClose) || estEnd.isBefore(estClose) && (estEnd.isAfter(estOpen)));
     }
 

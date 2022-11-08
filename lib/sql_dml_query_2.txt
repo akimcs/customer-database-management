@@ -1,14 +1,4 @@
--- 
--- THIS SCRIPT ONLY FOR STUDENTS IN THE LATEST VERSION OF THE ASSESSMENT
--- (Start course on/after 9-15-2020 - PLease check with CI if unsure)
--- This script should be run in the MySql Workbench
--- It will reset the data to insert the countries and first level divisions
--- that you should use in the project
--- NOTE: This Script removes EVERYTHING because of the necessary FK dependencies
--- 
--- questions mark.kinkead@wgu.edu
--- 
-USE client_schedule; -- line added by malcolm.wabara@wgu.edu
+USE client_schedule;
 
 DELETE FROM appointments WHERE Appointment_ID < 10000;
 DELETE FROM customers WHERE Customer_ID < 10000;
@@ -21,6 +11,7 @@ DELETE FROM contacts where Contact_ID < 10000;
 
 INSERT INTO users VALUES(1, 'test', 'test', NOW(), 'script', NOW(), 'script');
 INSERT INTO users VALUES(2, 'admin', 'admin', NOW(), 'script', NOW(), 'script');
+INSERT INTO users VALUES(3, 'user', 'pass', NOW(), 'austin', NOW(), 'austin');
 
 -- contacts
 
@@ -28,7 +19,14 @@ INSERT INTO contacts VALUES(1,	'Anika Costa', 'acoasta@company.com');
 INSERT INTO contacts VALUES(2,	'Daniel Garcia',	'dgarcia@company.com');
 INSERT INTO contacts VALUES(3,	'Li Lee',	'llee@company.com');
 
--- Counties
+INSERT INTO contacts VALUES(4, 'Austin Kim', 'ak223@company.com');
+INSERT INTO contacts VALUES(5, 'Raymmond Tress', 'rt1241245@company.com');
+INSERT INTO contacts VALUES(6, 'Heather Newn', 'hn133@company.com');
+INSERT INTO contacts VALUES(7, 'Lia Lowes', 'll9934@company.com');
+INSERT INTO contacts VALUES(8, 'Kevin Dent', 'kd92@company.com');
+INSERT INTO contacts VALUES(9, 'Qianna Lomp', 'ql1934@company.com');
+
+-- Countries
 
 INSERT INTO countries VALUES(1,	'U.S',	NOW(), 'script', NOW(), 'script');
 INSERT INTO countries VALUES(2,	'UK',	NOW(), 'script', NOW(), 'script');
@@ -88,8 +86,6 @@ INSERT INTO first_level_divisions(Division, Division_ID, Create_Date, Created_By
 INSERT INTO first_level_divisions(Division, Division_ID, Create_Date, Created_By, Last_Update, Last_Updated_By, COUNTRY_ID) VALUES('Wisconsin', 48, NOW(), 'script', NOW(), 'script', 1 );
 INSERT INTO first_level_divisions(Division, Division_ID, Create_Date, Created_By, Last_Update, Last_Updated_By, COUNTRY_ID) VALUES('Wyoming', 49, NOW(), 'script', NOW(), 'script', 1 );
 
-
-
 INSERT INTO first_level_divisions(Division, Division_ID, Create_Date, Created_By, Last_Update, Last_Updated_By, COUNTRY_ID) VALUES('Alberta', 61, NOW(), 'script', NOW(), 'script', 3 );
 INSERT INTO first_level_divisions(Division, Division_ID, Create_Date, Created_By, Last_Update, Last_Updated_By, COUNTRY_ID) VALUES('British Columbia', 62, NOW(), 'script', NOW(), 'script', 3 );
 INSERT INTO first_level_divisions(Division, Division_ID, Create_Date, Created_By, Last_Update, Last_Updated_By, COUNTRY_ID) VALUES('Manitoba', 63, NOW(), 'script', NOW(), 'script', 3 );
@@ -115,7 +111,64 @@ INSERT INTO customers VALUES(1, 'Daddy Warbucks', '1919 Boardwalk', '01291', '86
 INSERT INTO customers VALUES(2, 'Lady McAnderson', '2 Wonder Way', 'AF19B', '11-445-910-2135', NOW(), 'script', NOW(), 'script', 103);
 INSERT INTO customers VALUES(3, 'Dudley Do-Right', '48 Horse Manor ', '28198', '874-916-2671', NOW(), 'script', NOW(), 'script', 60);
 
+INSERT INTO customers VALUES(4, 'Maureen Stanko', '8627 Glenlake Ave.', '04662', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 1);
+INSERT INTO customers VALUES(5, 'Fayvel Camila', '552 Division St.', '14738', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 2);
+INSERT INTO customers VALUES(6, 'Ljilja Rose', '7513 Third St.', '14738', '(623) 292-4030', NOW(), 'austin', NOW(), 'austin', 3);
+INSERT INTO customers VALUES(7, 'Milosz Lilly', '7513 Third St.', '28119', '(623) 292-4030', NOW(), 'austin', NOW(), 'austin', 4);
+INSERT INTO customers VALUES(8, 'Myrto Rhiannon', '7513 Third St.', '48637', '(802) 587-7113', NOW(), 'austin', NOW(), 'austin', 5);
+INSERT INTO customers VALUES(9, 'Nalini Milan', '38B West New Street', '28119', '(819) 249-8651', NOW(), 'austin', NOW(), 'austin', 6);
+INSERT INTO customers VALUES(10, 'Tomasa Jóhann', '38B West New Street', '50251', '(802) 587-7113', NOW(), 'austin', NOW(), 'austin', 7);
+INSERT INTO customers VALUES(11, 'Eliana Alesya', '38B West New Street', '14738', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 8);
+INSERT INTO customers VALUES(12, 'Themar Vilis', '94 Saxton St.', '24737', '(623) 292-4030', NOW(), 'austin', NOW(), 'austin', 9);
+INSERT INTO customers VALUES(13, 'Mai Bautista', '30 Bear Hill Drive', '92704', '(440) 281-1711', NOW(), 'austin', NOW(), 'austin', 10);
+INSERT INTO customers VALUES(14, 'Karna Glen', '483 SE. Woodside Street', '24737', '(623) 292-4030', NOW(), 'austin', NOW(), 'austin', 11);
+INSERT INTO customers VALUES(15, 'Jonas Nonhle', '19 Madison St.', '28119', '(819) 249-8651', NOW(), 'austin', NOW(), 'austin', 12);
+INSERT INTO customers VALUES(16, 'Valdemaras Kefilwe', '92 Manhattan St.', '14738', '(440) 281-1711', NOW(), 'austin', NOW(), 'austin', 13);
+INSERT INTO customers VALUES(17, 'Gadise Nia', '7253 East Schoolhouse St.', '24737', '(802) 587-7113', NOW(), 'austin', NOW(), 'austin', 14);
+INSERT INTO customers VALUES(18, 'Kinborough Tevita', '9383 Plumb Branch Court', '14738', '(802) 587-7113', NOW(), 'austin', NOW(), 'austin', 15);
+INSERT INTO customers VALUES(19, 'Bernhard Senga', '38 St Paul St', '50251', '(819) 249-8651', NOW(), 'austin', NOW(), 'austin', 16);
+INSERT INTO customers VALUES(20, 'Flint Panther', '9383 Plumb Branch Court', '24737', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 17);
+INSERT INTO customers VALUES(21, 'Leudbald Bruno', '8 N. Vernon St.', '36851', '(819) 249-8651', NOW(), 'austin', NOW(), 'austin', 18);
+
+INSERT INTO customers VALUES(22, 'Daniel Philippe', '195 Lower River Road', '28119', '(440) 281-1711', NOW(), 'austin', NOW(), 'austin', 71);
+INSERT INTO customers VALUES(23, 'Toivo Alhaji', '38 St Paul St', '92704', '(623) 292-4030', NOW(), 'austin', NOW(), 'austin', 69);
+INSERT INTO customers VALUES(24, 'Oumarou Aysel', '497 Nichols Drive', '92704', '(440) 281-1711', NOW(), 'austin', NOW(), 'austin', 68);
+INSERT INTO customers VALUES(40, 'Jerneja Methoataske', '497 Nichols Drive', '48637', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 67);
+INSERT INTO customers VALUES(41, 'Nelinho Laura', '9383 Plumb Branch Court', '14738', '(307) 617-3724', NOW(), 'austin', NOW(), 'austin', 66);
+INSERT INTO customers VALUES(42, 'Antton Macbeth', '195 Lower River Road', '36851', '(307) 617-3724', NOW(), 'austin', NOW(), 'austin', 65);
+INSERT INTO customers VALUES(55, 'Umberto Vashti', '38 St Paul St', '28119', '(623) 292-4030', NOW(), 'austin', NOW(), 'austin', 64);
+INSERT INTO customers VALUES(56, 'Christine Themba', '8 N. Vernon St.', '14738', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 63);
+INSERT INTO customers VALUES(57, 'Enguerrand Samuil', '9383 Plumb Branch Court', '36851', '(276) 282-2699', NOW(), 'austin', NOW(), 'austin', 62);
+INSERT INTO customers VALUES(58, 'Agathon Kallinikos', '17 S. Bradford Dr.', '10505', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 61);
+INSERT INTO customers VALUES(59, 'Nii Allyson', '9383 Plumb Branch Court', '10505', '(276) 282-2699', NOW(), 'austin', NOW(), 'austin', 60);
+INSERT INTO customers VALUES(60, 'Bohuslava Hammu-Rapi', '17 S. Bradford Dr.', '10505', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 54);
+
+INSERT INTO customers VALUES(101, 'Torben Maurus', '195 Lower River Road', '30022', '(440) 281-1711', NOW(), 'austin', NOW(), 'austin', 101);
+INSERT INTO customers VALUES(102, 'Musa Lorenzo', '9383 Plumb Branch Court', '48637', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 101);
+INSERT INTO customers VALUES(103, 'David Sanaz', '38 St Paul St', '92704', '(276) 282-2699', NOW(), 'austin', NOW(), 'austin', 101);
+INSERT INTO customers VALUES(104, 'Meinrad Khazhak', '8 N. Vernon St.', '48637', '(440) 281-1711', NOW(), 'austin', NOW(), 'austin', 102);
+INSERT INTO customers VALUES(105, 'Pratap Anara', '9383 Plumb Branch Court', '30022', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 103);
+INSERT INTO customers VALUES(106, 'Mahin Heleena', '38 St Paul St', '14738', '(914) 609-3887', NOW(), 'austin', NOW(), 'austin', 104);
+
 -- Appointments
 
-INSERT INTO appointments VALUES(1, 'title', 'description', 'location', 'Planning Session', '2020-05-28 12:00:00', '2020-05-28 13:00:00', NOW(), 'script', NOW(), 'script', 1, 1, 3);
-INSERT INTO appointments VALUES(2, 'title', 'description', 'location', 'De-Briefing', '2020-05-29 12:00:00', '2020-05-29 13:00:00', NOW(), 'script', NOW(), 'script', 2, 2, 2);
+INSERT INTO appointments VALUES(1, 'Blood Tests', 'Annual Checkup', 'NYC Office', 'Medical', '2020-01-28 12:00:00', '2020-01-28 13:00:00', NOW(), 'script', NOW(), 'script', 1, 1, 1);
+INSERT INTO appointments VALUES(2, 'Performance Review', 'Quarterly Checkup', 'Miami Office', 'Internal', '2020-01-29 12:00:00', '2020-01-29 13:00:00', NOW(), 'script', NOW(), 'script', 2, 2, 2);
+
+INSERT INTO appointments VALUES(3, 'Flu Shot', 'Annual Vaccine', 'NYC Office', 'Medical', '2022-02-08 12:00:00', '2022-02-08 14:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 3);
+INSERT INTO appointments VALUES(4, 'Emergency Visit', 'Unannounced Visit', 'NYC Office', 'Medical', '2022-03-08 14:00:00', '2022-03-08 15:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 4);
+INSERT INTO appointments VALUES(5, 'Hiring Freeze', 'Recession', 'Miami Office', 'Internal', '2022-02-08 16:00:00', '2022-02-08 17:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 5);
+INSERT INTO appointments VALUES(6, 'Scalp Tests', 'Hair Analysis', 'NYC Office', 'Medical', '2022-03-08 18:00:00', '2022-03-08 19:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 6);
+INSERT INTO appointments VALUES(7, 'Ear Tests', 'Ear Wax', 'NYC Office', 'Medical', '2022-04-08 19:00:00', '2022-04-08 20:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 7);
+INSERT INTO appointments VALUES(8, 'Vision Test', 'Glasses', 'Miami Office', 'Medical', '2022-05-09 08:00:00', '2022-05-09 09:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 8);
+INSERT INTO appointments VALUES(9, 'Wrinkle Treatment', 'Serums and Botox', 'NYC Office', 'Medical', '2022-06-09 09:00:00', '2022-06-09 10:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 9);
+INSERT INTO appointments VALUES(10, 'New Hire Orientation', '2022 New Hires', 'NYC Office', 'Internal', '2022-03-09 10:00:00', '2022-03-09 11:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 1);
+INSERT INTO appointments VALUES(11, 'Nose Surgery', 'Rhinoplasty', 'Miami Office', 'Medical', '2022-07-09 11:00:00', '2022-07-09 12:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 2);
+INSERT INTO appointments VALUES(12, 'Dental Cleaning', 'Annual Checkup', 'Miami Office', 'Medical', '2022-08-09 12:00:00', '2022-08-09 13:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 3);
+INSERT INTO appointments VALUES(13, 'Thyroid Checkup', 'Blood Tests', 'NYC Office', 'Medical', '2022-09-09 13:00:00', '2022-09-09 14:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 4);
+INSERT INTO appointments VALUES(14, 'Muscle Therapy', 'Disability', 'Miami Office', 'Medical', '2022-10-09 15:00:00', '2022-10-09 16:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 5);
+INSERT INTO appointments VALUES(15, 'Bonus Offering', 'Employee Raises', 'NYC Office', 'Internal', '2022-04-09 17:30:00', '2022-04-09 18:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 6);
+INSERT INTO appointments VALUES(16, 'Nail Treatment', 'Injury', 'Miami Office', 'Medical', '2022-11-09 18:00:00', '2022-11-09 18:30:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 7);
+INSERT INTO appointments VALUES(17, 'Injury Rehabilitation', 'Shin Bone', 'NYC Office', 'Medical', '2022-11-10 10:00:00', '2022-11-10 11:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 8);
+INSERT INTO appointments VALUES(18, 'ACL Therapy', 'Knee Injury', 'NYC Office', 'Medical', '2022-12-10 16:00:00', '2022-12-10 17:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 9);
+INSERT INTO appointments VALUES(19, 'Hip Replacement', 'Hip Injury', 'NYC Office', 'Medical', '2022-12-10 18:00:00', '2022-12-10 19:00:00', NOW(), 'austin', NOW(), 'austin', 1, 3, 1);

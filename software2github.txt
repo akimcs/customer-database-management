@@ -5,12 +5,12 @@ sqlUser pass = Catcher54#
 
 ----------------------------------------------
 
-TODO FILES CLEAN
-readme
+TODO Files
 software2github
-src folder
-lib folder
-javadoc
+remove unneeded files
+readme (add screenshots for quick project viewing)
 
-TODO
-- remove language changing?
+DONE
+added sql queries to dml txt file
+made certain fields auto-select on page load
+adjusted UI table size
