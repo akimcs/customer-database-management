@@ -30,15 +30,15 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 7. MySQL Database Setup:
 	1. If MySQL is installed/setup:
 
-		* Create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
+		* create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
 
-		* Create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
+		* create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
 
-		* Create a new schema: name=`client_schedule`.
+		* create a new schema: name=`client_schedule`.
 
-		* Copy the SQL queries in [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) and run in a query tab. 
+		* copy the SQL queries in [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) and run in a query tab. 
 
-		* Copy the SQL queries in [sql_dml_query_2.txt](/lib/sql_dml_query_2.txt) and run in a query tab. 
+		* copy the SQL queries in [sql_dml_query_2.txt](/lib/sql_dml_query_2.txt) and run in a query tab. 
 
 	2. If MySQL is NOT installed: 
 		1. Installation/Setup: 
@@ -69,19 +69,19 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 			* click *"Ok"*
 
 		4. Populate Database: 
-			* Click *"CustomerDBClient"* box -> pass=`Catcher54#`
+			* click *"CustomerDBClient"* box -> pass=`Catcher54#`
 
-			* Click *"Create a new schema"* icon (top-left of screen, 3rd row, 4th icon)
+			* click *"Create a new schema"* icon (top-left of screen, 3rd row, 4th icon)
 
 			* input name=`client_schedule`
 
 			* click *"Apply"* -> click *"Finish"*
 
-			* Copy text from [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) into query tab and press lightning bolt icon
+			* copy text from [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) into query tab and press lightning bolt icon
 
-			* Repeat above but replace text with [sql_ddl_query_1.txt](/lib/sql_dml_query_2.txt)
+			* repeat above but replace text with [sql_ddl_query_1.txt](/lib/sql_dml_query_2.txt)
 
-			* Your database should be setup and will run in the background
+			* your database should be setup and will run in the background
 
 7. Run [Main.java](/src/mainApplication/Main.java) in IntelliJ. 
 
