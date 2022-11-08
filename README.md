@@ -11,6 +11,10 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 * tables that report filtered database information. 
 * a login screen. 
 
+## Project Screenshots:  
+For a quick overview of this project, use the [screenshots](/screenshots). 
+
+
 ## Setup: 
 1. Download all project files. 
 
