@@ -8,7 +8,7 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 **Features:**
 * the ability to add/modify/delete customer and appointment data. 
 * supplemental information like names, dates, contacts, etc. associated with each customer/appointment. 
-* tables reporting database information about customers and appointments. 
+* tables that report database information about customers and appointments. 
 * a login screen. 
 
 ## Setup: 
