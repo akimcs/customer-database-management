@@ -9,8 +9,3 @@ TODO Files
 readme (add screenshots for quick project viewing)
 software2github (remove)
 
-
-DONE
-added sql queries to dml txt file
-made certain fields auto-select on page load
-adjusted UI table size
