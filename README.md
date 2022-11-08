@@ -1,6 +1,6 @@
 # "Customer Database Management"
 
-## Description:
+## Description: 
 A Java application for managing customers and appointments using a SQL database.
 
 The main goal of this project is to demonstrate SQL database manipulation using a Java application with user-friendly GUI. Extra functionality is added to improve the versatility of the application. 
@@ -11,7 +11,7 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 * tables reporting database information about customers and appointments. 
 * a login screen. 
 
-## How to Run:
+## Setup: 
 1. Download all project files. 
 
 3. Download IntelliJ Community Edition from [here](https://www.jetbrains.com/idea/download).
