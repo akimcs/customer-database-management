@@ -6,9 +6,9 @@ sqlUser pass = Catcher54#
 ----------------------------------------------
 
 TODO Files
-software2github
-remove unneeded files
 readme (add screenshots for quick project viewing)
+software2github (remove)
+
 
 DONE
 added sql queries to dml txt file

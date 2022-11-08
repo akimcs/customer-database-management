@@ -93,6 +93,7 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 
 ## Extra Details:
 * The MySQL Connector Driver 8.0.22 version is used specifically for its automatic timezone conversion to UTC. 
+* This project is a submission for a school assignment, thus various aspects like the JAVADOC and code comments are created according to the certain guidelines. 
 
 ## Author:
 Austin Kim
