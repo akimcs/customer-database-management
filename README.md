@@ -92,7 +92,7 @@ The main goal of this project is to demonstrate SQL database manipulation using 
 4. Use the "Add", "Modify", or "Delete" buttons to alter database information.
 
 ## Extra Details:
-* The MySQL Connector Driver 8.0.22 version is used specifically for its automatic timezone conversion. 
+* The MySQL Connector Driver 8.0.22 version is used specifically for its automatic timezone conversion to UTC. 
 
 ## Author:
 Austin Kim
