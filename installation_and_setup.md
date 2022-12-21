@@ -21,15 +21,15 @@
 
 ## 6A) If MySQL is installed/setup:
 
-	* create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
+* create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
 
-	* create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
+* create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
 
-	* create a new schema: name=`client_schedule`.
+* create a new schema: name=`client_schedule`.
 
-	* copy the SQL queries in [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) and run in a query tab. 
+* copy the SQL queries in [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) and run in a query tab. 
 
-	* copy the SQL queries in [sql_dml_query_2.txt](/lib/sql_dml_query_2.txt) and run in a query tab. 
+* copy the SQL queries in [sql_dml_query_2.txt](/lib/sql_dml_query_2.txt) and run in a query tab. 
 
 ## 6B) If MySQL is NOT installed:
 
