@@ -15,66 +15,65 @@
 
 	3. Set the VM Options in [Main.java](/src/mainApplication/Main.java) configurations to `--module-path ${PATH_TO_FX} --add-modules javafx.fxml,javafx.controls,javafx.graphics`. 
 
-6. Set up the MySQL Database using step 6A or 6B.
+6. Set up the MySQL database using step 6A or 6B.
 
 7. Run [Main.java](/src/mainApplication/Main.java) in IntelliJ. 
 
 ## 6A) If MySQL is installed/setup:
 
-	1. If MySQL is installed/setup:
+1. If MySQL is installed/setup:
 
-		* create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
+	* create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
 
-		* create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
+	* create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
 
-		* create a new schema: name=`client_schedule`.
+	* create a new schema: name=`client_schedule`.
 
-		* copy the SQL queries in [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) and run in a query tab. 
+	* copy the SQL queries in [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) and run in a query tab. 
 
-		* copy the SQL queries in [sql_dml_query_2.txt](/lib/sql_dml_query_2.txt) and run in a query tab. 
+	* copy the SQL queries in [sql_dml_query_2.txt](/lib/sql_dml_query_2.txt) and run in a query tab. 
 
 ## 6B) If MySQL is NOT installed:
 
+1. Installation/Setup: 
 
-		1. Installation/Setup: 
-			* download MySQL Installer 8 from [here](dev.mysql.com/downloads/windows/installer/8.0.html).
+	* download MySQL Installer 8 from [here](dev.mysql.com/downloads/windows/installer/8.0.html).
 
-			* choose *"Custom Setup"* -> install *"MySQL Server"* and *"MySQL Workbench"* -> create a root password
+	* choose *"Custom Setup"* -> install *"MySQL Server"* and *"MySQL Workbench"* -> create a root password
 
-			* finish installation
+	* finish installation
 
-		2. Setup DBA User: 
-			* open *"MySQL Workbench"*
+2. Setup DBA User: 
+	* open *"MySQL Workbench"*
 
-			* click *"Local Instance MySQL80"* box -> enter root password from earlier
+	* click *"Local Instance MySQL80"* box -> enter root password from earlier
 
-			* click *"Navigator"* window -> *"Administration"* tab (at bottom) -> click *"Users and Privileges"* -> *"Add Account"*
+	* click *"Navigator"* window -> *"Administration"* tab (at bottom) -> click *"Users and Privileges"* -> *"Add Account"*
 
-			* input user=`sqlUser`, pass=`Catcher54#`, and limit to hosts matching=`localhost`
+	* input user=`sqlUser`, pass=`Catcher54#`, and limit to hosts matching=`localhost`
 
-			* click "Administrative Roles" tab -> select *"DBA"*
+	* click "Administrative Roles" tab -> select *"DBA"*
 
-			* click "Apply"
+	* click "Apply"
 
-		3. Setup Database Server: 
-			* click *"Home"* icon -> click *"+"* button (next to *"MySQL Connections"*)
+3. Setup Database Server: 
+	* click *"Home"* icon -> click *"+"* button (next to *"MySQL Connections"*)
 
-			* input name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`
+	* input name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`
 
-			* click *"Ok"*
+	* click *"Ok"*
 
-		4. Populate Database: 
-			* click *"CustomerDBClient"* box -> pass=`Catcher54#`
+4. Populate Database: 
+	* click *"CustomerDBClient"* box -> pass=`Catcher54#`
 
-			* click *"Create a new schema"* icon (top-left of screen, 3rd row, 4th icon)
+	* click *"Create a new schema"* icon (top-left of screen, 3rd row, 4th icon)
 
-			* input name=`client_schedule`
+	* input name=`client_schedule`
 
-			* click *"Apply"* -> click *"Finish"*
+	* click *"Apply"* -> click *"Finish"*
 
-			* copy text from [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) into query tab and press lightning bolt icon
+	* copy text from [sql_ddl_query_1.txt](/lib/sql_ddl_query_1.txt) into query tab and press lightning bolt icon
 
-			* repeat above but replace text with [sql_ddl_query_1.txt](/lib/sql_dml_query_2.txt)
+	* repeat above but replace text with [sql_ddl_query_1.txt](/lib/sql_dml_query_2.txt)
 
-			* your database should be setup and will run in the background
-
+	* your database should be setup and will run in the background
