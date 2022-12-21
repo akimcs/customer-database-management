@@ -21,8 +21,6 @@
 
 ## 6A) If MySQL is installed/setup:
 
-1. If MySQL is installed/setup:
-
 	* create a new DBA user: user=`sqlUser`, pass=`Catcher54#`, limit to hosts matching=`localhost`.
 
 	* create a new connection: name=`CustomerDBClient`, hostname=`localhost`, user=`sqlUser`.
